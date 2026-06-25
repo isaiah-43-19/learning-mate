@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>ODA 러닝메이트 · 국제개발협력 자격시험 대비</title>
+<style>
+:root{
+  --green:#58cc02;--green-d:#46a302;--green-l:#d7ffb8;
+  --blue:#1cb0f6;--blue-d:#1899d6;--blue-l:#e3f4ff;
+  --purple:#ce82ff;--purple-d:#a44dd6;
+  --gold:#ffc800;--gold-d:#e6a800;
+  --red:#ff4b4b;--red-d:#e63939;--red-l:#ffdfe0;
+  --orange:#ff9600;
+  --ink:#3c3c3c;--gray:#afafaf;--gray-l:#e5e5e5;--gray-bg:#f7f7f7;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  color:var(--ink);background:var(--gray-bg);line-height:1.5;overflow-x:hidden}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+textarea{font-family:inherit}
+.app{max-width:480px;margin:0 auto;min-height:100vh;background:#fff;position:relative;display:flex;flex-direction:column}
+.hidden{display:none!important}.center{text-align:center}.muted{color:var(--gray)}.kw{font-weight:800;color:var(--ink)}
+h1,h2,h3{letter-spacing:-.01em}
+
+.btn{display:block;width:100%;padding:15px;border-radius:16px;font-size:1.05rem;font-weight:800;color:#fff;background:var(--green);box-shadow:0 4px 0 var(--green-d);transition:transform .05s,filter .1s}
+.btn:active{transform:translateY(2px);box-shadow:0 2px 0 var(--green-d)}
+.btn:disabled{background:var(--gray-l);color:#fff;box-shadow:0 4px 0 #cfcfcf;cursor:default}
+.btn.blue{background:var(--blue);box-shadow:0 4px 0 var(--blue-d)}.btn.blue:active{box-shadow:0 2px 0 var(--blue-d)}
+.btn.red{background:var(--red);box-shadow:0 4px 0 var(--red-d)}.btn.red:active{box-shadow:0 2px 0 var(--red-d)}
+.btn.gold{background:var(--gold);color:#7a5a00;box-shadow:0 4px 0 var(--gold-d)}
+.btn.ghost{background:#fff;color:var(--blue);border:2px solid var(--gray-l);box-shadow:0 4px 0 var(--gray-l)}
+.btn.sm{padding:10px;font-size:.92rem;border-radius:13px}
+
+/* onboarding */
+.ob{padding:26px 22px 40px;display:flex;flex-direction:column;min-height:100vh}
+.ob .logo{font-size:3rem;text-align:center;margin-top:14px}
+.ob h1{font-size:1.6rem;text-align:center;margin:8px 0 2px;color:var(--green-d)}
+.ob .sub{text-align:center;color:var(--gray);margin-bottom:20px;font-weight:600;font-size:.92rem}
+.ob-step{background:var(--gray-bg);border-radius:18px;padding:18px;margin-bottom:14px}
+.ob-step h3{font-size:1.02rem;margin-bottom:4px}
+.ob-step p.hint{font-size:.82rem;color:var(--gray);margin-bottom:12px}
+input[type=date],input[type=text],input[type=password]{width:100%;padding:13px;border:2px solid var(--gray-l);border-radius:13px;font-size:1.02rem;font-family:inherit;color:var(--ink);background:#fff}
+input:focus{outline:none;border-color:var(--blue)}
+.grade-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grade-card{border:2px solid var(--gray-l);border-radius:14px;padding:12px;text-align:center;background:#fff;transition:.12s;font-weight:700}
+.grade-card .g{font-size:1.4rem;font-weight:900;display:block}
+.grade-card .d{font-size:.74rem;color:var(--gray);font-weight:600;margin-top:2px}
+.grade-card.sel{border-color:var(--green);background:var(--green-l);color:var(--green-d)}.grade-card.sel .d{color:var(--green-d)}
+.time-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.time-card{border:2px solid var(--gray-l);border-radius:14px;padding:12px 4px;text-align:center;font-weight:700;background:#fff;transition:.12s}
+.time-card .t{font-size:1.1rem;font-weight:900;display:block}.time-card .d{font-size:.7rem;color:var(--gray)}
+.time-card.sel{border-color:var(--blue);background:var(--blue-l);color:var(--blue-d)}
+.plan-box{background:#fff;border:2px solid var(--green);border-radius:18px;padding:16px;margin-bottom:14px}
+.plan-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px dashed var(--gray-l)}
+.plan-row:last-child{border-bottom:none}.plan-row .k{color:var(--gray);font-weight:700;font-size:.9rem}
+.plan-row .v{font-weight:900;font-size:1rem}.plan-row .v.big{color:var(--green-d);font-size:1.15rem}
+
+/* top */
+.topbar{display:flex;align-items:center;gap:12px;padding:13px 16px;position:sticky;top:0;background:#fff;z-index:20;border-bottom:2px solid var(--gray-bg)}
+.stat{display:flex;align-items:center;gap:4px;font-weight:800}
+.stat.streak{color:var(--orange)}.stat.xp{color:var(--gold-d)}
+.bar{flex:1;height:15px;background:var(--gray-l);border-radius:10px;overflow:hidden}
+.bar>span{display:block;height:100%;background:var(--green);border-radius:10px;transition:width .4s}
+.iconbtn{font-size:1.2rem;width:30px;text-align:center}
+
+.path-head{padding:16px;background:linear-gradient(135deg,var(--green),var(--green-d));color:#fff;border-radius:0 0 22px 22px}
+.path-head .course{font-size:1.2rem;font-weight:900}
+.path-head .meta{display:flex;gap:14px;margin-top:8px;font-size:.82rem;font-weight:700;opacity:.95;flex-wrap:wrap}
+.path-head .meta b{font-size:.98rem}
+.today-banner{margin:10px 14px;background:var(--gold);color:#7a5a00;border-radius:16px;padding:11px 15px;font-weight:800;display:flex;align-items:center;gap:9px;box-shadow:0 4px 0 var(--gold-d);font-size:.92rem}
+.today-banner .ic{font-size:1.3rem}
+.path{padding:6px 0 96px}
+.unit-header{margin:16px 14px 4px;padding:13px 17px;border-radius:16px;color:#fff;display:flex;justify-content:space-between;align-items:center;box-shadow:0 4px 0 rgba(0,0,0,.16)}
+.unit-header .ut{font-weight:900;font-size:1.02rem}.unit-header .us{font-size:.74rem;opacity:.92;font-weight:700}
+.nodes{display:flex;flex-direction:column;align-items:center;gap:5px;padding:8px 0}
+.node-wrap{position:relative;display:flex;flex-direction:column;align-items:center}
+.node{width:72px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.7rem;transition:transform .08s}
+.node:active{transform:translateY(3px)}
+.node.locked{background:var(--gray-l);box-shadow:0 5px 0 #cfcfcf;color:#fff}
+.node.active{background:var(--green);box-shadow:0 6px 0 var(--green-d);color:#fff}
+.node.done{background:var(--gold);box-shadow:0 6px 0 var(--gold-d);color:#fff}
+.node.due{background:var(--blue);box-shadow:0 6px 0 var(--blue-d);color:#fff}
+.node-label{font-size:.72rem;font-weight:800;color:var(--gray);margin-top:4px;max-width:150px;text-align:center}
+.node.active~.node-label,.node-wrap.cur .node-label{color:var(--green-d)}
+.start-pop{position:absolute;top:-44px;left:50%;transform:translateX(-50%);background:#fff;border:2px solid var(--green);color:var(--green-d);font-weight:900;font-size:.78rem;padding:5px 11px;border-radius:12px;white-space:nowrap;box-shadow:0 3px 0 var(--green-d);animation:bob 1.1s infinite}
+.start-pop:after{content:'';position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);border:7px solid transparent;border-top-color:var(--green)}
+@keyframes bob{0%,100%{transform:translateX(-50%)}50%{transform:translateX(-50%) translateY(-4px)}}
+.nodes .node-wrap:nth-child(6n+2){margin-left:64px}.nodes .node-wrap:nth-child(6n+3){margin-left:100px}
+.nodes .node-wrap:nth-child(6n+4){margin-left:64px}.nodes .node-wrap:nth-child(6n+6){margin-left:-64px}.nodes .node-wrap:nth-child(6n+1){margin-left:-100px}
+
+.bottomnav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:2px solid var(--gray-l);display:flex;justify-content:space-around;padding:7px 0 9px;z-index:30}
+.bottomnav button{display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--gray);font-weight:800;font-size:.66rem;flex:1}
+.bottomnav button .ic{font-size:1.3rem}.bottomnav button.on{color:var(--blue)}
+
+/* lesson screen */
+.screen{position:fixed;inset:0;background:#fff;z-index:50;max-width:480px;margin:0 auto;display:flex;flex-direction:column;overflow-y:auto}
+.lesson-top{display:flex;align-items:center;gap:12px;padding:13px 16px;position:sticky;top:0;background:#fff;z-index:5}
+.x-btn{font-size:1.4rem;color:var(--gray);font-weight:900;width:28px}
+.lesson-bar{flex:1;height:14px;background:var(--gray-l);border-radius:8px;overflow:hidden}
+.lesson-bar>span{display:block;height:100%;background:var(--green);transition:width .3s}
+.lesson-page{font-size:.72rem;font-weight:800;color:var(--blue-d);background:var(--blue-l);padding:3px 9px;border-radius:10px;white-space:nowrap}
+
+/* concept */
+.concept{padding:8px 22px 120px}
+.concept .lt{font-size:1.4rem;font-weight:900;margin-bottom:2px}
+.concept .le{font-size:.85rem;color:var(--gray);font-weight:700;margin-bottom:16px}
+.ccard{border-radius:16px;padding:17px 18px;margin-bottom:14px;animation:rise .3s ease}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.ccard .ch{font-weight:900;font-size:1.05rem;margin-bottom:7px;display:flex;align-items:center;gap:7px}
+.ccard p{font-size:1rem;color:#3c3c3c}
+.ccard.why{background:#fff4e0;border:2px solid #ffd98a}.ccard.why .ch{color:#c47f00}
+.ccard.def{background:var(--blue-l);border:2px solid #aee0fb}.ccard.def .ch{color:var(--blue-d)}
+.ccard.def .term{font-weight:900;color:var(--blue-d);font-size:1.08rem}
+.ccard.pts{background:var(--green-l);border:2px solid #b6f08a}.ccard.pts .ch{color:var(--green-d)}
+.ccard.pts ul{list-style:none;margin-top:4px}
+.ccard.pts li{padding:5px 0 5px 20px;position:relative;font-size:.97rem}
+.ccard.pts li:before{content:'✓';position:absolute;left:0;color:var(--green-d);font-weight:900}
+.ccard.tip{background:#f3e8ff;border:2px solid #e0c2ff}.ccard.tip .ch{color:var(--purple-d)}
+
+/* quiz */
+.quiz{padding:14px 22px 150px}
+.qhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.qtype{font-size:.72rem;font-weight:900;padding:3px 10px;border-radius:10px}
+.qtype.mc{background:var(--blue-l);color:var(--blue-d)}
+.qtype.ox{background:#fff4e0;color:#c47f00}
+.qtype.free{background:#f3e8ff;color:var(--purple-d)}
+.qnum{color:var(--gray);font-weight:800;font-size:.78rem}
+.quiz h2{font-size:1.22rem;margin:6px 0 12px;line-height:1.45}
+.hintbtn{display:inline-flex;align-items:center;gap:5px;color:var(--orange);font-weight:800;font-size:.85rem;border:2px solid #ffd98a;background:#fff8ec;padding:6px 12px;border-radius:12px;margin-bottom:14px}
+.hintbox{background:#fff8ec;border:1px solid #ffd98a;border-radius:12px;padding:11px 14px;font-size:.9rem;color:#8a6d2f;margin-bottom:14px}
+.choices{display:flex;flex-direction:column;gap:11px}
+.choice{display:flex;align-items:center;gap:12px;border:2px solid var(--gray-l);border-bottom-width:4px;border-radius:14px;padding:14px 16px;font-size:1rem;font-weight:600;text-align:left;background:#fff;transition:.1s}
+.choice .key{width:26px;height:26px;border:2px solid var(--gray-l);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.8rem;color:var(--gray);flex-shrink:0}
+.choice.sel{border-color:var(--blue);background:var(--blue-l)}.choice.sel .key{border-color:var(--blue);color:var(--blue-d)}
+.choice.correct{border-color:var(--green);background:var(--green-l)}.choice.correct .key{border-color:var(--green-d);background:var(--green);color:#fff}
+.choice.wrong{border-color:var(--red);background:var(--red-l)}.choice.wrong .key{border-color:var(--red-d);background:var(--red);color:#fff}
+.choice:disabled{cursor:default}
+.oxwrap{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.oxbtn{border:2px solid var(--gray-l);border-bottom-width:4px;border-radius:14px;padding:20px;font-size:1.1rem;font-weight:800;background:#fff;transition:.1s}
+.oxbtn.sel{border-color:var(--blue);background:var(--blue-l);color:var(--blue-d)}
+.oxbtn.correct{border-color:var(--green);background:var(--green-l);color:var(--green-d)}
+.oxbtn.wrong{border-color:var(--red);background:var(--red-l);color:var(--red-d)}
+.freebox{width:100%;min-height:120px;border:2px solid var(--gray-l);border-radius:14px;padding:14px;font-size:1rem;resize:vertical}
+.freebox:focus{outline:none;border-color:var(--purple)}
+.freebox:disabled{background:var(--gray-bg)}
+
+.qfoot{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;padding:15px 22px 22px;background:#fff;border-top:2px solid var(--gray-bg);z-index:6}
+.qfoot.ok{background:var(--green-l);border-top-color:transparent}
+.qfoot.no{background:var(--red-l);border-top-color:transparent}
+.qfoot.part{background:#fff4e0;border-top-color:transparent}
+.fb{display:flex;gap:10px;margin-bottom:11px}
+.fb .ic{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:#fff;flex-shrink:0}
+.qfoot.ok .fbt{color:var(--green-d)}.qfoot.ok .ic{background:var(--green)}
+.qfoot.no .fbt{color:var(--red-d)}.qfoot.no .ic{background:var(--red)}
+.qfoot.part .fbt{color:#c47f00}.qfoot.part .ic{background:var(--orange)}
+.fbt{font-weight:900;font-size:1.02rem}
+.fb .ex{font-weight:600;font-size:.85rem;color:#555;margin-top:3px}
+.fb .ex b{color:#333}
+.modelans{background:rgba(255,255,255,.7);border-radius:10px;padding:8px 11px;margin-top:7px;font-size:.84rem}
+.modelans .ml{font-weight:800;color:#333}
+
+/* result */
+.result{padding:18px 18px 40px}
+.rscore{background:var(--gray-bg);border-radius:18px;padding:18px;text-align:center;margin-bottom:8px}
+.rscore .big{font-size:2.4rem;font-weight:900}
+.rscore .big small{font-size:1rem;color:var(--gray);font-weight:700}
+.rscore .date{font-size:.78rem;color:var(--gray);font-weight:600;margin-top:2px}
+.rstats{display:flex;gap:10px;margin:14px 0}
+.rbox{flex:1;border:2px solid var(--gray-l);border-radius:14px;padding:12px 6px;text-align:center}
+.rbox .rl{font-size:.7rem;font-weight:800;color:var(--gray)}.rbox .rv{font-size:1.3rem;font-weight:900;margin-top:3px}
+.rbox.xp{border-color:var(--gold)}.rbox.xp .rv{color:var(--gold-d)}
+.rbox.acc{border-color:var(--green)}.rbox.acc .rv{color:var(--green-d)}
+.rbox.tm{border-color:var(--blue)}.rbox.tm .rv{color:var(--blue-d)}
+.revitem{border:1px solid var(--gray-l);border-radius:14px;margin-bottom:9px;overflow:hidden}
+.revq{display:flex;align-items:flex-start;gap:9px;padding:13px 14px}
+.revq .ri{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;color:#fff;flex-shrink:0;margin-top:1px}
+.revq.ok .ri{background:var(--green)}.revq.no .ri{background:var(--red)}
+.revq .qt{font-size:.7rem;font-weight:900;padding:2px 7px;border-radius:8px;margin-right:6px}
+.revq .qtx{font-size:.92rem;font-weight:600;flex:1}
+.revq .chev{color:var(--gray);font-weight:900;transition:transform .2s}
+.revitem.open .chev{transform:rotate(180deg)}
+.revbody{display:none;padding:0 14px 14px;font-size:.87rem}
+.revitem.open .revbody{display:block}
+.revbody .ra{padding:8px 11px;border-radius:10px;margin-bottom:6px}
+.revbody .ra.mine{background:var(--red-l)}.revbody .ra.ans{background:var(--green-l)}
+.revbody .ra .ral{font-weight:800;font-size:.76rem;color:#666}
+.revbody .rex{color:#555;padding:6px 2px}
+
+/* bridge / concept complete */
+.bridge{padding:36px 24px;text-align:center}
+.bridge .chk{width:78px;height:78px;border-radius:50%;background:var(--green-l);display:flex;align-items:center;justify-content:center;font-size:2.4rem;margin:0 auto 14px}
+.bridge h2{font-size:1.5rem;margin-bottom:4px}
+.bcard{text-align:left;border-radius:16px;padding:16px 18px;margin-top:16px}
+.bcard.link{background:#fff4e0;border:2px solid #ffd98a}
+.bcard.next{background:var(--blue-l);border:2px solid #aee0fb}
+.bcard .bh{font-weight:900;display:flex;align-items:center;gap:7px;margin-bottom:7px}
+.bcard.link .bh{color:#c47f00}.bcard.next .bh{color:var(--blue-d)}
+.bcard .nt{font-weight:900;font-size:1.05rem;margin-bottom:4px}
+.bcard p{font-size:.93rem;color:#444}
+
+/* generic pages */
+.page{padding:14px 18px 100px}
+.page h2{font-size:1.35rem;margin:4px 0 14px}
+.card{background:#fff;border:2px solid var(--gray-l);border-radius:18px;padding:16px;margin-bottom:13px}
+.bigstat{display:flex;gap:10px;margin-bottom:13px}
+.bigstat .bs{flex:1;border-radius:18px;padding:15px 8px;text-align:center;color:#fff}
+.bigstat .bs .v{font-size:1.6rem;font-weight:900}.bigstat .bs .l{font-size:.72rem;font-weight:700;opacity:.95}
+.bigstat .bs.s1{background:var(--orange)}.bigstat .bs.s2{background:var(--gold)}.bigstat .bs.s3{background:var(--green)}
+.daylist .di{display:flex;align-items:center;gap:11px;padding:11px;border-radius:14px;background:var(--gray-bg);margin-bottom:8px}
+.daylist .di .dd{font-weight:900;color:var(--green-d);min-width:60px;font-size:.8rem}
+.daylist .di .dl{font-size:.86rem;font-weight:600}.daylist .di.done{opacity:.5}
+.linkbtn{color:var(--blue);font-weight:800;text-decoration:underline;font-size:.85rem}
+.toggle{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
+.sw{width:48px;height:28px;border-radius:16px;background:var(--gray-l);position:relative;transition:.2s;flex-shrink:0}
+.sw.on{background:var(--green)}
+.sw:after{content:'';position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:.2s}
+.sw.on:after{left:23px}
+.toast{position:fixed;top:14px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:20px;font-weight:800;font-size:.85rem;z-index:99;opacity:0;transition:.3s;max-width:90%;text-align:center}
+.toast.show{opacity:1}
+@media(max-width:380px){.nodes .node-wrap:nth-child(6n+3){margin-left:74px}.nodes .node-wrap:nth-child(6n+2),.nodes .node-wrap:nth-child(6n+4){margin-left:46px}.nodes .node-wrap:nth-child(6n+1),.nodes .node-wrap:nth-child(6n+6){margin-left:-46px}}
+</style>
+</head>
+<body>
+<div class="app" id="app"></div>
+<div class="toast" id="toast"></div>
+
+<script id="data">
+window.COURSE = { title:"국제개발협력(ODA) 자격시험", units:[
+{ id:'u1', title:'1. 국제개발협력의 이해', source:'1과목', color:'#58cc02', icon:'🌱', lessons:[
+ { id:'u1l1', title:'빈곤과 불평등', en:'Poverty & Inequality',
+   concept:{ why:'전 세계 인구의 상당수가 하루 2달러 남짓으로 살아갑니다. "왜 어떤 나라는 가난할까?"라는 질문에서 모든 개발협력이 시작돼요. 빈곤을 어떻게 정의하느냐에 따라 해결책이 완전히 달라지기 때문에, 빈곤 개념은 1과목의 출발점이자 단골 출제 포인트입니다.',
+     def:{term:'빈곤(Poverty)', body:'기본적 욕구가 충족되지 못한 결핍 상태. 경제적 관점에선 절대·차상위·상대적 빈곤으로, 소득 외적 관점에선 아마르티아 센의 "역량(가능성)의 박탈"로 봅니다.'},
+     points:['<span class="kw">절대빈곤</span>: 생존 기본욕구 미충족 (세계은행, 2015년 <span class="kw">1.9달러/일</span>)','차상위빈곤: 가까스로 충족 / 상대적빈곤: 주관적으로 느끼는 빈곤','<span class="kw">아마르티아 센</span>: 빈곤=역량 결핍, "선택할 자유"의 박탈 → HDI·GDI·GII 등장','개도국 빈곤 원인은 자연·재해·분쟁·거버넌스 부재·식민유산이 <span class="kw">상호복합적</span>으로 얽힘'],
+     tip:'빈곤선 금액은 "1 → 1.25 → 1.9 달러" 순으로 올라간 것만 외워도 한 문제. (1990 / 2008 / 2015년)' },
+   bridge:{lead:'빈곤을 "왜 줄여야 하는가"에 답했다면, 다음은 "누가, 어떤 돈으로 줄이는가" — 바로 ODA의 정의와 3대 조건입니다.', nextPreview:'ODA가 되려면 충족해야 하는 3가지 조건을 배웁니다.'},
+   quiz:[
+    {t:'mc',q:'세계은행이 2015년 기준으로 제시한 절대빈곤선(1일 소득)은?',choices:['1달러','1.25달러','1.9달러','3.1달러'],answer:2,hint:'1990년 1달러에서 두 번 상향 조정됐어요.',ex:'절대빈곤선은 1990년 1달러 → 2008년 1.25달러 → 2015년 1.9달러로 변화했습니다.'},
+    {t:'mc',q:'다음 중 빈곤에 대한 설명으로 옳지 않은 것은?',choices:['절대빈곤은 생존의 기본욕구가 충족되지 않은 상태다','상대적 빈곤은 주관적 판단으로 느끼는 빈곤이다','아마르티아 센은 빈곤을 소득의 절대량으로만 정의했다','센은 빈곤을 역량(가능성)의 박탈로 보았다'],answer:2,hint:'센은 "소득"보다 "자유·역량"을 강조했어요.',ex:'아마르티아 센은 빈곤을 소득이 아니라 역량(케이퍼빌리티) 결핍과 선택할 자유의 박탈로 이해했습니다.'},
+    {t:'ox',q:'개발도상국의 빈곤 원인은 보통 한 가지 요인으로 단순하게 설명된다.',a:false,hint:'자연·분쟁·거버넌스·식민유산이 어떻게 얽혀 있나요?',ex:'빈곤의 원인은 자연환경·재해·분쟁·거버넌스 부재·식민유산 등이 상호복합적·유기적으로 얽혀 구조화됩니다.'},
+    {t:'ox',q:'아마르티아 센의 빈곤관은 HDI(인간개발지수) 같은 지표 등장에 영향을 주었다.',a:true,hint:'센은 인간개발 패러다임의 사상적 뿌리예요.',ex:'센의 역량 접근은 HDI·GDI·GII 등 인간개발 지표의 개념적 근원을 제공했습니다.'},
+    {t:'free',q:'아마르티아 센이 본 빈곤의 핵심 개념을 한 문장으로 설명하시오.',keys:['역량','자유','박탈'],model:'빈곤은 단순한 소득 부족이 아니라, 원하는 삶을 선택하고 달성할 "역량(가능성)"과 "자유"가 박탈된 상태이다.',hint:'키워드: 역량 / 자유 / 박탈',ex:'센은 빈곤을 역량의 결핍, 즉 선택할 자유의 박탈로 정의했습니다.'}
+   ]},
+ { id:'u1l2', title:'ODA의 정의와 3대 조건', en:'Definition of ODA',
+   concept:{ why:'시험에서 가장 많이 나오는 함정이 "이건 ODA인가, 아닌가?"입니다. 스타벅스가 커피농가를 돕는 건 ODA일까요? (아니에요!) 세 가지 조건만 정확히 알면 이런 적용형 문제를 다 맞힐 수 있어요.',
+     def:{term:'ODA(공적개발원조)', body:'공공부문이 개발도상국·국제기구에 제공하는 양허성 자금. 1969년 OECD DAC가 도입한 개념입니다.'},
+     points:['① <span class="kw">공적기관</span>이 제공 (정부·집행기관)','② 주목적이 개도국의 <span class="kw">경제발전·복지 증진</span>','③ <span class="kw">양허적 성격</span> (상대에 유리한 조건)','2018년부터 양허성 판단이 <span class="kw">증여등가율</span> 방식으로 변경 (저소득국45%·저중소득국15%·고중소득국6%↑)'],
+     tip:'민간기업의 활동(FDI·CSR)은 ODA가 아님! "공공+개발목적+양허성" 셋 다 충족해야 ODA.' },
+   bridge:{lead:'ODA가 무엇인지 알았으니, 이제 "누가 ODA를 주고받는지"와 "어떤 방향이 올바른지"를 봅니다.', nextPreview:'공여국·다자기구·시민사회 등 협력의 주체와 올바른 방향을 배웁니다.'},
+   quiz:[
+    {t:'mc',q:'다음 중 공적개발원조(ODA)로 보기 가장 어려운 것은?',choices:['경상북도가 시행하는 캄보디아 농촌지도자 초청 연수','지진 복구를 위해 투입된 외국 군대의 인도적 구호활동','증여율 75%인 대외경제협력기금(EDCF) 차관','스타벅스가 르완다 커피농가에 제공하는 기술지원'],answer:3,hint:'"공공부문이 제공"하는지 따져보세요.',ex:'민간기업(스타벅스)의 활동은 CSR이지 ODA가 아닙니다. 지자체 연수·재난 시 군대의 인도적 원조·양허성 차관은 ODA로 인정됩니다.'},
+    {t:'mc',q:'ODA의 3대 성립 조건이 아닌 것은?',choices:['공적기관이 제공할 것','개도국의 경제발전·복지 증진이 주목적일 것','양허적 성격을 가질 것','반드시 상환을 전제로 할 것'],answer:3,hint:'무상원조는 갚지 않아도 되죠.',ex:'ODA는 양허적(상대에 유리) 성격을 가지며, 상환 전제는 조건이 아닙니다.'},
+    {t:'mc',q:'2018년부터 ODA 양허성 판단에 도입된 방식은?',choices:['증여율 25% 일괄 적용','증여등가율 방식','GNI 비율 방식','구속성 비율 방식'],answer:1,hint:'소득그룹별로 기준이 달라졌어요.',ex:'2018년부터 소득그룹별 차등(저소득45%·저중소득15%·고중소득6%)을 둔 증여등가율 방식으로 바뀌었습니다.'},
+    {t:'ox',q:'민간기업의 해외직접투자(FDI)는 ODA에 포함된다.',a:false,hint:'ODA는 "공적"자금이에요.',ex:'FDI는 민간자본의 흐름으로 ODA에 포함되지 않습니다.'},
+    {t:'free',q:'ODA가 성립하기 위한 3대 조건을 쓰시오.',keys:['공적','개발','양허'],model:'① 공적기관이 제공, ② 개도국의 경제발전·복지 증진이 주목적, ③ 양허적 성격을 가질 것.',hint:'공공 / 개발목적 / 양허성',ex:'공적기관 제공·개발목적·양허성, 이 세 가지를 모두 충족해야 ODA입니다.'}
+   ]},
+ { id:'u1l3', title:'협력의 주체와 올바른 방향', en:'Actors & Principles',
+   concept:{ why:'원조는 "주는 쪽 마음대로" 하면 실패합니다. 누가 참여하고, 어떤 원칙을 지켜야 효과가 나는지를 알아야 뒤에 나오는 원조효과성·파리선언이 이해돼요.',
+     def:{term:'개발격차 & 주체', body:'선진국과 개도국의 차이를 개발격차라 하며, 이를 줄이기 위해 공여국·다자기구·시민사회·기업 등 다양한 주체가 협력합니다.'},
+     points:['개도국 기준: UN은 <span class="kw">HDI 0.8 미만</span>, 세계은행은 1인당 GNI 고소득 기준 이하','주체: OECD DAC 공여국 / 신흥공여국 / 다자기구 / 시민사회·기업','올바른 방향: 개도국 <span class="kw">수요 충족·기회의 평등·포용/참여·지속가능</span>','OECD 권고 <span class="kw">ODA/GNI 0.7%</span> (실제 평균은 0.3%대)'],
+     tip:'"0.7%"는 권고치, "0.3%대"는 현실. 이 숫자 대비가 자주 나와요.' },
+   bridge:{lead:'주체와 원칙을 알았다면, 이 원칙들이 어떻게 역사 속에서 만들어졌는지 — 국제개발협력의 역사로 넘어갑니다.', nextPreview:'마셜플랜부터 시작되는 국제개발협력의 태동과 도약을 배웁니다.'},
+   quiz:[
+    {t:'mc',q:'OECD가 권고하는 ODA/GNI 비율 목표치는?',choices:['0.15%','0.33%','0.7%','1.0%'],answer:2,hint:'오래전부터 변하지 않은 "권고" 숫자예요.',ex:'국제사회는 ODA/GNI 0.7% 이상을 권고하지만 실제 평균은 0.3%대에 그칩니다.'},
+    {t:'mc',q:'국제개발협력의 올바른 방향으로 보기 어려운 것은?',choices:['개도국의 개발수요를 충족시키는 방향','공여국 이익을 우선한 일방적 추진','포용적·참여적 추진','지속가능한 발전 지향'],answer:1,hint:'"일방적"이라는 단어에 주목.',ex:'공여국 이익만 앞세운 일방적 추진은 올바른 방향이 아닙니다.'},
+    {t:'ox',q:'선진국과 개발도상국 사이의 격차를 "개발격차"라고 한다.',a:true,hint:'용어 그대로예요.',ex:'개발격차(development gap)는 선진국과 개도국의 차이를 가리킵니다.'},
+    {t:'ox',q:'개발도상국의 정의에는 모든 나라에 적용되는 단 하나의 고정된 기준이 있다.',a:false,hint:'UN과 세계은행 기준이 다르죠.',ex:'UN(HDI)·세계은행(GNI) 등 기관마다 기준이 달라 단일한 고정 기준은 없습니다.'},
+    {t:'free',q:'국제개발협력이 지향해야 할 "올바른 방향" 원칙을 2가지 이상 쓰시오.',keys:['수요','참여','지속가능','평등'],model:'개도국의 개발수요 충족, 기회의 평등 촉진, 포용적·참여적 추진, 지속가능한 발전.',hint:'수요충족 / 참여 / 지속가능 / 기회평등',ex:'개도국 수요 충족·기회 평등·포용/참여·지속가능성이 핵심 원칙입니다.'}
+   ]}
+]},
+
+{ id:'u2', title:'2. 국제개발협력의 역사', source:'1과목', color:'#1cb0f6', icon:'📜', lessons:[
+ { id:'u2l1', title:'태동기와 도약기 (1940~60s)', en:'Origins & Take-off',
+   concept:{ why:'개발협력은 갑자기 생긴 게 아니라 2차 대전·냉전이라는 역사 속에서 태어났어요. 마셜플랜·브레턴우즈·DAC의 탄생을 알면 "왜 이런 기구들이 생겼나"가 한 번에 정리됩니다.',
+     def:{term:'태동~도약기', body:'2차 대전 직후 미·소 냉전 속에서 본격화된 원조가, 1960년대 UN "개발의 10년"과 OECD DAC 설립으로 제도화된 시기.'},
+     points:['1944 <span class="kw">브레턴우즈 협정</span> → 1945 IMF·IBRD 창설','1948~52 <span class="kw">마셜플랜</span>(유럽부흥계획), 미국 주도','1960 DAG → 1961 OECD <span class="kw">DAC</span> 개편 / 1969 피어슨 보고서 → GNP 0.7% 권고','담론: <span class="kw">근대화이론</span>(로스토 5단계론) vs <span class="kw">종속이론</span>(프랑크: 중심부-주변부)'],
+     tip:'"브레턴우즈(1944)→IMF·IBRD" / "DAG(1960)→DAC(1961)" 두 쌍만 외우면 절반은 맞아요.' },
+   bridge:{lead:'도약 뒤엔 정체와 위기가 옵니다. 석유파동과 구조조정이 어떻게 원조의 방향을 바꿨는지 봅니다.', nextPreview:'1970~90년대 정체·위기와 워싱턴 컨센서스를 배웁니다.'},
+   quiz:[
+    {t:'mc',q:'1944년 미국 달러를 기축통화로 한 협정과 그 직접적 산물로 옳은 것은?',choices:['마셜플랜 → OEEC','브레턴우즈 협정 → IMF·IBRD','콜롬보 계획 → DAC','반둥회의 → UNDP'],answer:1,hint:'금 1온스=35달러로 기억나는 그 협정.',ex:'1944년 브레턴우즈 협정으로 1945년 IMF와 IBRD가 창설되었습니다.'},
+    {t:'mc',q:'다음 중 OECD DAC의 성립 과정으로 옳은 것은?',choices:['DAG(1960) → DAC(1961)','OEEC(1948) → DAC(1950)','UNDP(1965) → DAC(1966)','G77(1964) → DAC(1965)'],answer:0,hint:'개발원조"그룹"이 먼저였어요.',ex:'1960년 개발원조그룹(DAG)이 1961년 OECD 산하 개발원조위원회(DAC)로 개편되었습니다.'},
+    {t:'mc',q:'세계를 중심부-주변부로 나누고 경제적 잉여가 주변부에서 중심부로 이전된다고 본 이론은?',choices:['근대화 이론','종속이론','균형성장론','내생적 성장이론'],answer:1,hint:'"저발전의 발전"을 말한 프랑크.',ex:'프랑크의 종속이론은 중심부-주변부 구조에서의 잉여 이전을 설명합니다.'},
+    {t:'ox',q:'로스토의 경제개발 5단계론은 종속이론의 대표 모형이다.',a:false,hint:'로스토는 "발전 단계"를 말했죠.',ex:'로스토의 5단계론(전통사회-도약준비-도약-성숙-대중소비)은 근대화 이론의 대표 모형입니다.'},
+    {t:'free',q:'마셜플랜의 목적을 한 문장으로 설명하시오.',keys:['유럽','부흥','재건'],model:'2차 대전 후 서유럽의 경제 재건(부흥)을 지원하고 공산주의 확산을 억제하기 위한 미국의 원조 계획.',hint:'서유럽 / 재건·부흥',ex:'마셜플랜(1948~52)은 서유럽 16개국의 재건·경제성장 지원과 소련 영향력 억제가 목적이었습니다.'}
+   ]},
+ { id:'u2l2', title:'정체기와 위기 (1970~90s)', en:'Stagnation & Crisis',
+   concept:{ why:'"원조를 많이 했는데 왜 가난은 그대로지?"라는 회의(원조피로)가 이 시기에 터집니다. 구조조정의 실패는 오늘날 "주인의식·효과성" 논의가 나온 직접적 배경이에요.',
+     def:{term:'정체~위기기', body:'두 차례 석유파동과 외채위기로 원조가 흔들리고, 신자유주의 구조조정(워싱턴 컨센서스)이 확산됐다가 실패하며 비판받은 시기.'},
+     points:['1970s: 석유파동 → 인프라 중심 → <span class="kw">인간의 기본적 욕구(BHN)</span>로 전환','신자유주의 구조조정(SAP) → <span class="kw">워싱턴 컨센서스</span>','선진국의 <span class="kw">원조피로(Aid Fatigue)</span> 현상, 냉전 종식','1987 브룬트란트 보고서 → <span class="kw">지속가능발전(SD)</span> 정의'],
+     tip:'"정부 축소·시장 확대 → 구조조정 → 워싱턴 컨센서스"는 1980년대! 연대 묻는 문제 단골.' },
+   bridge:{lead:'위기를 넘어 2000년대, 국제사회는 공동 목표(MDGs)와 원조효과성 규범으로 반격합니다.', nextPreview:'MDGs와 파리선언 등 원조효과성 고위급포럼을 배웁니다.'},
+   quiz:[
+    {t:'mc',q:'개발 영역이 축소되고 개도국에 대한 구조조정이 대대적으로 이뤄지며 정부 축소·시장 확대 정책이 펼쳐진 시기는?',choices:['1950년대','1960년대','1970년대','1980년대'],answer:3,hint:'외채위기·신자유주의가 키워드.',ex:'1980년대 세계은행·IMF 주도의 구조조정정책(SAP)으로 정부 축소·시장 확대가 추진되었고, 이는 워싱턴 컨센서스로 이어졌습니다.'},
+    {t:'mc',q:'1970년대 원조 전략의 변화로 옳은 것은?',choices:['BHN 중심 → 인프라 중심','인프라 중심 → 인간의 기본적 욕구(BHN) 중심','무상 → 유상 중심','다자 → 양자 중심'],answer:1,hint:'사람의 기본 필요로 눈을 돌렸어요.',ex:'1960년대 인프라 중심에서 1970년대 인간의 기본적 욕구(BHN) 접근으로 전환되었습니다.'},
+    {t:'ox',q:'"미래 세대의 필요를 손상시키지 않는 범위에서 현 세대의 필요를 충족"이라는 지속가능발전 정의는 브룬트란트 보고서에서 나왔다.',a:true,hint:'"우리 공동의 미래"라는 부제.',ex:'1987년 브룬트란트 보고서(우리 공동의 미래)에서 지속가능발전이 정의되었습니다.'},
+    {t:'ox',q:'구조조정정책(SAP)은 대부분의 아프리카·중남미 국가에서 큰 성공을 거두었다.',a:false,hint:'"실패"와 "비판"이 핵심.',ex:'구조조정정책은 거버넌스가 갖춰진 일부를 빼면 대다수 국가에서 실패하며 비판받았습니다.'},
+    {t:'free',q:'"원조피로(Aid Fatigue)" 현상이 무엇인지 설명하시오.',keys:['성과','냉전','감소'],model:'지속적 원조에도 성과가 더디고 냉전 종식으로 원조 당위성이 약화되면서 선진국의 원조 의지·규모가 감소한 현상.',hint:'성과 부진 / 냉전 종식 / 원조 감소',ex:'성과 부진·냉전 종식·긴축으로 원조 의지가 식은 현상이 원조피로입니다.'}
+   ]},
+ { id:'u2l3', title:'2000년대와 원조효과성', en:'MDGs & Aid Effectiveness',
+   concept:{ why:'"돈을 얼마나 줬나"보다 "효과가 있었나"로 패러다임이 바뀐 결정적 시기예요. 파리선언 5대 원칙과 부산총회는 시험 최빈출 중 최빈출입니다.',
+     def:{term:'원조효과성 시대', body:'2000년 MDGs 채택 이후, 로마-파리-아크라-부산으로 이어진 고위급포럼(HLF)을 통해 원조의 효과성·개발효과성을 추구한 시기.'},
+     points:['2000 새천년선언 → 2001 <span class="kw">MDGs</span>(8대 목표, ~2015)','개발재원총회: 2002 몬테레이 / 2008 도하 / 2015 아디스아바바','HLF: 2005 <span class="kw">파리(5대 원칙)</span> / 2008 아크라(CSO 인정) / 2011 <span class="kw">부산(개발효과성)</span>','파리선언 5대: 주인의식·원조일치·원조조화·성과관리·상호책무성'],
+     tip:'"몬테레이→도하→아디스아바바"(재원), "로마→파리→아크라→부산"(효과성) 두 줄로 외우기!' },
+   bridge:{lead:'MDGs의 한계를 넘어 더 넓은 목표가 등장합니다 — 바로 SDGs. 다음 단원에서 자세히 봅니다.', nextPreview:'MDGs에서 SDGs로의 전환과 17개 목표를 배웁니다.'},
+   quiz:[
+    {t:'mc',q:'원조효과성 5대 원칙이 채택된 고위급포럼(HLF)은?',choices:['2003 로마 HLF-1','2005 파리 HLF-2','2008 아크라 HLF-3','2011 부산 HLF-4'],answer:1,hint:'프랑스 수도에서 열렸어요.',ex:'2005년 파리 HLF-2에서 원조효과성 5대 원칙과 12개 성과지표가 채택되었습니다.'},
+    {t:'mc',q:'파리선언의 5대 원칙에 해당하지 않는 것은?',choices:['개도국의 주인의식','공여국 간 원조조화','개도국 간 원조조화','상호책무성'],answer:2,hint:'"조화"는 누구끼리 하는 거였죠?',ex:'원조조화는 공여국 간의 원칙입니다. 5대 원칙은 주인의식·원조일치·(공여국 간)원조조화·성과관리·상호책무성입니다.'},
+    {t:'mc',q:'2011년 부산세계개발원조총회(HLF-4)의 핵심 전환 방향은?',choices:['원조효과성 → 개발효과성','개발효과성 → 원조효과성','양자 → 다자','무상 → 유상'],answer:0,hint:'"원조를 넘어서"가 슬로건.',ex:'부산총회는 원조효과성을 넘어 포괄적 개발효과성으로 전환을 선언했습니다.'},
+    {t:'ox',q:'MDGs는 경제적 불평등과 글로벌 이슈를 충분히 다루지 못했다는 비판을 받았다.',a:true,hint:'"one size fits all" 비판 기억나나요?',ex:'MDGs는 불평등·글로벌 이슈 미흡, 개도국 입장 미반영 등으로 비판받았습니다.'},
+    {t:'free',q:'개발재원총회 3차례가 열린 도시를 순서대로 쓰시오.',keys:['몬테레이','도하','아디스아바바'],model:'2002 멕시코 몬테레이 → 2008 카타르 도하 → 2015 에티오피아 아디스아바바.',hint:'멕시코 / 카타르 / 에티오피아',ex:'몬테레이→도하→아디스아바바 순입니다.'}
+   ]}
+]},
+
+{ id:'u3', title:'3. 지속가능발전목표(SDGs)', source:'1과목', color:'#ce82ff', icon:'🎯', lessons:[
+ { id:'u3l1', title:'MDGs에서 SDGs로', en:'From MDGs to SDGs',
+   concept:{ why:'MDGs는 절반의 성공이었어요. "무엇이 부족했고 무엇을 바꿨나"를 알면 SDGs의 17개 목표가 왜 그렇게 생겼는지 이해돼요.',
+     def:{term:'전환의 핵심', body:'개도국에만 책임을 지운 MDGs의 한계를 넘어, 선진국·개도국 모두에 적용되는 보편적 목표로 확장한 것이 SDGs.'},
+     points:['MDGs 성과: 절대빈곤율 1990년 36% → 2015년 12%','한계: 개도국 입장 미반영, 불평등·글로벌 이슈 미흡','SDGs 슬로건: <span class="kw">"Leave No One Behind"</span>','3대 가치(인권·평등·지속가능성), 4대 핵심(경제·사회·환경·평화)'],
+     tip:'MDGs=8개 목표(개도국 중심), SDGs=17개 목표(보편적). 숫자 8↔17만 헷갈리지 마세요.' },
+   bridge:{lead:'전환 배경을 알았으니, SDGs의 실제 구조(17목표 169세부목표)를 들여다봅니다.', nextPreview:'SDGs의 구조와 기억해야 할 핵심 목표 번호를 배웁니다.'},
+   quiz:[
+    {t:'mc',q:'SDGs의 대표 슬로건으로 옳은 것은?',choices:['Make Poverty History','Leave No One Behind','One Size Fits All','Our Common Future'],answer:1,hint:'"누구도 뒤에 남기지 않는다"',ex:'SDGs의 슬로건은 Leave No One Behind입니다.'},
+    {t:'mc',q:'SDGs 수립 시 제시된 3대 가치가 아닌 것은?',choices:['인권','평등','지속가능성','이윤극대화'],answer:3,hint:'기업 목표가 아니에요.',ex:'3대 가치는 인권·평등·지속가능성입니다.'},
+    {t:'ox',q:'MDGs는 결과 중심 패러다임을 정착시켰다는 성과가 있다.',a:true,hint:'한계만 있는 건 아니죠.',ex:'MDGs는 정량 목표·모니터링 등 결과 중심 패러다임을 정착시켰습니다.'},
+    {t:'ox',q:'SDGs는 MDGs와 달리 선진국에 해당하는 목표는 전혀 포함하지 않는다.',a:false,hint:'"보편적"이라는 말의 의미.',ex:'SDGs는 선진국에도 적용되는 보편적 목표를 포함합니다.'},
+    {t:'free',q:'MDGs의 대표적 한계 2가지를 쓰시오.',keys:['불평등','개도국','글로벌'],model:'경제적 불평등을 다루지 못함, 글로벌 이슈 미포함, 개도국 입장 미반영, 공여국 책무 부재로 인식됨 중 2가지.',hint:'불평등 / 개도국 입장 / 글로벌 이슈',ex:'불평등·글로벌 이슈 미흡, 개도국 입장 미반영이 대표적 한계입니다.'}
+   ]},
+ { id:'u3l2', title:'SDGs의 구조와 주요 목표', en:'Structure of SDGs',
+   concept:{ why:'17개를 다 외울 필요는 없어요. 자주 나오는 번호(1·4·5·13·16·17)만 잡으면 시험은 충분합니다.',
+     def:{term:'SDGs 구조', body:'"2030 지속가능발전의제"에 담긴 17개 목표·169개 세부목표. 경제·사회·환경·평화를 통합합니다.'},
+     points:['<span class="kw">17개 목표 · 169개 세부목표</span>','자주 나오는 번호: 1 빈곤 · 4 교육 · 5 성평등 · 13 기후 · 16 평화/제도 · 17 파트너십','MDGs보다 넓고, 다양한 개발재원을 강조','이행에 다양한 이해관계자 참여 필요'],
+     tip:'8(MDGs) vs 17(SDGs), 21(MDGs 세부) vs 169(SDGs 세부) — 숫자 짝을 외우세요.' },
+   bridge:{lead:'목표를 알았으니, 이 목표들을 "무슨 돈으로" 달성할지 — 개발재원과 ODA 현대화로 이어집니다.', nextPreview:'개발재원의 다각화와 TOSSD 등 ODA 현대화를 배웁니다.'},
+   quiz:[
+    {t:'mc',q:'SDGs의 목표·세부목표 개수로 옳은 것은?',choices:['8개 목표, 21개 세부목표','17개 목표, 169개 세부목표','12개 목표, 54개 세부목표','15개 목표, 100개 세부목표'],answer:1,hint:'8개는 MDGs예요.',ex:'SDGs는 17개 목표·169개 세부목표입니다.'},
+    {t:'mc',q:'SDG 번호와 주제가 잘못 짝지어진 것은?',choices:['SDG 1 - 빈곤 종식','SDG 4 - 양질의 교육','SDG 5 - 성평등','SDG 13 - 양질의 일자리'],answer:3,hint:'13번은 환경 쪽이에요.',ex:'SDG 13은 기후행동입니다. 양질의 일자리는 SDG 8입니다.'},
+    {t:'ox',q:'SDGs는 ODA뿐 아니라 다양한 민간 개발재원의 필요성을 강조한다.',a:true,hint:'재원이 다각화됐죠.',ex:'SDGs는 ODA 외 다양한 재원의 동원을 강조합니다.'},
+    {t:'ox',q:'SDGs 17개 목표는 서로 독립적이어서 연관 없이 개별 달성하면 된다.',a:false,hint:'"상호관계"가 중요하다고 했죠.',ex:'SDGs는 목표 간 상호관계 속에서 통합적으로 달성하는 것이 중요합니다.'},
+    {t:'free',q:'SDGs가 통합하려는 4대 축(영역)을 쓰시오.',keys:['경제','사회','환경','평화'],model:'경제·사회·환경·평화.',hint:'경제 / 사회 / 환경 / 평화',ex:'SDGs는 경제·사회·환경·평화를 통합적으로 다룹니다.'}
+   ]},
+ { id:'u3l3', title:'개발재원과 ODA 현대화', en:'Development Finance',
+   concept:{ why:'목표는 거창한데 돈이 부족하면 그림의 떡이죠. 그래서 "ODA만으론 부족하다, 민간재원도 끌어오자"는 흐름이 생겼고, ODA를 측정하는 방식도 진화했어요.',
+     def:{term:'ODA 현대화', body:'ODA의 정확한 측정·투명성을 높이고, ODA를 넘어선 다양한 재원의 가치를 인정하려는 흐름. 대표 개념이 TOSSD.'},
+     points:['개발재원이 공적재원 위주 → <span class="kw">민간재원으로 다각화</span>','<span class="kw">TOSSD</span>(총공적지원): ODA를 넘는 재원의 가치 인정','DFI·PSI: 민간동원용 공적재원의 양허분을 ODA로 인정','코로나·전쟁으로 ODA 추가 확대는 쉽지 않음'],
+     tip:'"TOSSD = ODA보다 넓은 그릇" 한 줄이면 충분.' },
+   bridge:{lead:'재원을 알았으니, 실제로 그 돈을 움직이는 "주체들"을 본격적으로 살펴봅니다.', nextPreview:'양자 공여국(미·영·독·일 등)부터 시작합니다.'},
+   quiz:[
+    {t:'mc',q:'ODA를 넘어서는 다양한 형태의 재원 가치를 인정하는 ODA 현대화 개념은?',choices:['TOSSD','OOF','FDI','PRSP'],answer:0,hint:'"총공적지원"의 영문 약자.',ex:'TOSSD(총공적지원)는 ODA를 넘어서는 재원의 가치를 인정하는 개념입니다.'},
+    {t:'ox',q:'SDGs 시대에는 개발재원이 공적재원 단일 구조로 회귀하고 있다.',a:false,hint:'반대 방향이에요.',ex:'SDGs 시대에는 민간재원으로 다각화되는 추세입니다.'},
+    {t:'mc',q:'다음 중 개발재원의 성격이 다른 하나는?',choices:['양자 무상원조(ODA)','다자 ODA','민간기업의 해외직접투자(FDI)','양허성 차관(ODA)'],answer:2,hint:'"공적"이 아닌 것은?',ex:'FDI는 민간자본 흐름으로, 나머지 공적개발원조(ODA)와 성격이 다릅니다.'},
+    {t:'free',q:'SDGs 시대 개발재원 흐름의 핵심 변화를 한 문장으로 쓰시오.',keys:['민간','다각화'],model:'공적재원 중심에서 민간재원을 포함한 다양한 재원으로 다각화되고 있다.',hint:'민간 / 다각화',ex:'공적재원 중심에서 민간재원으로의 다각화가 핵심입니다.'}
+   ]}
+]},
+
+{ id:'u4', title:'4. 국제개발협력의 다양한 주체', source:'1과목', color:'#ff9600', icon:'🤝', lessons:[
+ { id:'u4l1', title:'양자 공여국', en:'Bilateral Donors',
+   concept:{ why:'미국·영국·독일·일본은 각자 "원조 스타일"이 달라요. 누가 어떤 기관으로, 어떤 철학으로 원조하는지 구분하는 문제가 자주 나옵니다.',
+     def:{term:'양자 공여국', body:'자국 예산으로 개도국에 직접 원조하는 국가. OECD DAC 회원국이 대표적입니다.'},
+     points:['미국: 케네디가 <span class="kw">대외원조법·USAID</span> 설립, 9.11 후 3D(외교·국방·개발)','영국: DFID → 2020 외교부와 합병해 <span class="kw">FCDO</span>','독일: BMZ(정책 총괄) 산하 <span class="kw">KfW(금융)·GIZ(기술협력)</span>','일본: JICA, <span class="kw">비구속화율 100%</span>, 2015 개발협력대강(군 비군사 분야 관여 가능)'],
+     tip:'"독일=BMZ가 머리, KfW·GIZ가 손발" / "일본=JICA + 비구속 100%"로 묶어 외우기.' },
+   bridge:{lead:'한 나라가 아니라 여러 나라가 모인 기구는? 다음은 UN·IMF·세계은행 같은 다자기구입니다.', nextPreview:'UN·국제금융기구·세계은행그룹을 배웁니다.'},
+   quiz:[
+    {t:'mc',q:'미국 케네디 대통령이 시행한 개발원조 내용으로 옳은 것은?',choices:['외교·국방·개발의 3D원칙 도입','2006년 전환외교 천명','2010년 QDDR 발간','대외원조법 제정 및 USAID 설립'],answer:3,hint:'USAID를 누가 만들었죠?',ex:'케네디는 대외원조법을 제정하고 USAID를 설립했습니다. 3D·전환외교·QDDR은 이후 시기의 일입니다.'},
+    {t:'mc',q:'영국 DFID가 2020년 외교부와 합병해 출범한 기관은?',choices:['USAID','FCDO','JICA','GIZ'],answer:1,hint:'외교·영연방·개발이 합쳐진 이름.',ex:'영국은 DFID를 외교부와 합병해 외교영연방개발부(FCDO)를 출범시켰습니다.'},
+    {t:'mc',q:'독일의 원조 체계에 대한 설명으로 옳은 것은?',choices:['BMZ가 원조정책의 기획·결정을 총괄한다','GIZ가 정책을 총괄하고 BMZ는 집행만 한다','KfW 산하에 BMZ가 있다','GTZ는 1990년에 통합되었다'],answer:0,hint:'정책의 "머리"는 BMZ.',ex:'BMZ가 정책을 총괄하고, KfW(금융)·GIZ(기술협력)가 집행합니다. GIZ는 GTZ 등 3개 기관이 2011년 통합된 것입니다.'},
+    {t:'ox',q:'일본은 ODA의 비구속화율이 100%로 높은 편이다.',a:true,hint:'구속성=자국 물자 강제 구매.',ex:'일본은 비구속화율 100%이며 JICA가 원조를 집행합니다.'},
+    {t:'free',q:'독일의 정책총괄 부처와 두 집행기관(금융·기술)을 쓰시오.',keys:['BMZ','KfW','GIZ'],model:'정책 총괄은 BMZ, 금융은 KfW, 기술협력은 GIZ.',hint:'BMZ / KfW / GIZ',ex:'BMZ(정책)-KfW(금융)-GIZ(기술협력) 구조입니다.'}
+   ]},
+ { id:'u4l2', title:'다자개발기구 (UN·IFI·WBG)', en:'Multilateral Agencies',
+   concept:{ why:'세계은행그룹 5형제(IBRD·IDA·IFC·MIGA·ICSID)는 이름이 비슷해 헷갈리기 딱 좋아요. 각자 뭘 하는지 구분하면 "바르게 짝지은 것" 문제를 쓸어담아요.',
+     def:{term:'다자개발기구', body:'여러 나라가 함께 만든 국제기구. UN(개발은 ECOSOC), 국제금융기구(IMF·MDB), 세계은행그룹이 대표적.'},
+     points:['UNDP: 매년 <span class="kw">인간개발지수(HDI)</span> 발표 (수명·지식·생활수준)','IMF: 일시적 <span class="kw">국제수지 불균형</span> 시 긴급 금융 / MDB: 개발 프로젝트 차관','세계은행: <span class="kw">IBRD</span>(중소득) · <span class="kw">IDA</span>(저소득 무이자) · <span class="kw">IFC</span>(민간) · <span class="kw">MIGA</span>(투자보증) · <span class="kw">ICSID</span>(분쟁해결)','OECD/DAC 3대 기능: ODA 모니터링·표준화·동료검토 (한국 2010 DAC 가입)'],
+     tip:'IDA=I-D-A의 D를 "Development(저소득 무이자)"로, MIGA=보증(보험), ICSID=분쟁(재판)으로 연상.' },
+   bridge:{lead:'정부와 큰 기구 말고도, 신흥공여국·시민사회·기업이 새 주체로 떠오릅니다.', nextPreview:'중국 등 신흥공여국과 CSO·기업의 역할을 배웁니다.'},
+   quiz:[
+    {t:'mc',q:'세계은행그룹 기구와 역할이 바르게 짝지어진 것은?',choices:['IBRD - 국제개발협회','MIGA - 국제투자보증기구','ICSID - 국제개발협회','IFC - 국제투자분쟁해결기구'],answer:1,hint:'MIGA의 G가 Guarantee(보증).',ex:'MIGA는 국제투자보증기구입니다. IBRD=국제부흥개발은행, IFC=국제금융공사, ICSID=국제투자분쟁해결센터.'},
+    {t:'mc',q:'저소득국에 무이자·초저리로 융자하는 세계은행그룹 기구는?',choices:['IBRD','IDA','IFC','MIGA'],answer:1,hint:'가장 가난한 나라를 위한 창구.',ex:'IDA(국제개발협회)는 저소득국에 무이자 또는 초저리로 융자합니다.'},
+    {t:'mc',q:'IMF의 주요 기능으로 옳은 것은?',choices:['개도국 장기 개발 프로젝트 차관','일시적 국제수지 불균형 시 긴급 외환 지원','민간기업 직접 투자','투자분쟁 조정'],answer:1,hint:'"긴급 외환"이 핵심.',ex:'IMF는 회원국의 일시적 국제수지 불균형 시 긴급 외환을 지원합니다.'},
+    {t:'ox',q:'매년 인간개발지수(HDI)를 발표하는 기구는 세계은행이다.',a:false,hint:'HDI는 UN 기구가 발표해요.',ex:'HDI는 UNDP가 매년 발표합니다.'},
+    {t:'free',q:'OECD DAC의 3대 핵심 기능을 쓰시오.',keys:['모니터링','표준','동료검토'],model:'ODA 모니터링(통계), 개발협력 표준화(규범·가이드라인), 동료검토(Peer Review).',hint:'모니터링 / 표준화 / 동료검토',ex:'DAC의 3대 기능은 ODA 모니터링·표준화·동료검토입니다.'}
+   ]},
+ { id:'u4l3', title:'신흥공여국·시민사회·기업', en:'New Actors',
+   concept:{ why:'중국 같은 신흥공여국, 게이츠 재단 같은 민간, 옥스팜 같은 NGO가 판을 키우고 있어요. "전통적 공여국 외에 누가 있나"를 묻는 문제가 늘고 있습니다.',
+     def:{term:'다양한 주체', body:'OECD DAC 밖의 신흥공여국, 시민사회단체(CSO), 민간재단·기업이 새로운 개발 주체로 부상.'},
+     points:['신흥공여국: 중국(2018 CICDA), <span class="kw">남남협력</span>(개도국 간), 삼각협력(남+남+북)','AIIB(중국 주도, OECD국도 참여) / NDB(<span class="kw">BRICS</span> 5개국)','CSO: 2008 아크라(AAA)에서 <span class="kw">독립적 개발주체로 인정</span>','기업: FDI(생산거점형/시장접근형)·CSR / 게이츠재단(보건 집중)'],
+     tip:'NDB=BRICS(브라질·러시아·인도·중국·남아공), AIIB=중국 주도. 칠레는 BRICS 아님!' },
+   bridge:{lead:'세계의 주체들을 봤으니, 마지막으로 "우리 한국"의 특별한 이야기로 마무리합니다.', nextPreview:'수원국에서 공여국으로 변신한 한국의 역사를 배웁니다.'},
+   quiz:[
+    {t:'mc',q:'브릭스 신개발은행(NDB)에 속하지 않는 나라는?',choices:['브라질','중국','남아프리카공화국','칠레'],answer:3,hint:'BRICS 다섯 글자를 떠올려요.',ex:'NDB는 브라질·러시아·인도·중국·남아공(BRICS)이 설립했습니다. 칠레는 포함되지 않습니다.'},
+    {t:'mc',q:'시민사회단체(CSO)를 독립적 개발주체로 인정한 회의는?',choices:['2005 파리 HLF-2','2008 아크라 HLF-3','2002 몬테레이','2015 아디스아바바'],answer:1,hint:'아크라 행동계획(AAA).',ex:'2008년 아크라 행동계획(AAA)에서 CSO를 독립적 개발주체로 인정했습니다.'},
+    {t:'mc',q:'시장접근형 FDI에 대한 설명으로 옳은 것은?',choices:['원·부자재를 수입해 가공하는 생산이 일반적','일정 구매력 이상의 제3국 시장 접근이 목표','값싼 노동력 활용이 핵심 목적','고용 창출만을 목적으로 함'],answer:1,hint:'"시장"에 접근하려는 투자.',ex:'시장접근형 FDI는 일정 수준 이상 구매력을 가진 제3국 시장에 접근하려는 목적의 투자입니다. (값싼 노동·생산비 절감은 생산거점형)'},
+    {t:'ox',q:'남남협력에 선진국(북)이 함께 참여하는 형태를 삼각협력이라 한다.',a:true,hint:'남+남+북.',ex:'삼각협력은 남+남+북이 함께하는 협력입니다.'},
+    {t:'free',q:'AIIB와 NDB의 주도 세력 차이를 간단히 쓰시오.',keys:['중국','BRICS'],model:'AIIB는 중국 주도(다수 OECD국도 참여), NDB는 BRICS 5개국 주도.',hint:'AIIB=중국 / NDB=BRICS',ex:'AIIB는 중국 주도, NDB는 BRICS 주도입니다.'}
+   ]}
+]},
+
+{ id:'u5', title:'5. 한국의 국제개발협력', source:'1과목', color:'#ff4b4b', icon:'🇰🇷', lessons:[
+ { id:'u5l1', title:'수원국에서 공여국으로', en:'Recipient to Donor',
+   concept:{ why:'한국은 "원조 받던 나라에서 주는 나라"가 된 유일한 사례예요. 이 스토리 자체가 한국 ODA의 정체성이라 시험에 꼭 나옵니다.',
+     def:{term:'한국의 전환', body:'해방·전쟁 후 원조로 재건한 한국이 EDCF·KOICA 설립과 2009 OECD DAC 가입으로 공여국이 된 과정.'},
+     points:['수원 성과: 대일청구권→포항제철, 일본 OECF→경부고속도로, 세계은행→새마을운동, 미국→KIST','1987 재무부 <span class="kw">EDCF</span>(유상) / 1991 외무부 <span class="kw">KOICA</span>(무상)','2009 <span class="kw">OECD DAC 가입</span> → 수원국→공여국','한국 경제성장은 파리선언 5대 원칙과 대체로 일치'],
+     tip:'"1987 EDCF(유상) → 1991 KOICA(무상) → 2009 DAC" 연도 3개가 핵심.' },
+   bridge:{lead:'기관이 생겼으니, 한국이 실제로 "어떤 형태로" 원조하는지 봅니다.', nextPreview:'한국 ODA의 무상·유상·다자 형태별 지원을 배웁니다.'},
+   quiz:[
+    {t:'mc',q:'한국의 유상원조 전담기금과 무상원조 기관을 바르게 짝지은 것은?',choices:['KOICA(유상) - EDCF(무상)','EDCF(유상) - KOICA(무상)','EDCF(유상) - JICA(무상)','KOICA(유상) - USAID(무상)'],answer:1,hint:'EDCF=차관(유상).',ex:'1987년 EDCF(유상), 1991년 KOICA(무상)가 설립되었습니다.'},
+    {t:'mc',q:'한국이 수원국에서 공여국으로 전환된 상징적 사건(2009)은?',choices:['OECD 가입','OECD DAC 가입','UN 가입','부산총회 개최'],answer:1,hint:'원조"위원회" 가입.',ex:'2009년 OECD DAC 가입으로 한국은 받던 나라에서 주는 나라가 되었습니다.'},
+    {t:'mc',q:'한국이 받은 원조의 성과로 잘못 짝지어진 것은?',choices:['대일청구권자금 → 포항제철','일본 OECF → 경부고속도로','세계은행 → 새마을운동','미국 ODA → 부산총회'],answer:3,hint:'부산총회는 2011년 행사예요.',ex:'미국 ODA는 KIST 설립으로 이어졌습니다. 부산총회는 원조효과성 포럼(HLF-4)입니다.'},
+    {t:'ox',q:'한국은 OECD에 가입한 해와 OECD DAC에 가입한 해가 같다.',a:false,hint:'OECD(1996)와 DAC(2009)는 달라요.',ex:'한국은 1996년 OECD, 2009년 DAC에 가입했습니다.'},
+    {t:'free',q:'한국 ODA 역사에서 핵심 연도 3개(EDCF·KOICA·DAC)를 쓰시오.',keys:['1987','1991','2009'],model:'1987 EDCF 설립, 1991 KOICA 설립, 2009 OECD DAC 가입.',hint:'87 / 91 / 2009',ex:'1987(EDCF)·1991(KOICA)·2009(DAC)입니다.'}
+   ]},
+ { id:'u5l2', title:'한국 ODA의 형태별 지원', en:'Korea ODA Modalities',
+   concept:{ why:'KSP는 외교부가 아니라 기획재정부가 한다는 식의 "주관 부처" 함정이 자주 나와요. 형태와 담당을 정확히 매칭해야 합니다.',
+     def:{term:'형태별 지원', body:'한국 ODA는 무상(KOICA), 유상(EDCF), 다자로 나뉘며 부처별로 담당이 다릅니다.'},
+     points:['무상(KOICA): 프로젝트형·연수·봉사단·인도적 지원 등','<span class="kw">KSP(경제발전경험공유)</span>: <span class="kw">기획재정부</span> 주관','유상(EDCF): 장기·저리 양허성차관, <span class="kw">기재부 주관·수출입은행 집행</span>','국제질병퇴치기금: <span class="kw">항공권연대기여금</span>(국제선 1,000원), SDG3 기여'],
+     tip:'"KSP·유상=기획재정부" / "무상=외교부(KOICA)"로 부처를 갈라 외우기.' },
+   bridge:{lead:'어떻게 주는지 봤으니, 이를 총괄하는 "체제와 정책", 그리고 과제로 마무리합니다.', nextPreview:'한국 ODA 추진체제·기본법·위상·과제를 배웁니다.'},
+   quiz:[
+    {t:'mc',q:'경제발전경험공유사업(KSP)을 주관하는 부처는?',choices:['외교부','기획재정부','산업통상자원부','교육부'],answer:1,hint:'"경제발전"이라는 이름의 힌트.',ex:'KSP는 기획재정부가 주관합니다.'},
+    {t:'mc',q:'한국 유상 ODA(EDCF)의 주관·집행 기관으로 옳은 것은?',choices:['외교부 주관, KOICA 집행','기획재정부 주관, 한국수출입은행 집행','외교부 주관, 수출입은행 집행','기재부 주관, KOICA 집행'],answer:1,hint:'유상은 "돈을 빌려주는" 일.',ex:'유상 ODA는 기획재정부 주관, 한국수출입은행이 집행합니다.'},
+    {t:'ox',q:'국제질병퇴치기금은 국내 출발 국제선 항공권에 부과하는 연대기여금을 재원으로 한다.',a:true,hint:'비행기 표에 붙는 1,000원.',ex:'항공권연대기여금(국제선 1,000원)을 기반으로 합니다.'},
+    {t:'mc',q:'다음 중 한국 무상원조(KOICA) 사업으로 보기 어려운 것은?',choices:['해외봉사단 파견','글로벌 연수사업','프로젝트형 협력사업','대외경제협력기금(EDCF) 차관'],answer:3,hint:'EDCF는 무상일까 유상일까?',ex:'EDCF 차관은 유상 ODA입니다. 나머지는 KOICA 무상 사업입니다.'},
+    {t:'free',q:'KSP와 EDCF를 주관하는 부처를 쓰시오.',keys:['기획재정부'],model:'KSP와 EDCF 모두 기획재정부가 주관한다.',hint:'두 사업 모두 같은 부처',ex:'KSP·EDCF는 기획재정부 주관입니다.'}
+   ]},
+ { id:'u5l3', title:'한국 ODA 체제·정책·과제', en:'System & Tasks',
+   concept:{ why:'1과목의 마무리. 누가 총괄하고(국제개발협력위원회), 무엇이 과제인지(양적 확대+질적 개선)를 알면 한국 파트가 완성됩니다.',
+     def:{term:'추진체제', body:'국무총리 소속 국제개발협력위원회가 총괄·조정하고, 유상=기재부(수은)·무상=외교부(KOICA)로 이원화.'},
+     points:['총괄: <span class="kw">국제개발협력위원회</span> (2010 국제개발협력기본법)','재원 배분: 유상:무상 <span class="kw">40:60</span>, 중점협력국에 양자 70%','위상: 2012 <span class="kw">GCF 사무국 인천 송도</span> 유치, 2016 IATI 정보 제공','과제: ODA/GNI 비율 상향(양적)·무상/비구속성 비율 확대(질적)'],
+     tip:'"유상:무상=40:60"과 "GCF=인천 송도"는 한국 파트 단골 숫자/장소.' },
+   bridge:{lead:'1과목(국제개발협력의 이해)을 완주했어요! 이제 2과목, 교육·보건 등 분야별 이슈로 들어갑니다.', nextPreview:'2과목 첫 분야인 "교육"으로 이어집니다.'},
+   quiz:[
+    {t:'mc',q:'한국 ODA의 총괄·조정 기구는?',choices:['국제개발협력위원회','KOICA','한국수출입은행','외교부 개발협력국'],answer:0,hint:'"위원회"가 머리예요.',ex:'국제개발협력위원회가 총괄·조정하며 산하에 실무위원회를 둡니다.'},
+    {t:'mc',q:'한국 ODA 종합기본계획상 유상:무상 재원 배분 방향은?',choices:['60:40','40:60','50:50','30:70'],answer:1,hint:'무상 비중이 더 커요.',ex:'유상:무상 비율은 40:60으로 운영 방향이 설정되어 있습니다.'},
+    {t:'mc',q:'2012년 한국이 사무국을 인천 송도에 유치한 국제기금은?',choices:['지구환경금융(GEF)','녹색기후기금(GCF)','세계백신면역연합(GAVI)','적응기금'],answer:1,hint:'기후 분야 대표 기금.',ex:'녹색기후기금(GCF) 사무국이 2012년 인천 송도에 유치되었습니다.'},
+    {t:'ox',q:'한국 ODA의 향후 질적 과제로 무상·비구속성 비율 확대가 꼽힌다.',a:true,hint:'"질"을 높이려면?',ex:'무상·비구속성 비율 확대가 대표적 질적 개선 과제입니다.'},
+    {t:'free',q:'한국 ODA 추진체제에서 유상·무상의 주관 부처를 각각 쓰시오.',keys:['기획재정부','외교부'],model:'유상은 기획재정부(수출입은행 집행), 무상은 외교부(KOICA 집행).',hint:'유상=기재부 / 무상=외교부',ex:'유상=기재부(수은), 무상=외교부(KOICA)입니다.'}
+   ]}
+]},
+
+{ id:'a1', title:'심화 1. 교육', source:'2과목', color:'#2ec4b6', icon:'📖', lessons:[
+ { id:'a1l1', title:'교육과 국제개발', en:'Education',
+   concept:{ why:'교육은 "빈곤의 대물림을 끊는 가장 강력한 백신"이라 불려요. 그래서 MDGs·SDGs 모두 교육을 핵심 목표로 넣었죠. 2과목의 첫 분야이자 출제 비중이 높습니다.',
+     def:{term:'교육과 개발', body:'교육은 빈곤을 줄이고 고용·경제성장을 촉진하며, 더 건강하고 민주적인 사회를 만든다. 형식·비형식·무형식으로 구분됩니다.'},
+     points:['형식(학교)·<span class="kw">비형식(인정 안 되는 프로그램)</span>·무형식(의도치 않은 활동)','이니셔티브: 1990 좀티엔 <span class="kw">EFA</span> → 2000 다카르 행동계획 → 2015 <span class="kw">인천선언</span>(SDG4 기반)','2012 반기문 <span class="kw">글로벌교육우선구상(GEFI)</span> / 노동 전문기구 <span class="kw">ILO</span>','KOICA 교육 핵심가치 3: <span class="kw">형평성·양질·적절성</span>'],
+     tip:'교육=SDG 4. "형평성·양질·적절성" 3종 세트는 KOICA 교육 단골.' },
+   bridge:{lead:'교육이 사람을 키운다면, 보건은 사람을 살립니다. 다음은 국제보건이에요.', nextPreview:'국제보건과 보편적 의료보장(UHC)을 배웁니다.'},
+   quiz:[
+    {t:'mc',q:'교육 형태 구분에서 "공식적으로 인정되지 않는 의도된 교육(프로그램 등)"은?',choices:['형식 교육','비형식 교육','무형식 교육','평생 교육'],answer:1,hint:'학교 밖이지만 "의도된" 교육.',ex:'비형식(non-formal) 교육은 공식 인정되지 않으나 의도된 교육입니다. 무형식은 의도치 않은 활동을 통한 교육.'},
+    {t:'mc',q:'2015년 세계교육포럼(WEF)에서 채택되어 SDG 4의 기반이 된 선언은?',choices:['좀티엔 선언','다카르 실행계획','인천선언','자카르타 선언'],answer:2,hint:'한국 도시 이름.',ex:'2015년 인천선언이 채택되어 SDG 4의 기반이 되었습니다.'},
+    {t:'ox',q:'교육 분야와 직접 연계된 지속가능발전목표는 SDG 4이다.',a:true,hint:'양질의 교육.',ex:'SDG 4가 포용적·공평한 양질의 교육과 평생학습을 다룹니다.'},
+    {t:'mc',q:'2012년 제67차 UN총회에서 반기문 사무총장이 제시한 교육 이니셔티브는?',choices:['EFA','GEFI(글로벌교육우선구상)','MDGs','다카르 프레임워크'],answer:1,hint:'반기문 + 2012 + 글로벌.',ex:'2012년 반기문 사무총장이 글로벌교육우선구상(GEFI)을 제시했습니다.'},
+    {t:'free',q:'KOICA 교육분야 전략의 핵심가치 3가지를 쓰시오.',keys:['형평성','양질','적절성'],model:'교육의 형평성, 양질의 교육, 교육의 적절성.',hint:'형평성 / 양질 / 적절성',ex:'KOICA 교육분야 핵심가치는 형평성·양질·적절성입니다.'}
+   ]}
+]},
+
+{ id:'a2', title:'심화 2. 보건', source:'2과목', color:'#e63946', icon:'🩺', lessons:[
+ { id:'a2l1', title:'국제보건과 UHC', en:'Global Health',
+   concept:{ why:'코로나가 보여줬듯, 한 나라의 질병은 곧 모두의 문제예요. 국경을 넘는 "국제보건"의 개념과 핵심 기구·협약이 자주 출제됩니다.',
+     def:{term:'국제보건', body:'국경을 넘는 보건문제를 다루며 "건강 형평성"과 "모든 사람"을 강조하는 개념. 핵심 가치는 보편적 의료보장(UHC).'},
+     points:['공중보건(한 나라)·세계보건(중저소득국)·<span class="kw">국제보건(국경 넘는 형평성)</span>','<span class="kw">UHC(보편적 의료보장)</span> = SDG 3 핵심','기구: <span class="kw">WHO</span>(1948)·UNICEF·UNFPA·UNAIDS','파트너십: GAVI(백신)·GFATM(3대 감염병)·CEPI·COVAX / 보건 최초 국제조약 <span class="kw">FCTC(담배규제)</span>'],
+     tip:'WHO=1948년 설립, FCTC=보건 최초 국제조약. 두 사실만 잡아도 한 문제.' },
+   bridge:{lead:'건강한 사람이 일할 땅이 필요하죠. 다음은 식량과 농촌개발입니다.', nextPreview:'농업·농촌개발과 식량안보를 배웁니다.'},
+   quiz:[
+    {t:'mc',q:'국경을 넘는 보건문제에 관심을 두며 "건강 형평성"을 강조하는 개념은?',choices:['공중보건','세계보건','국제보건','지역보건'],answer:2,hint:'"국제"가 키워드.',ex:'국제보건은 국가 간 경계를 넘는 보건문제와 건강 형평성을 다룹니다.'},
+    {t:'mc',q:'SDG 3의 핵심 가치로 강조되는 개념은?',choices:['보편적 의료보장(UHC)','구조조정','성주류화','녹색성장'],answer:0,hint:'"누구도 소외 없이" 의료.',ex:'보편적 의료보장(UHC)은 SDG 3의 핵심 가치입니다.'},
+    {t:'ox',q:'세계보건기구(WHO)는 1948년에 설립되었다.',a:true,hint:'2차 대전 직후.',ex:'WHO는 1948년 UN 산하 전문기구로 설립되었습니다.'},
+    {t:'mc',q:'보건 분야 최초의 국제조약은?',choices:['국제보건규약(IHR)','담배규제기본협약(FCTC)','TRIPs','알마아타선언'],answer:1,hint:'담배를 규제하는 협약.',ex:'담배규제기본협약(FCTC)이 보건 분야 최초의 국제조약입니다.'},
+    {t:'free',q:'공중보건·세계보건·국제보건 중 "국제보건"의 특징을 한 문장으로 쓰시오.',keys:['국경','형평'],model:'국경을 넘는 보건문제를 다루며 모든 사람의 건강 형평성을 강조한다.',hint:'국경 / 형평성',ex:'국제보건은 국경을 넘는 보건문제와 건강 형평성을 강조합니다.'}
+   ]}
+]},
+
+{ id:'a3', title:'심화 3. 농촌개발', source:'2과목', color:'#80b918', icon:'🌾', lessons:[
+ { id:'a3l1', title:'농업·농촌개발과 식량안보', en:'Rural Development',
+   concept:{ why:'개도국 인구의 다수는 농촌에 살아요. 농업을 살리는 건 곧 빈곤을 줄이는 길이죠. 식량안보 4요소는 외워두면 무조건 득점입니다.',
+     def:{term:'농촌개발', body:'농촌(산촌·어촌 포함)의 생산성과 삶의 질을 높여 빈곤을 줄이는 것. 핵심 개념은 식량안보와 가치사슬.'},
+     points:['농업의 <span class="kw">다원적 기능</span>(1992 리우회의 언급): 식량·사회·문화·환경·경제','식량안보 4요소(FAO 2006): <span class="kw">가용성·접근성·안정성·활용성</span> → SDG 2','주체: <span class="kw">FAO</span>(4B 전략)·WFP(1961 식량지원)·<span class="kw">IFAD</span>(1977 소농 중심)','곡물메이저 "ABCD"가 세계 곡물시장 약 80% 점유'],
+     tip:'식량안보 4요소 "가·접·안·활"로 리듬 타서 외우기.' },
+   bridge:{lead:'먹고사는 문제 다음은 "어떻게 다스리는가" — 거버넌스와 평화입니다.', nextPreview:'굿 거버넌스와 평화의 3단계를 배웁니다.'},
+   quiz:[
+    {t:'mc',q:'FAO(2006)가 제시한 식량안보 4요소가 아닌 것은?',choices:['가용성','접근성','안정성','수익성'],answer:3,hint:'돈 버는 것과는 거리가 멀어요.',ex:'식량안보 4요소는 가용성·접근성·안정성·활용성입니다.'},
+    {t:'mc',q:'농업의 다원적 기능이 처음 언급된 국제회의는?',choices:['1992 리우회의','1996 세계식량정상회의','2000 다카르포럼','2015 아디스아바바'],answer:0,hint:'환경 정상회의.',ex:'농업의 다원적 기능은 1992년 리우회의에서 처음 언급되었습니다.'},
+    {t:'mc',q:'1977년 설립되어 소농 중심 농촌개발에 주력하는 국제금융기구는?',choices:['FAO','WFP','IFAD','WTO'],answer:2,hint:'농업개발"기금".',ex:'IFAD(국제농업개발기금, 1977)는 소농·농촌 빈곤층 지원에 주력합니다.'},
+    {t:'ox',q:'농촌개발은 농촌뿐 아니라 산촌·어촌을 포함하는 개념이다.',a:true,hint:'국제개발에서의 범위.',ex:'국제개발에서 농촌개발은 산촌·어촌을 포함합니다.'},
+    {t:'free',q:'식량안보의 4가지 요소를 쓰시오.',keys:['가용성','접근성','안정성','활용성'],model:'가용성, 접근성, 안정성, 활용성.',hint:'가 / 접 / 안 / 활',ex:'가용성·접근성·안정성·활용성입니다.'}
+   ]}
+]},
+
+{ id:'a4', title:'심화 4. 거버넌스·평화', source:'2과목', color:'#3a86ff', icon:'⚖️', lessons:[
+ { id:'a4l1', title:'거버넌스와 평화', en:'Governance & Peace',
+   concept:{ why:'아무리 돈을 부어도 부패하고 불안정한 나라에선 원조가 새어나가요. "거버넌스의 실패가 개발의 실패"라는 말이 핵심이에요.',
+     def:{term:'거버넌스·평화', body:'국가의 제도·권력 행사 방식(거버넌스)과 분쟁 예방·재건(평화)은 원조 효과성의 토대. SDG 16과 연결됩니다.'},
+     points:['1989 세계은행: "개발협력 실패 = <span class="kw">거버넌스의 실패</span>"','굿 거버넌스(UNDP): 참여·투명성·책임성·형평성·법치주의','평화 3단계: <span class="kw">유지(종료 후)·구축(확대 전 개입)·지속화(예방·재건)</span>','SDG <span class="kw">16</span> / HDP Nexus(인도지원-개발-평화 연계)'],
+     tip:'평화 "유지(after)·구축(before)·지속화(예방+재건)" 시점 구분이 함정 포인트.' },
+   bridge:{lead:'안정된 나라 위에 지구 전체의 위기가 닥칩니다 — 기후행동으로 넘어갑니다.', nextPreview:'기후위기 대응과 파리협정을 배웁니다.'},
+   quiz:[
+    {t:'mc',q:'분쟁이 커지기 이전에 개입해 확대를 막는 평화 활동은?',choices:['평화 유지','평화 구축','평화 지속화','평화 강제'],answer:1,hint:'"이전에 개입".',ex:'평화 구축(peace building)은 분쟁 확대 이전에 개입하는 것입니다.'},
+    {t:'mc',q:'거버넌스·평화 분야와 직접 연계된 SDG는?',choices:['SDG 5','SDG 10','SDG 16','SDG 13'],answer:2,hint:'평화·정의·제도.',ex:'SDG 16(평화·정의·제도)이 이 분야와 연계됩니다.'},
+    {t:'ox',q:'1989년 세계은행은 개발협력 실패의 원인으로 "거버넌스의 실패"를 지적했다.',a:true,hint:'세계은행, 1989.',ex:'1989년 세계은행이 거버넌스의 실패를 지적했습니다.'},
+    {t:'mc',q:'UNDP가 제시한 굿 거버넌스 원칙으로 보기 어려운 것은?',choices:['참여','투명성','법치주의','이윤극대화'],answer:3,hint:'기업 목표가 아니에요.',ex:'굿 거버넌스 원칙은 참여·투명성·책임성·형평성·법치주의입니다.'},
+    {t:'free',q:'평화의 3단계(유지·구축·지속화) 중 "평화 유지"의 시점을 쓰시오.',keys:['종료','이후','파견'],model:'분쟁 사태가 종료된 후 평화유지군이 파견되어 활동하는 단계.',hint:'분쟁 종료 후',ex:'평화 유지는 분쟁 종료 후 평화유지군이 파견되는 단계입니다.'}
+   ]}
+]},
+
+{ id:'a5', title:'심화 5. 기후행동', source:'2과목', color:'#06d6a0', icon:'🌍', lessons:[
+ { id:'a5l1', title:'기후위기와 국제 대응', en:'Climate Action',
+   concept:{ why:'기후위기는 개도국에 더 가혹해요(기후 불평등). 교토의정서와 파리협정의 차이는 거의 매번 나오는 핵심입니다.',
+     def:{term:'기후행동', body:'온실가스를 줄이는 "완화"와 영향을 줄이는 "적응"의 균형. 파리협정으로 모든 나라가 감축에 참여하게 됐다.'},
+     points:['완화(배출 감축)·<span class="kw">적응</span>(영향 최소화)·탄소중립(순배출 0)','1997 교토의정서(선진국 의무, 하향식) → 2015 <span class="kw">파리협정</span>(모든 나라, <span class="kw">상향식 NDC</span>·5년마다)','기후저지선 <span class="kw">1.5℃</span>(2018 IPCC 특별보고서)','기금: GEF / <span class="kw">GCF(인천 송도)</span> — 감축:적응 50:50'],
+     tip:'교토=선진국·하향식 / 파리=모든 나라·상향식(NDC). 이 대비가 핵심.' },
+   bridge:{lead:'위기를 푸는 열쇠 중 하나가 기술이에요. 다음은 과학기술혁신입니다.', nextPreview:'과학기술혁신과 디지털 전환을 배웁니다.'},
+   quiz:[
+    {t:'mc',q:'2015년 채택되어 모든 나라가 자발적으로 감축목표(NDC)를 제출하는 협정은?',choices:['교토의정서','파리협정','몬트리올의정서','코펜하겐 합의'],answer:1,hint:'상향식·5년 주기.',ex:'2015년 파리협정은 상향식 NDC를 5년마다 제출하도록 합니다.'},
+    {t:'mc',q:'기후변화 "적응(adaptation)"에 대한 설명으로 옳은 것은?',choices:['온실가스 배출을 직접 줄이는 것','기후위기 영향을 최소화·기회로 전환하는 활동','배출권을 거래하는 것','화석연료 보조금 확대'],answer:1,hint:'영향에 "적응"하는 것.',ex:'적응은 기후위기 영향을 최소화하거나 유익한 기회로 촉진하는 활동입니다.'},
+    {t:'ox',q:'교토의정서는 모든 국가에, 파리협정은 선진국에만 감축의무를 부과한다.',a:false,hint:'정반대예요.',ex:'교토의정서는 선진국에, 파리협정은 모든 나라에 감축 책임을 둡니다.'},
+    {t:'mc',q:'사무국이 인천 송도에 있는 기후 분야 국제기금은?',choices:['지구환경금융(GEF)','녹색기후기금(GCF)','적응기금','GAVI'],answer:1,hint:'한국이 유치했죠.',ex:'녹색기후기금(GCF) 사무국이 인천 송도에 있으며 감축:적응 재원이 50:50입니다.'},
+    {t:'free',q:'교토의정서와 파리협정의 가장 큰 차이를 감축 주체 관점에서 쓰시오.',keys:['선진국','모든'],model:'교토의정서는 선진국에만 감축의무를 부과(하향식)했지만, 파리협정은 모든 나라가 자발적으로 감축(상향식 NDC)한다.',hint:'선진국만 vs 모든 나라',ex:'교토=선진국 의무, 파리=모든 나라 자발적 감축입니다.'}
+   ]}
+]},
+
+{ id:'a6', title:'심화 6. 과학기술혁신', source:'2과목', color:'#7209b7', icon:'🔬', lessons:[
+ { id:'a6l1', title:'과학기술혁신과 디지털 전환', en:'STI & DX',
+   concept:{ why:'기술 격차는 곧 발전 격차예요. 한국이 KIST·반도체로 도약했듯, 기술을 어떻게 따라잡느냐(catch-up)가 개도국의 핵심 과제입니다.',
+     def:{term:'과학기술혁신(STI)', body:'과학기술에 기반해 혁신을 일으키는 것. 국가혁신체계(NIS) 안에서 기술을 획득·확산시킨다.'},
+     points:['슘페터: 기술혁신·<span class="kw">창조적 파괴</span>가 발전 촉발 / 폴 로머: 내생적 성장','개도국 과제: <span class="kw">두뇌유출(brain drain)</span>, 기술추격(catch-up)','<span class="kw">국가혁신체계(NIS)</span>: 기술혁신이 창출되는 메커니즘','SDG 9.5(R&D)·SDG 17(이행수단), UN 기술촉진메커니즘(TFM, 2015)'],
+     tip:'"슘페터=창조적 파괴", "두뇌유출=brain drain" 두 용어가 단골.' },
+   bridge:{lead:'기술이 모두에게 닿으려면 소외 없는 평등이 필요해요. 다음은 성평등입니다.', nextPreview:'성평등과 WID·GAD·성주류화를 배웁니다.'},
+   quiz:[
+    {t:'mc',q:'"창조적 파괴"를 통해 기술혁신이 자본주의 발전을 촉발한다고 본 학자는?',choices:['애덤 스미스','슘페터','솔로우','로머'],answer:1,hint:'경제발전의 이론.',ex:'슘페터는 기술혁신과 창조적 파괴를 발전의 동력으로 보았습니다.'},
+    {t:'mc',q:'국가 차원에서 기술혁신이 창출되는 메커니즘을 가리키는 개념은?',choices:['국가혁신체계(NIS)','디지털 전환(DX)','포용적 혁신','기술추격'],answer:0,hint:'National Innovation System.',ex:'국가혁신체계(NIS)는 기술혁신이 창출되는 국가적 메커니즘입니다.'},
+    {t:'ox',q:'두뇌유출(brain drain)은 개도국의 과학기술 축적을 어렵게 하는 요인이다.',a:true,hint:'인재가 빠져나가면?',ex:'두뇌유출은 개도국 기술 축적을 저해하는 요인입니다.'},
+    {t:'mc',q:'과학기술혁신과 가장 직접적으로 연계된 SDG 세부 지표는?',choices:['SDG 1.1','SDG 9.5(R&D 지출·연구원)','SDG 4.1','SDG 5.5'],answer:1,hint:'산업·혁신 목표.',ex:'SDG 9.5(GDP 대비 R&D 지출·연구원 수)가 STI와 직접 연계됩니다.'},
+    {t:'free',q:'개도국이 선진국 기술을 도입·흡수해 따라잡는 과정을 가리키는 용어는?',keys:['추격','catch'],model:'기술추격(catch-up).',hint:'영어로 catch-up',ex:'기술추격(catch-up)입니다.'}
+   ]}
+]},
+
+{ id:'a7', title:'심화 7. 성평등', source:'2과목', color:'#f72585', icon:'⚧️', lessons:[
+ { id:'a7l1', title:'성평등과 개발', en:'Gender Equality',
+   concept:{ why:'"인류의 절반은 여성"입니다. 성평등은 그 자체로 목표이자 개발효과를 높이는 전략이에요. WID→GAD→성주류화의 발전 흐름이 핵심.',
+     def:{term:'성평등', body:'젠더는 생물학적 성+사회문화적 성. 성평등은 SDG 5의 목표이자 개발의 수단으로 다뤄진다.'},
+     points:['접근 발전: <span class="kw">WID(여성을 개발에)</span> → <span class="kw">GAD(구조·권한강화)</span> → <span class="kw">성주류화</span>','실질적 vs 전략적 젠더 수요','규범: <span class="kw">CEDAW</span>(1979)·1995 베이징 행동강령','OECD <span class="kw">젠더마커</span>(2=주요목적·1=중요목적·0)'],
+     tip:'WID→GAD→성주류화 "발전 순서"와 젠더마커 2/1/0이 단골.' },
+   bridge:{lead:'성평등은 결국 "사람의 권리" 이야기죠. 마지막 분야, 인권으로 마무리합니다.', nextPreview:'인권과 인권기반접근(HRBA)을 배웁니다.'},
+   quiz:[
+    {t:'mc',q:'WID의 한계를 비판하며 구조적 문제와 여성의 권한 강화에 주목한 접근은?',choices:['GAD','성 중립','이중트랙','SIGI'],answer:0,hint:'Gender And Development.',ex:'GAD(젠더와 개발)는 WID를 비판하며 구조적 문제·권한 강화를 강조했습니다.'},
+    {t:'mc',q:'성평등이 사업의 "주요 목적"인 경우 부여하는 OECD 젠더마커 값은?',choices:['0','1','2','3'],answer:2,hint:'주요=Principal=2.',ex:'젠더마커 2는 성평등을 주요 목적(Principal)으로 하는 사업입니다.'},
+    {t:'ox',q:'CEDAW(여성차별철폐협약)는 1979년에 채택되었다.',a:true,hint:'1970년대 후반.',ex:'CEDAW는 1979년 채택되어 모든 인권 범주를 포괄합니다.'},
+    {t:'mc',q:'성평등 접근 방법의 발전 순서로 옳은 것은?',choices:['성주류화 → GAD → WID','WID → GAD → 성주류화','GAD → WID → 성주류화','WID → 성주류화 → GAD'],answer:1,hint:'"여성을 개발에" 넣는 게 먼저.',ex:'WID(여성을 개발에) → GAD(구조·권한) → 성주류화 순으로 발전했습니다.'},
+    {t:'free',q:'성평등 접근의 발전 흐름을 순서대로 쓰시오.',keys:['WID','GAD','주류화'],model:'WID(개발과 여성) → GAD(젠더와 개발) → 성주류화.',hint:'WID / GAD / 성주류화',ex:'WID→GAD→성주류화입니다.'}
+   ]}
+]},
+
+{ id:'a8', title:'심화 8. 인권', source:'2과목', color:'#4361ee', icon:'✊', lessons:[
+ { id:'a8l1', title:'인권과 개발', en:'Human Rights',
+   concept:{ why:'2과목의 마지막. 개발과 인권은 따로 놀다가 만났어요. 아마르티아 센이 "인권 실현이 곧 개발의 목적"이라 연결했죠. 1과목의 빈곤 개념과 다시 만나는 지점이에요.',
+     def:{term:'인권과 개발', body:'인권은 보편·양도불가·불가분·상호의존적. 국가는 인권을 존중·보호·충족할 의무가 있으며, 개발에 인권기반접근(HRBA)을 적용한다.'},
+     points:['특성: <span class="kw">보편성·양도불가능·불가분성·상호의존성</span>','국가 의무: <span class="kw">존중·보호·충족</span>','1968 UN <span class="kw">발전권 선언</span> → 발전을 인권의 언어로','아마르티아 센: 인권 실현이 개발의 목적이자 수단 → <span class="kw">인권기반접근(HRBA)</span>'],
+     tip:'국가의 인권 3대 의무 "존중·보호·충족"은 거의 매번 나오는 보기 함정.' },
+   bridge:{lead:'2과목까지 완주! 이제 복습 탭에서 약점을 다지고, 학습계획대로 마무리하면 합격이 보여요. 🎉', nextPreview:'전체 과정을 한 바퀴 돌았습니다. 복습으로 장기기억을 굳히세요.'},
+   quiz:[
+    {t:'mc',q:'국가의 인권 의무 3가지에 해당하지 않는 것은?',choices:['존중의 의무','보호의 의무','충족의 의무','처벌의 의무'],answer:3,hint:'국가가 "지키고 막고 채우는" 것.',ex:'국가의 인권 의무는 존중·보호·충족입니다.'},
+    {t:'mc',q:'인권의 기본 특성으로 보기 어려운 것은?',choices:['보편성','양도 가능성','불가분성','상호 의존성'],answer:1,hint:'팔거나 넘길 수 있을까요?',ex:'인권은 양도 불가능(inalienable)합니다.'},
+    {t:'ox',q:'1968년 UN 발전권 선언은 발전을 인권의 언어로 정의하는 계기가 되었다.',a:true,hint:'발전 + 권리.',ex:'1968년 UN 발전권 선언이 인권과 개발의 접합점을 마련했습니다.'},
+    {t:'mc',q:'빈곤을 "기회와 권력의 박탈"로 보고 인권 실현이 개발의 목적이자 수단이라 강조한 학자는?',choices:['로스토','아마르티아 센','폴 콜리어','챔버스'],answer:1,hint:'1과목 빈곤 단원의 그 학자.',ex:'아마르티아 센은 인권 실현을 개발의 목적이자 수단으로 강조했습니다.'},
+    {t:'free',q:'국가가 지는 인권 의무 3가지를 쓰시오.',keys:['존중','보호','충족'],model:'존중의 의무, 보호의 의무, 충족의 의무.',hint:'존중 / 보호 / 충족',ex:'존중·보호·충족입니다.'}
+   ]}
+]}
+] };
+</script>
+
+<script id="engine">
+/* ===================== 저장/상태 ===================== */
+const LS='oda_lm_v2';
+const DEF={setup:null,progress:{},xp:0,streak:0,lastStudy:null,studyDays:[],updatedAt:0};
+let S=load();
+function load(){try{return Object.assign({},DEF,JSON.parse(localStorage.getItem(LS))||{})}catch(e){return Object.assign({},DEF)}}
+function save(){S.updatedAt=Date.now();localStorage.setItem(LS,JSON.stringify(S));scheduleCloudPush();}
+const CFG=loadCfg();
+function loadCfg(){try{return JSON.parse(localStorage.getItem(LS+'_cfg'))||{sound:true}}catch(e){return {sound:true}}}
+function saveCfg(){localStorage.setItem(LS+'_cfg',JSON.stringify(CFG));}
+
+const GRADES={
+ A:{label:'A · 최상위',desc:'만점/최우수',pass:.9,buffer:.30},
+ B:{label:'B · 안정권',desc:'고득점 합격',pass:.8,buffer:.20},
+ C:{label:'C · 합격권',desc:'무난한 합격(60점+)',pass:.7,buffer:.12},
+ D:{label:'D · 기초',desc:'핵심만 빠르게',pass:.6,buffer:.05}
+};
+const TIMES={light:{label:'가볍게',min:15},normal:{label:'보통',min:30},hard:{label:'집중',min:50}};
+
+/* ===================== 효과음 (Web Audio) ===================== */
+let AC=null;
+function ac(){if(!AC){try{AC=new (window.AudioContext||window.webkitAudioContext)()}catch(e){}}return AC;}
+function tone(freq,dur,type='sine',vol=.18,delay=0){
+  if(!CFG.sound)return; const c=ac(); if(!c)return;
+  const o=c.createOscillator(),g=c.createGain();
+  o.type=type;o.frequency.value=freq;o.connect(g);g.connect(c.destination);
+  const t=c.currentTime+delay;
+  g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+.01);
+  g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+  o.start(t);o.stop(t+dur+.02);
+}
+const SND={
+  click:()=>tone(330,.06,'triangle',.10),
+  select:()=>tone(520,.07,'sine',.12),
+  correct:()=>{tone(660,.10,'sine',.16,0);tone(880,.14,'sine',.16,.09);},
+  wrong:()=>{tone(196,.18,'sawtooth',.12,0);tone(155,.22,'sawtooth',.10,.10);},
+  partial:()=>{tone(523,.10,'sine',.14,0);tone(587,.12,'sine',.12,.10);},
+  complete:()=>{[523,659,784,1047].forEach((f,i)=>tone(f,.16,'sine',.16,i*.10));},
+  tab:()=>tone(440,.05,'triangle',.08)
+};
+
+/* ===================== 유틸 ===================== */
+const $=(s,el=document)=>el.querySelector(s);
+const app=$('#app');
+function esc(s){return (s==null?'':String(s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function allLessons(){const a=[];COURSE.units.forEach(u=>u.lessons.forEach(l=>a.push({unit:u,lesson:l})));return a;}
+function lp(id){return S.progress[id]||{status:'locked',best:0};}
+function todayStr(){return new Date().toISOString().slice(0,10);}
+function daysBetween(a,b){return Math.round((b-a)/864e5);}
+function fmtDate(d){return `${d.getMonth()+1}/${d.getDate()}`;}
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),1900);}
+
+/* 콘텐츠 정규화: 구·신 스키마 모두 지원 */
+function quizItems(l){return (l.quiz||[]).map(q=>({
+  t:q.t||(q.choices?'mc':(q.a===true||q.a===false?'ox':'free')),
+  q:q.q, choices:q.choices||q.c, a:(q.answer!==undefined?q.answer:q.a),
+  keys:q.keys||[], model:q.model||'', hint:q.hint||'', ex:q.ex||q.explain||''
+}));}
+
+/* ===================== 학습계획 ===================== */
+function buildPlan(){
+  const su=S.setup,total=allLessons().length;
+  const exam=new Date(su.examDate+'T00:00:00'),today=new Date(todayStr()+'T00:00:00');
+  let dleft=Math.max(1,daysBetween(today,exam));
+  const g=GRADES[su.grade];
+  const learnDays=Math.max(1,Math.round(dleft*(1-g.buffer)));
+  const perDay=Math.max(1,Math.ceil(total/learnDays));
+  return {total,daysLeft:dleft,learnDays,perDay,reviewDays:dleft-learnDays,exam,today,pass:g.pass};
+}
+
+/* ===================== 진도 초기화 ===================== */
+function initProgress(){
+  if(!S.setup)return;
+  const ls=allLessons();
+  ls.forEach((x,i)=>{if(!S.progress[x.lesson.id])S.progress[x.lesson.id]={status:i===0?'active':'locked',best:0};});
+  let prevDone=true;
+  ls.forEach(x=>{const st=S.progress[x.lesson.id];
+    if(st.status==='done'){prevDone=true;}
+    else{if(prevDone&&st.status==='locked')st.status='active';prevDone=false;}});
+  save();
+}
+
+/* ===================== 라우팅 ===================== */
+let CUR=null,QUIZ=null,NAV='path';
+function render(){if(!S.setup){renderOnboarding();return;}renderPath();}
+window.addEventListener('load',async()=>{await cloudAutoLoad();initProgress();render();});
+document.addEventListener('pointerdown',()=>{ac();},{once:true});
+</script>
+<script id="engine2">
+/* ===================== 온보딩 ===================== */
+let OB={examDate:'',grade:'B',time:'normal'},PRESERVE=false;
+function renderOnboarding(){
+  app.innerHTML=`<div class="ob">
+    <div class="logo">🌍📚</div><h1>ODA 러닝메이트</h1>
+    <div class="sub">국제개발협력 자격시험, 단계별로 정복</div>
+    <div class="ob-step"><h3>📅 시험은 언제인가요?</h3><p class="hint">남은 기간에 맞춰 학습 일정을 자동으로 짜드려요.</p>
+      <input type="date" id="ob-date" min="${todayStr()}" value="${OB.examDate}"></div>
+    <div class="ob-step"><h3>🎯 목표 등급은?</h3><p class="hint">합격 기준은 과목당 60점. 목표가 높을수록 하루 학습량·통과 기준이 올라가요.</p>
+      <div class="grade-grid" id="ob-g">${Object.entries(GRADES).map(([k,v])=>`<button class="grade-card ${OB.grade===k?'sel':''}" data-g="${k}"><span class="g">${k}</span>${v.label.split('·')[1]}<span class="d">${v.desc}</span></button>`).join('')}</div></div>
+    <div class="ob-step"><h3>⏱️ 하루 학습 강도</h3><p class="hint">매일 투자할 시간을 골라주세요.</p>
+      <div class="time-grid" id="ob-t">${Object.entries(TIMES).map(([k,v])=>`<button class="time-card ${OB.time===k?'sel':''}" data-t="${k}"><span class="t">${v.min}분</span><span class="d">${v.label}</span></button>`).join('')}</div></div>
+    <div id="ob-pv"></div><div style="flex:1"></div>
+    <button class="btn" id="ob-start" disabled>학습 시작하기</button>
+    <p class="center muted" style="font-size:.72rem;margin-top:10px">총 ${allLessons().length}개 레슨 · 1과목(이해) + 2과목(분야별 이슈)</p></div>`;
+  $('#ob-date').addEventListener('change',e=>{OB.examDate=e.target.value;obPv();});
+  $('#ob-g').addEventListener('click',e=>{const b=e.target.closest('[data-g]');if(b){SND.select();OB.grade=b.dataset.g;renderOnboarding();}});
+  $('#ob-t').addEventListener('click',e=>{const b=e.target.closest('[data-t]');if(b){SND.select();OB.time=b.dataset.t;renderOnboarding();}});
+  $('#ob-start').addEventListener('click',startCourse);
+  obPv();
+}
+function obPv(){
+  const ok=!!OB.examDate;$('#ob-start').disabled=!ok;const pv=$('#ob-pv');if(!pv)return;
+  if(!ok){pv.innerHTML='';return;}
+  const exam=new Date(OB.examDate+'T00:00:00'),today=new Date(todayStr()+'T00:00:00');
+  const dleft=Math.max(0,daysBetween(today,exam)),total=allLessons().length,g=GRADES[OB.grade];
+  const learnDays=Math.max(1,Math.round(Math.max(1,dleft)*(1-g.buffer))),perDay=Math.max(1,Math.ceil(total/learnDays));
+  pv.innerHTML=`<div class="plan-box">
+    <div class="plan-row"><span class="k">D-day</span><span class="v big">D-${dleft}</span></div>
+    <div class="plan-row"><span class="k">하루 목표</span><span class="v">레슨 ${perDay}개 · 약 ${TIMES[OB.time].min}분</span></div>
+    <div class="plan-row"><span class="k">학습/복습 기간</span><span class="v">${learnDays}일 / ${Math.max(0,dleft-learnDays)}일</span></div>
+    <div class="plan-row"><span class="k">레슨 통과 기준</span><span class="v">정답률 ${Math.round(g.pass*100)}%+</span></div></div>`;
+}
+function startCourse(){
+  SND.complete();
+  const was=PRESERVE;
+  S.setup={examDate:OB.examDate,grade:OB.grade,time:OB.time,startedAt:todayStr()};
+  if(!PRESERVE){S.progress={};S.xp=0;S.streak=0;S.studyDays=[];S.lastStudy=null;}
+  PRESERVE=false;initProgress();save();render();
+  toast(was?'계획을 업데이트했어요!':'학습 계획이 준비됐어요! 🎉');
+}
+
+/* ===================== 학습 경로 ===================== */
+function renderPath(){
+  NAV='path';const plan=buildPlan(),ls=allLessons();
+  const done=ls.filter(x=>lp(x.lesson.id).status==='done').length;
+  const pct=Math.round(done/plan.total*100);
+  const doneToday=(S.studyDays.find(d=>d.date===todayStr())||{count:0}).count;
+  let html=`<div class="topbar"><div class="stat streak">🔥${S.streak}</div><div class="bar"><span style="width:${pct}%"></span></div><div class="stat xp">⭐${S.xp}</div></div>
+   <div class="path-head"><div class="course">국제개발협력(ODA) 자격시험</div>
+     <div class="meta"><span>📅 <b>D-${plan.daysLeft}</b></span><span>✅ <b>${done}/${plan.total}</b></span><span>🎯 <b>${S.setup.grade}등급</b></span></div></div>
+   <div class="today-banner"><span class="ic">${doneToday>=plan.perDay?'🎉':'📌'}</span>${doneToday>=plan.perDay?`오늘 목표 달성! (${doneToday}/${plan.perDay})`:`오늘의 목표 · 레슨 ${plan.perDay}개 중 <b>${doneToday}개</b> 완료`}</div>
+   <div class="path">`;
+  let activeFound=false;
+  COURSE.units.forEach(u=>{
+    html+=`<div class="unit-header" style="background:${u.color}"><div><div class="ut">${u.title}</div><div class="us">${u.source} · 레슨 ${u.lessons.length}개</div></div><div style="font-size:1.5rem">${u.icon||'📘'}</div></div><div class="nodes">`;
+    u.lessons.forEach(l=>{
+      const st=lp(l.id);let cls=st.status,icon='🔒';
+      if(st.status==='done'){cls=isDue(l.id)?'due':'done';icon=cls==='due'?'🔄':(st.best>=100?'👑':'⭐');}
+      else if(st.status==='active'){cls='active';icon='▶';}
+      const pop=st.status==='active'&&!activeFound;if(pop)activeFound=true;
+      html+=`<div class="node-wrap ${pop?'cur':''}">${pop?'<div class="start-pop">시작</div>':''}<button class="node ${cls}" data-l="${l.id}" ${st.status==='locked'?'disabled':''}>${icon}</button><div class="node-label">${l.title}</div></div>`;
+    });
+    html+=`</div>`;
+  });
+  html+=`</div>`+navBar('path');
+  app.innerHTML=html;
+  app.querySelectorAll('[data-l]').forEach(b=>b.addEventListener('click',()=>{SND.click();openLesson(b.dataset.l);}));
+  bindNav();
+}
+
+/* ===================== 레슨: 개념 ===================== */
+function conceptCards(l){
+  const c=l.concept;
+  if(Array.isArray(c)){ // 구 스키마 호환
+    return c.map(card=>({cls:'def',h:card.h||'개념',html:(card.body?`<p>${card.body}</p>`:'')+(card.points?`<ul>${card.points.map(p=>`<li>${p}</li>`).join('')}</ul>`:'')}));
+  }
+  const cards=[];
+  if(c.why)cards.push({cls:'why',h:'🤔 왜 중요할까?',html:`<p>${c.why}</p>`});
+  if(c.def)cards.push({cls:'def',h:'📖 핵심 정의',html:`<p><span class="term">${c.def.term}</span> — ${c.def.body}</p>`});
+  if(c.points)cards.push({cls:'pts',h:'✅ 요점 정리',html:`<ul>${c.points.map(p=>`<li>${p}</li>`).join('')}</ul>`+(c.tip?'':'')});
+  if(c.tip)cards.push({cls:'tip',h:'🧠 암기 팁',html:`<p>${c.tip}</p>`});
+  return cards;
+}
+function openLesson(id){const x=allLessons().find(a=>a.lesson.id===id);if(!x)return;CUR=x;renderConcept(0);}
+function renderConcept(i){
+  const l=CUR.lesson,cards=conceptCards(l),n=cards.length;
+  const sc=newScreen();
+  sc.innerHTML=`<div class="lesson-top"><button class="x-btn" id="lx">✕</button><div class="lesson-bar"><span style="width:${Math.round((i+1)/(n+1)*100)}%"></span></div>${l.page?`<span class="lesson-page">📄 ${l.page}</span>`:''}</div>
+   <div class="concept"><div class="lt">${l.title}</div>${l.en?`<div class="le">${l.en}</div>`:'<div class="le"></div>'}
+     ${cards.slice(0,i+1).map(c=>`<div class="ccard ${c.cls}"><div class="ch">${c.h}</div>${c.html}</div>`).join('')}</div>
+   <div class="qfoot"><button class="btn" id="cn">${i+1<n?'계속':'퀴즈 풀기 →'}</button></div>`;
+  $('#lx').onclick=closeScreen;
+  $('#cn').onclick=()=>{SND.click();if(i+1<n)renderConcept(i+1);else startQuiz();};
+}
+
+/* ===================== 퀴즈 ===================== */
+function startQuiz(){QUIZ={i:0,correct:0,total:quizItems(CUR.lesson).length,records:[],start:Date.now()};renderQuiz();}
+function renderQuiz(){
+  const items=quizItems(CUR.lesson),q=items[QUIZ.i],n=QUIZ.total;
+  const sc=newScreen();
+  const tag={mc:'객관식',ox:'정/오',free:'자유응답'}[q.t];
+  let body='';
+  if(q.t==='mc')body=`<div class="choices" id="ch">${q.choices.map((c,ci)=>`<button class="choice" data-c="${ci}"><span class="key">${ci+1}</span><span>${c}</span></button>`).join('')}</div>`;
+  else if(q.t==='ox')body=`<div class="oxwrap" id="ch"><button class="oxbtn" data-c="1">⭕ 맞다</button><button class="oxbtn" data-c="0">❌ 아니다</button></div>`;
+  else body=`<textarea class="freebox" id="fa" placeholder="핵심 키워드를 담아 직접 써보세요. (인출연습)"></textarea>`;
+  sc.innerHTML=`<div class="lesson-top"><button class="x-btn" id="lx">✕</button><div class="lesson-bar"><span style="width:${Math.round((QUIZ.i)/n*100)}%"></span></div></div>
+   <div class="quiz"><div class="qhead"><span class="qtype ${q.t}">${tag}</span><span class="qnum">문제 ${QUIZ.i+1} / ${n}</span></div>
+     <h2>${q.q}</h2>
+     ${q.hint?`<button class="hintbtn" id="hb">💡 힌트 보기</button><div class="hintbox hidden" id="hx">${q.hint}</div>`:''}
+     ${body}</div>
+   <div class="qfoot" id="qf"><button class="btn" id="qc" ${q.t==='free'?'':'disabled'}>확인</button></div>`;
+  $('#lx').onclick=closeScreen;
+  if(q.hint)$('#hb').onclick=()=>{SND.click();const hx=$('#hx'),hb=$('#hb');hx.classList.toggle('hidden');hb.textContent=hx.classList.contains('hidden')?'💡 힌트 보기':'🙈 힌트 숨기기';};
+  let sel=null;
+  if(q.t!=='free'){
+    $('#ch').addEventListener('click',e=>{const b=e.target.closest('[data-c]');if(!b||QUIZ._ans)return;SND.select();
+      $('#ch').querySelectorAll('.choice,.oxbtn').forEach(c=>c.classList.remove('sel'));b.classList.add('sel');sel=+b.dataset.c;$('#qc').disabled=false;});
+  }
+  $('#qc').onclick=()=>{ if(QUIZ._ans){QUIZ._ans=false;nextQuiz();return;}
+    if(q.t==='free'){gradeFree(q);return;}
+    if(sel===null)return;
+    QUIZ._ans=true;
+    const correct=(q.t==='ox')?((sel===1)===(q.a===true)):(sel===q.a);
+    const ch=$('#ch');
+    if(q.t==='mc'){ch.querySelectorAll('.choice').forEach((c,ci)=>{c.disabled=true;if(ci===q.a)c.classList.add('correct');else if(ci===sel)c.classList.add('wrong');});}
+    else{ch.querySelectorAll('.oxbtn').forEach(b=>{b.disabled=true;const v=+b.dataset.c;if((v===1)===(q.a===true))b.classList.add('correct');else if(v===sel)b.classList.add('wrong');});}
+    finishQ(correct,q,(q.t==='ox')?(sel===1?'맞다':'아니다'):q.choices[sel]);
+  };
+}
+function keywordGrade(q,ans){
+  const norm=s=>s.toLowerCase().replace(/\s|[.,·()\[\]'"]/g,'');
+  const na=norm(ans);
+  const hit=q.keys.filter(k=>na.includes(norm(k)));
+  const ratio=q.keys.length?hit.length/q.keys.length:0;
+  const score=Math.round(ratio*100);
+  const correct=ratio>=0.6, partial=!correct&&ratio>=0.3;
+  let fb;
+  if(correct)fb=`핵심 키워드 ${hit.length}/${q.keys.length}개를 잘 짚었어요.`;
+  else if(partial)fb=`핵심 일부(${hit.length}/${q.keys.length})만 담겼어요. 빠진 키워드: ${q.keys.filter(k=>!hit.includes(k)).join(', ')}`;
+  else fb=`핵심을 더 담아야 해요. 필요한 키워드: ${q.keys.join(', ')}`;
+  return {score,correct,partial,fb,ai:false};
+}
+async function aiGrade(q,ans){
+  const sys='너는 국제개발협력(ODA) 자격시험의 서술형 채점관이다. 학생 답안이 문제의 핵심 의미를 정확히 파악했는지 "의미 기반"으로 평가하라(단순 키워드 일치가 아니라 개념 이해 여부). 반드시 JSON 객체 하나만 출력: {"score": 0~100 정수, "correct": true 또는 false, "feedback": "한국어 2문장 이내, 무엇을 맞혔고 무엇이 빠졌는지"}';
+  const user=`[문제]\n${q.q}\n\n[모범답안]\n${q.model||q.ex||''}\n\n[채점 참고 키워드]\n${(q.keys||[]).join(', ')}\n\n[학생 답안]\n${ans}\n\n핵심 의미를 담았으면 correct=true. JSON만 출력하라.`;
+  let text;
+  if(CFG.aiProvider==='anthropic'){
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',
+      headers:{'x-api-key':CFG.aiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true','content-type':'application/json'},
+      body:JSON.stringify({model:CFG.aiModel||'claude-3-5-haiku-latest',max_tokens:400,system:sys,messages:[{role:'user',content:user}]})});
+    if(!res.ok)throw new Error('Anthropic HTTP '+res.status);
+    const d=await res.json();text=(d.content&&d.content[0]&&d.content[0].text)||'';
+  }else{ // OpenAI 호환
+    const base=(CFG.aiBase||'https://api.openai.com/v1').replace(/\/$/,'');
+    const res=await fetch(base+'/chat/completions',{method:'POST',
+      headers:{'Authorization':'Bearer '+CFG.aiKey,'content-type':'application/json'},
+      body:JSON.stringify({model:CFG.aiModel||'gpt-4o-mini',temperature:0,messages:[{role:'system',content:sys},{role:'user',content:user}]})});
+    if(!res.ok)throw new Error('OpenAI HTTP '+res.status);
+    const d=await res.json();text=(d.choices&&d.choices[0]&&d.choices[0].message.content)||'';
+  }
+  const m=text.match(/\{[\s\S]*\}/);const j=JSON.parse(m?m[0]:text);
+  const score=Math.max(0,Math.min(100,Math.round(Number(j.score)||0)));
+  const correct=(j.correct===true)||(j.correct===undefined&&score>=60);
+  return {score,correct,partial:(!correct&&score>=40),fb:j.feedback||'',ai:true};
+}
+async function gradeFree(q){
+  const ans=($('#fa').value||'').trim();
+  if(!ans){toast('답을 입력해 주세요');return;}
+  QUIZ._ans=true;$('#fa').disabled=true;
+  if(CFG.aiProvider&&CFG.aiProvider!=='none'&&CFG.aiKey){
+    const btn=$('#qc');if(btn){btn.disabled=true;btn.textContent='🤖 AI가 채점 중...';}
+    try{const r=await aiGrade(q,ans);finishQ(r.correct,q,ans,r);return;}
+    catch(e){toast('AI 채점 실패('+e.message+') — 키워드 채점으로 대체');}
+  }
+  finishQ.call(null,...(()=>{const r=keywordGrade(q,ans);return [r.correct,q,ans,r];})());
+}
+function finishQ(correct,q,myAns,free){
+  QUIZ.records.push({q,correct,myAns,free});
+  if(correct)QUIZ.correct++;
+  const foot=$('#qf');
+  if(correct){SND.correct();foot.className='qfoot ok';}
+  else if(free&&free.partial){SND.partial();foot.className='qfoot part';}
+  else {SND.wrong();foot.className='qfoot no';}
+  const head=correct?'정답이에요!':(free&&free.partial?'거의 맞았어요':'아쉬워요');
+  const icon=correct?'✓':(free&&free.partial?'~':'✕');
+  let exHtml=`<div class="ex">${q.ex||''}</div>`;
+  if(free){exHtml=`<div class="ex"><b>${free.ai?'🤖 AI 채점':'📝 키워드 채점'} (점수 ${free.score}%)</b><br>${free.fb}</div>
+     <div class="modelans"><span class="ml">모범답안</span><br>${q.model||q.ex||''}</div>`;}
+  foot.innerHTML=`<div class="fb"><div class="ic">${icon}</div><div><div class="fbt">${head}</div>${exHtml}</div></div>
+    <button class="btn ${correct?'':(free&&free.partial?'gold':'red')}" id="qc">${QUIZ.i+1<QUIZ.total?'계속':'결과 보기'}</button>`;
+  $('#qc').onclick=()=>{QUIZ._ans=false;nextQuiz();};
+}
+function nextQuiz(){SND.click();if(QUIZ.i+1<QUIZ.total){QUIZ.i++;renderQuiz();}else finishLesson();}
+
+/* ===================== 결과 + 복습 토글 ===================== */
+function finishLesson(){
+  const l=CUR.lesson,acc=QUIZ.total?QUIZ.correct/QUIZ.total:0,plan=buildPlan();
+  const passed=acc>=plan.pass,best=Math.round(acc*100),secs=Math.round((Date.now()-QUIZ.start)/1000);
+  const st=lp(l.id),first=st.status!=='done';let gained=0;
+  if(passed){
+    gained=(first?15:5)+QUIZ.correct*2+(best>=100?5:0);S.xp+=gained;
+    S.progress[l.id]={status:'done',best:Math.max(best,st.best||0),due:nextReview(best)};
+    const ls=allLessons(),idx=ls.findIndex(x=>x.lesson.id===l.id);
+    if(idx+1<ls.length){const nx=ls[idx+1].lesson.id;if(lp(nx).status==='locked')S.progress[nx]={status:'active',best:0};}
+    recordStudy();SND.complete();
+  } else SND.wrong();
+  save();
+  const tag={mc:'객관식',ox:'정/오',free:'자유응답'};
+  const sc=newScreen();
+  sc.innerHTML=`<div class="lesson-top"><button class="x-btn" id="lx">✕</button><div class="lesson-bar"><span style="width:100%"></span></div></div>
+   <div class="result">
+     <div class="rscore"><div class="big">${QUIZ.correct} / ${QUIZ.total} <small>정답 (${best}%)</small></div><div class="date">${l.title} · ${new Date().toLocaleDateString('ko-KR')}</div></div>
+     <div class="rstats"><div class="rbox acc"><div class="rl">정답률</div><div class="rv">${best}%</div></div><div class="rbox xp"><div class="rl">획득 XP</div><div class="rv">+${gained}</div></div><div class="rbox tm"><div class="rl">소요</div><div class="rv">${secs}s</div></div></div>
+     <button class="btn ${passed?'':'red'}" id="rmain">${passed?'다음 개념으로 이동 →':'다시 도전하기'}</button>
+     ${passed?'':'<button class="btn ghost sm" id="rreview" style="margin-top:9px">개념 다시 보기</button>'}
+     <div style="margin:18px 0 8px;font-weight:800;color:#666;font-size:.9rem">📋 문제별 복습 (눌러서 펼치기)</div>
+     ${QUIZ.records.map((r,i)=>`<div class="revitem" data-i="${i}"><div class="revq ${r.correct?'ok':'no'}"><div class="ri">${r.correct?'✓':'✕'}</div><div class="qtx"><span class="qt qtype ${r.q.t}">${tag[r.q.t]}</span>${r.q.q}</div><span class="chev">▾</span></div>
+       <div class="revbody">
+         ${r.q.t==='free'?`<div class="ra mine"><span class="ral">내 답변</span><br>${esc(r.myAns)}</div><div class="ra ans"><span class="ral">모범답안</span><br>${r.q.model||r.q.ex||''}</div>`:
+           `<div class="ra ${r.correct?'ans':'mine'}"><span class="ral">내 선택</span><br>${esc(r.myAns)}</div>${r.correct?'':`<div class="ra ans"><span class="ral">정답</span><br>${r.q.t==='ox'?(r.q.a?'맞다':'아니다'):esc(r.q.choices[r.q.a])}</div>`}`}
+         <div class="rex">💬 ${r.q.ex||''}</div>
+       </div></div>`).join('')}
+   </div>`;
+  $('#lx').onclick=closeScreen;
+  sc.querySelectorAll('.revitem').forEach(it=>it.querySelector('.revq').addEventListener('click',()=>{SND.click();it.classList.toggle('open');}));
+  $('#rmain').onclick=()=>{SND.click();passed?renderBridge():startQuiz();};
+  const rr=$('#rreview');if(rr)rr.onclick=()=>{SND.click();renderConcept(0);};
+}
+function nextReview(best){const d=best>=100?4:best>=85?2:1;return new Date(Date.now()+d*864e5).toISOString().slice(0,10);}
+function isDue(id){const st=lp(id);return st.status==='done'&&st.due&&st.due<=todayStr();}
+function recordStudy(){const t=todayStr();let d=S.studyDays.find(x=>x.date===t);if(!d){d={date:t,count:0};S.studyDays.push(d);}d.count++;
+  if(S.lastStudy!==t){const y=new Date(Date.now()-864e5).toISOString().slice(0,10);S.streak=(S.lastStudy===y)?S.streak+1:1;S.lastStudy=t;}}
+
+/* ===================== 개념 연결(브릿지) ===================== */
+function renderBridge(){
+  const l=CUR.lesson,ls=allLessons(),idx=ls.findIndex(x=>x.lesson.id===l.id);
+  const nextX=ls[idx+1];const b=l.bridge||{};
+  const sc=newScreen();
+  sc.innerHTML=`<div class="lesson-top"><button class="x-btn" id="lx">✕</button><div class="lesson-bar"><span style="width:100%"></span></div></div>
+   <div class="bridge"><div class="chk">✓</div><h2>개념 완료!</h2><div class="muted" style="font-weight:700">${l.title}</div>
+     ${b.lead?`<div class="bcard link"><div class="bh">✨ 다음으로 연결</div><p>${b.lead}</p></div>`:''}
+     ${nextX?`<div class="bcard next"><div class="bh">➡️ 다음 내용</div><div class="nt">${nextX.lesson.title}</div><p>${b.nextPreview||(nextX.unit!==CUR.unit?('['+nextX.unit.title+'] 단원으로 이어집니다.'):'바로 이어서 학습할 수 있어요.')}</p></div>`:`<div class="bcard next"><div class="bh">🏁 마지막 개념</div><p>모든 단원을 한 바퀴 돌았어요! 복습 탭에서 약점을 다지세요.</p></div>`}
+     <button class="btn" id="bn" style="margin-top:20px">${nextX?'계속 →':'학습 경로로'}</button>
+     <button class="btn ghost sm" id="bp" style="margin-top:9px">학습 경로 보기</button></div>`;
+  $('#lx').onclick=closeScreen;
+  $('#bn').onclick=()=>{SND.click();if(nextX&&lp(nextX.lesson.id).status!=='locked'){openLesson(nextX.lesson.id);}else closeScreen();};
+  $('#bp').onclick=closeScreen;
+}
+
+/* ===================== 복습 탭 ===================== */
+function renderReview(){
+  NAV='review';const ls=allLessons();
+  const due=ls.filter(x=>isDue(x.lesson.id));
+  const doneWeak=ls.filter(x=>lp(x.lesson.id).status==='done'&&lp(x.lesson.id).best<100);
+  let html=`<div class="topbar"><div class="stat streak">🔥${S.streak}</div><div style="flex:1;text-align:center;font-weight:900">복습</div><div class="stat xp">⭐${S.xp}</div></div>
+   <div class="page">
+     <div class="card" style="border-color:var(--blue)"><div style="font-weight:900;margin-bottom:6px">🔄 오늘 복습할 레슨</div>
+       ${due.length?due.map(x=>`<button class="btn blue sm" style="margin-bottom:8px;text-align:left" data-l="${x.lesson.id}">${x.lesson.title} <span style="opacity:.8;font-size:.8rem">· ${x.unit.title.split('.')[0]}</span></button>`).join(''):'<p class="muted" style="font-size:.9rem">아직 복습할 레슨이 없어요. 레슨을 완료하면 간격을 두고 복습 알림이 떠요. (분산복습)</p>'}</div>
+     <div class="card"><div style="font-weight:900;margin-bottom:4px">🎯 약점 모아풀기</div><p class="muted" style="font-size:.85rem;margin-bottom:10px">완료한 레슨에서 100%가 아니었던 단원의 문제를 섞어 다시 풀어요. (교차연습)</p>
+       <button class="btn" id="weak" ${doneWeak.length?'':'disabled'}>${doneWeak.length?`약점 ${doneWeak.length}개 단원 모아풀기 시작`:'아직 약점 데이터가 없어요'}</button></div>
+   </div>`+navBar('review');
+  app.innerHTML=html;
+  app.querySelectorAll('[data-l]').forEach(b=>b.addEventListener('click',()=>{SND.click();openLesson(b.dataset.l);}));
+  const w=$('#weak');if(w&&doneWeak.length)w.onclick=()=>{SND.click();startMixed(doneWeak);};
+  bindNav();
+}
+function startMixed(weak){
+  // 약점 단원들의 문제를 섞어서 가상 레슨 구성
+  let pool=[];weak.forEach(x=>quizItems(x.lesson).forEach(q=>pool.push(q)));
+  pool=pool.sort(()=>Math.random()-.5).slice(0,Math.min(8,pool.length));
+  CUR={unit:{title:'복습'},lesson:{id:'__mix__',title:'약점 모아풀기',concept:{points:['틀리기 쉬운 문제를 섞어 풀어요']},quiz:pool,bridge:{lead:'복습으로 장기기억이 강해졌어요!'}}};
+  QUIZ={i:0,correct:0,total:pool.length,records:[],start:Date.now()};renderQuiz();
+}
+
+/* ===================== 학습계획 탭 ===================== */
+function renderPlan(){
+  NAV='plan';const plan=buildPlan(),ls=allLessons();
+  const sched=[];let li=0;
+  for(let d=0;d<plan.learnDays&&li<ls.length;d++){const day=[];for(let k=0;k<plan.perDay&&li<ls.length;k++){day.push(ls[li]);li++;}sched.push(day);}
+  const done=ls.filter(x=>lp(x.lesson.id).status==='done').length;
+  let html=`<div class="topbar"><div class="stat streak">🔥${S.streak}</div><div style="flex:1;text-align:center;font-weight:900">학습 계획</div><div class="stat xp">⭐${S.xp}</div></div>
+   <div class="page"><div class="card">
+     <div class="plan-row"><span class="k">시험일</span><span class="v">${plan.exam.getFullYear()}.${plan.exam.getMonth()+1}.${plan.exam.getDate()} (D-${plan.daysLeft})</span></div>
+     <div class="plan-row"><span class="k">목표 등급</span><span class="v">${S.setup.grade} · 통과 ${Math.round(plan.pass*100)}%</span></div>
+     <div class="plan-row"><span class="k">하루 목표</span><span class="v">레슨 ${plan.perDay}개</span></div>
+     <div class="plan-row"><span class="k">진도</span><span class="v">${done}/${plan.total} (${Math.round(done/plan.total*100)}%)</span></div>
+     <div class="plan-row"><span class="k">마무리 복습</span><span class="v">시험 전 ${plan.reviewDays}일</span></div></div>
+     <h3 style="margin:16px 0 8px;font-size:1.05rem">📆 일자별 추천 플랜</h3><div class="daylist">
+       ${sched.map((day,di)=>{const date=new Date(plan.today.getTime()+di*864e5);const ad=day.every(x=>lp(x.lesson.id).status==='done');
+         return `<div class="di ${ad?'done':''}"><div class="dd">Day ${di+1}<br><span style="color:var(--gray);font-weight:700">${fmtDate(date)}</span></div><div class="dl">${day.map(x=>x.lesson.title).join(' · ')}</div>${ad?'<span style="margin-left:auto">✅</span>':''}</div>`;}).join('')}
+       ${plan.reviewDays>0?`<div class="di"><div class="dd">복습<br><span style="color:var(--gray);font-weight:700">D-${plan.reviewDays}~</span></div><div class="dl">전체 단원 오답·핵심 개념 복습 🔁</div></div>`:''}</div>
+     <p class="center" style="margin-top:16px"><button class="linkbtn" id="reset">설정 다시하기 (진도 유지)</button></p>
+   </div>`+navBar('plan');
+  app.innerHTML=html;bindNav();
+  $('#reset').onclick=()=>{if(confirm('시험일·목표를 다시 설정할까요? 진도와 XP는 유지됩니다.')){OB={examDate:S.setup.examDate,grade:S.setup.grade,time:S.setup.time};PRESERVE=true;S.setup=null;renderOnboarding();}};
+}
+
+/* ===================== 현황 탭 ===================== */
+function renderProfile(){
+  NAV='profile';const ls=allLessons(),plan=buildPlan();
+  const done=ls.filter(x=>lp(x.lesson.id).status==='done').length;
+  const crowns=ls.filter(x=>lp(x.lesson.id).best>=100).length;
+  let html=`<div class="topbar"><div class="stat streak">🔥${S.streak}</div><div style="flex:1;text-align:center;font-weight:900">내 현황</div><div class="stat xp">⭐${S.xp}</div></div>
+   <div class="page">
+     <div class="bigstat"><div class="bs s1"><div class="v">${S.streak}</div><div class="l">연속 학습일</div></div><div class="bs s2"><div class="v">${S.xp}</div><div class="l">총 XP</div></div><div class="bs s3"><div class="v">${Math.round(done/plan.total*100)}%</div><div class="l">전체 진도</div></div></div>
+     <div class="card"><div class="plan-row"><span class="k">완료 레슨</span><span class="v">${done} / ${plan.total}</span></div><div class="plan-row"><span class="k">👑 완벽 클리어</span><span class="v">${crowns}개</span></div><div class="plan-row"><span class="k">시험까지</span><span class="v">D-${plan.daysLeft}</span></div></div>
+     <h3 style="margin:16px 0 10px;font-size:1.05rem">📚 단원별 진도</h3>
+     ${COURSE.units.map(u=>{const d=u.lessons.filter(l=>lp(l.id).status==='done').length,t=u.lessons.length;
+       return `<div class="card" style="padding:13px 15px;margin-bottom:9px"><div style="display:flex;justify-content:space-between;font-weight:800;margin-bottom:7px;font-size:.92rem"><span>${u.icon||'📘'} ${u.title}</span><span style="color:var(--green-d)">${d}/${t}</span></div><div class="bar" style="height:11px"><span style="width:${Math.round(d/t*100)}%"></span></div></div>`;}).join('')}
+   </div>`+navBar('profile');
+  app.innerHTML=html;bindNav();
+}
+
+/* ===================== 설정/동기화 탭 ===================== */
+function renderSettings(){
+  NAV='settings';
+  let html=`<div class="topbar"><div style="flex:1;text-align:center;font-weight:900">설정</div></div>
+   <div class="page">
+     <div class="card"><div class="toggle"><div><div style="font-weight:800">🔊 효과음</div><div class="muted" style="font-size:.8rem">클릭·정답·완료 사운드</div></div><div class="sw ${CFG.sound?'on':''}" id="swsound"></div></div></div>
+     <div class="card"><div style="font-weight:900;margin-bottom:4px">☁️ 기기 간 진도 동기화 (Supabase)</div>
+       <p class="muted" style="font-size:.82rem;margin-bottom:10px">아래 3가지를 입력하면 폰·PC에서 같은 진도를 볼 수 있어요. 설정 방법은 함께 드린 가이드 문서를 보세요.</p>
+       <input type="text" id="su" placeholder="Supabase URL (https://xxx.supabase.co)" value="${esc(CFG.supaUrl||'')}" style="margin-bottom:8px">
+       <input type="password" id="sk" placeholder="anon public key" value="${esc(CFG.supaKey||'')}" style="margin-bottom:8px">
+       <input type="text" id="scd" placeholder="나만의 동기화 코드 (예: sein-oda-2026)" value="${esc(CFG.syncCode||'')}" style="margin-bottom:10px">
+       <button class="btn blue sm" id="savecfg" style="margin-bottom:8px">동기화 설정 저장</button>
+       <div style="display:flex;gap:8px"><button class="btn ghost sm" id="cpush">⬆️ 클라우드에 올리기</button><button class="btn ghost sm" id="cpull">⬇️ 클라우드에서 가져오기</button></div>
+       <div id="syncmsg" class="muted" style="font-size:.8rem;margin-top:8px"></div></div>
+     <div class="card"><div style="font-weight:900;margin-bottom:4px">🤖 AI 서술형 채점 (선택)</div>
+       <p class="muted" style="font-size:.82rem;margin-bottom:10px">설정하면 자유응답을 <b>문장 의미 기반</b>으로 채점해요. API 키는 <b>이 브라우저에만</b> 저장되며 파일·GitHub에 들어가지 않습니다. (미설정 시 키워드 채점)</p>
+       <select id="aip" style="width:100%;padding:12px;border:2px solid var(--gray-l);border-radius:13px;font-size:1rem;font-family:inherit;background:#fff;margin-bottom:8px">
+         <option value="none">사용 안 함 (키워드 채점)</option>
+         <option value="openai">OpenAI (또는 호환 API)</option>
+         <option value="anthropic">Anthropic (Claude)</option></select>
+       <input type="password" id="aikey" placeholder="API Key (sk-... 등)" value="${esc(CFG.aiKey||'')}" style="margin-bottom:8px">
+       <input type="text" id="aimodel" placeholder="모델명 (예: gpt-4o-mini 또는 claude-3-5-haiku-latest)" value="${esc(CFG.aiModel||'')}" style="margin-bottom:8px">
+       <input type="text" id="aibase" placeholder="(OpenAI 호환 전용) Base URL · 기본 https://api.openai.com/v1" value="${esc(CFG.aiBase||'')}" style="margin-bottom:10px">
+       <button class="btn blue sm" id="aisave">AI 채점 설정 저장</button>
+       <div id="aimsg" class="muted" style="font-size:.8rem;margin-top:8px"></div></div>
+     <div class="card"><div style="font-weight:900;margin-bottom:8px">💾 백업 (파일)</div>
+       <div style="display:flex;gap:8px"><button class="btn ghost sm" id="exp">내보내기(JSON)</button><button class="btn ghost sm" id="imp">가져오기</button></div>
+       <input type="file" id="impf" accept="application/json" class="hidden"></div>
+     <div class="card"><button class="linkbtn" id="hard">⚠️ 전체 초기화</button></div>
+   </div>`+navBar('settings');
+  app.innerHTML=html;bindNav();
+  $('#swsound').onclick=function(){CFG.sound=!CFG.sound;saveCfg();this.classList.toggle('on');if(CFG.sound)SND.correct();};
+  $('#savecfg').onclick=()=>{CFG.supaUrl=$('#su').value.trim().replace(/\/$/,'');CFG.supaKey=$('#sk').value.trim();CFG.syncCode=$('#scd').value.trim();saveCfg();$('#syncmsg').textContent='저장됐어요. 이제 올리기/가져오기를 쓸 수 있어요.';};
+  $('#cpush').onclick=async()=>{$('#syncmsg').textContent='올리는 중...';const r=await cloudPush(true);$('#syncmsg').textContent=r;};
+  $('#cpull').onclick=async()=>{if(!confirm('클라우드 진도로 덮어쓸까요?'))return;$('#syncmsg').textContent='가져오는 중...';const r=await cloudPull();$('#syncmsg').textContent=r;};
+  $('#exp').onclick=()=>{const blob=new Blob([JSON.stringify(S)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='oda_progress_'+todayStr()+'.json';a.click();};
+  $('#imp').onclick=()=>$('#impf').click();
+  $('#impf').onchange=e=>{const f=e.target.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{try{S=Object.assign({},DEF,JSON.parse(rd.result));save();toast('가져왔어요!');render();}catch(err){toast('파일을 읽을 수 없어요');}};rd.readAsText(f);};
+  if($('#aip'))$('#aip').value=CFG.aiProvider||'none';
+  $('#aisave').onclick=()=>{CFG.aiProvider=$('#aip').value;CFG.aiKey=$('#aikey').value.trim();CFG.aiModel=$('#aimodel').value.trim();CFG.aiBase=$('#aibase').value.trim();saveCfg();
+    $('#aimsg').textContent=CFG.aiProvider==='none'?'키워드 채점을 사용합니다.':`✅ 저장됨 · ${CFG.aiProvider==='anthropic'?'Anthropic':'OpenAI'} 채점이 켜졌어요.`;};
+  $('#hard').onclick=()=>{if(confirm('모든 진도와 설정을 삭제할까요?')){localStorage.removeItem(LS);S=load();OB={examDate:'',grade:'B',time:'normal'};render();}};
+}
+
+/* ===================== Supabase 동기화 ===================== */
+let pushT=null;
+function syncReady(){return CFG.supaUrl&&CFG.supaKey&&CFG.syncCode;}
+function scheduleCloudPush(){if(!syncReady())return;clearTimeout(pushT);pushT=setTimeout(()=>cloudPush(false),2500);}
+async function cloudPush(manual){
+  if(!syncReady())return '동기화 정보를 먼저 저장하세요.';
+  try{
+    const r=await fetch(`${CFG.supaUrl}/rest/v1/oda_progress?on_conflict=code`,{method:'POST',
+      headers:{apikey:CFG.supaKey,Authorization:'Bearer '+CFG.supaKey,'Content-Type':'application/json',Prefer:'resolution=merge-duplicates,return=minimal'},
+      body:JSON.stringify([{code:CFG.syncCode,data:S,updated_at:new Date().toISOString()}])});
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    return manual?'✅ 클라우드에 저장됐어요.':'';
+  }catch(e){return '❌ 실패: '+e.message+' (설정/테이블 확인)';}
+}
+async function cloudPull(){
+  if(!syncReady())return '동기화 정보를 먼저 저장하세요.';
+  try{
+    const r=await fetch(`${CFG.supaUrl}/rest/v1/oda_progress?code=eq.${encodeURIComponent(CFG.syncCode)}&select=data`,{headers:{apikey:CFG.supaKey,Authorization:'Bearer '+CFG.supaKey}});
+    if(!r.ok)throw new Error('HTTP '+r.status);const rows=await r.json();
+    if(!rows.length)return '클라우드에 저장된 진도가 없어요.';
+    S=Object.assign({},DEF,rows[0].data);localStorage.setItem(LS,JSON.stringify(S));initProgress();render();return '✅ 가져왔어요!';
+  }catch(e){return '❌ 실패: '+e.message;}
+}
+async function cloudAutoLoad(){
+  if(!syncReady())return;
+  try{
+    const r=await fetch(`${CFG.supaUrl}/rest/v1/oda_progress?code=eq.${encodeURIComponent(CFG.syncCode)}&select=data,updated_at`,{headers:{apikey:CFG.supaKey,Authorization:'Bearer '+CFG.supaKey}});
+    if(!r.ok)return;const rows=await r.json();if(!rows.length)return;
+    const cloud=rows[0].data;if(cloud&&(cloud.updatedAt||0)>(S.updatedAt||0)){S=Object.assign({},DEF,cloud);localStorage.setItem(LS,JSON.stringify(S));}
+  }catch(e){}
+}
+
+/* ===================== 공통 ===================== */
+function newScreen(){document.querySelectorAll('.screen').forEach(s=>s.remove());const sc=document.createElement('div');sc.className='screen';document.body.appendChild(sc);sc.scrollTop=0;return sc;}
+function closeScreen(){SND.click();document.querySelectorAll('.screen').forEach(s=>s.remove());renderPath();}
+function navBar(a){return `<div class="bottomnav">
+   <button class="${a==='path'?'on':''}" data-nav="path"><span class="ic">🛤️</span>학습</button>
+   <button class="${a==='review'?'on':''}" data-nav="review"><span class="ic">🔁</span>복습</button>
+   <button class="${a==='plan'?'on':''}" data-nav="plan"><span class="ic">📅</span>계획</button>
+   <button class="${a==='profile'?'on':''}" data-nav="profile"><span class="ic">📊</span>현황</button>
+   <button class="${a==='settings'?'on':''}" data-nav="settings"><span class="ic">⚙️</span>설정</button></div>`;}
+function bindNav(){app.querySelectorAll('[data-nav]').forEach(b=>b.addEventListener('click',()=>{SND.tab();const n=b.dataset.nav;({path:renderPath,review:renderReview,plan:renderPlan,profile:renderProfile,settings:renderSettings}[n])();}));}
+</script>
+</body>
+</html>
