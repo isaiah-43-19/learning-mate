@@ -219,6 +219,24 @@ input:focus{outline:none;border-color:var(--blue)}
 .sw.on:after{left:23px}
 .toast{position:fixed;top:14px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:20px;font-weight:800;font-size:.85rem;z-index:99;opacity:0;transition:.3s;max-width:90%;text-align:center}
 .toast.show{opacity:1}
+/* AI 튜터 챗봇 */
+#chatfab{position:fixed;bottom:78px;right:calc(50% - 240px + 16px);width:56px;height:56px;border-radius:50%;background:var(--purple);color:#fff;font-size:1.5rem;box-shadow:0 4px 14px rgba(0,0,0,.28);z-index:60;display:flex;align-items:center;justify-content:center}
+#chatfab.hidden{display:none}
+#chatpanel{position:fixed;bottom:78px;right:calc(50% - 240px + 16px);width:340px;max-width:88vw;height:460px;max-height:72vh;background:#fff;border:2px solid var(--purple);border-radius:18px;z-index:61;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 8px 28px rgba(0,0,0,.3)}
+#chatpanel.hidden{display:none}
+.cp-head{background:var(--purple);color:#fff;font-weight:800;padding:11px 14px;display:flex;align-items:center;justify-content:space-between;font-size:.95rem}
+.cp-head button{color:#fff;font-size:1.1rem;font-weight:900}
+.cp-body{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:9px;background:var(--gray-bg)}
+.cp-msg{padding:9px 12px;border-radius:13px;font-size:.88rem;line-height:1.5;max-width:85%;white-space:pre-wrap}
+.cp-msg.bot{background:#fff;border:1px solid var(--gray-l);align-self:flex-start;border-bottom-left-radius:3px}
+.cp-msg.user{background:var(--blue-l);align-self:flex-end;border-bottom-right-radius:3px}
+.cp-msg.bot b{color:var(--purple-d)}
+.cp-input{display:flex;gap:6px;padding:9px;border-top:1px solid var(--gray-l);background:#fff}
+.cp-input input{flex:1;padding:10px;border:2px solid var(--gray-l);border-radius:12px;font-size:.9rem}
+.cp-input button{background:var(--purple);color:#fff;border-radius:12px;padding:0 14px;font-weight:800}
+.cp-quick{display:flex;gap:6px;flex-wrap:wrap;padding:0 12px 8px;background:var(--gray-bg)}
+.cp-quick button{font-size:.74rem;background:#fff;border:1px solid var(--purple);color:var(--purple-d);border-radius:20px;padding:5px 10px;font-weight:700}
+@media(max-width:520px){#chatfab,#chatpanel{right:14px}}
 @media(max-width:380px){.nodes .node-wrap:nth-child(6n+3){margin-left:74px}.nodes .node-wrap:nth-child(6n+2),.nodes .node-wrap:nth-child(6n+4){margin-left:46px}.nodes .node-wrap:nth-child(6n+1),.nodes .node-wrap:nth-child(6n+6){margin-left:-46px}}
 </style>
 </head>
@@ -228,11 +246,61 @@ input:focus{outline:none;border-color:var(--blue)}
 
 <script id="data">
 window.COURSE = { title:"국제개발협력(ODA) 자격시험", units:[
+{ id:'exam', title:'🔥 시험 대비 기출 모의고사', source:'전과목', color:'#ff4b4b', icon:'🏆', lessons:[
+ { id:'examl1', title:'실전 모의고사 30제', en:'Mock Exam',
+   concept:{ why:'오늘 시험! 가장 자주 나오는 핵심을 실전 문항으로 한 번에 점검해요. 틀린 건 바로 해설로 확인하고, 헷갈리면 우측 하단 🤖 튜터에게 물어보세요.',
+     def:{term:'직전 총정리', body:'1·2과목 고빈출 포인트 30문항. 시험 직전 빠르게 감을 잡는 용도예요.'},
+     points:['ODA 3조건: <span class="kw">공적기관·개발목적·양허성</span> / 파리선언 5원칙','세계은행 5형제: IBRD(중소득)·IDA(무이자)·IFC(민간)·MIGA(보증)·ICSID(분쟁)','교토(선진국 의무) vs 파리(모든 나라·상향식 NDC) / 성평등 WID→GAD→성주류화','국가 인권 3대 의무 <span class="kw">존중·보호·충족</span> / 식량안보 4요소 가·접·안·활'],
+     tip:'시간 없으면 이 모의고사만 반복! 틀린 문항의 분야 단원으로 가서 보충하세요. 화이팅 🔥' },
+   bridge:{lead:'실전 감각 완성! 약한 분야는 해당 단원에서 보충하세요. 시험 잘 보고 와요 🔥', nextPreview:'본 학습 단원으로 이어집니다.'},
+   quiz:[
+    {t:'mc',q:'공적개발원조(ODA)의 3대 성립 조건이 아닌 것은?',choices:['공적기관이 제공','개도국의 경제발전·복지 증진이 주목적','양허적 성격','반드시 상환을 전제'],answer:3,hint:'무상원조는 상환 전제가 아님.',ex:'ODA 3조건은 공적기관 제공·개발목적·양허성입니다. 상환 전제는 조건이 아닙니다.'},
+    {t:'mc',q:'다음 중 ODA로 보기 가장 어려운 것은?',choices:['지자체의 개도국 연수 초청','재난 시 외국 군대의 인도적 구호','증여율 75% EDCF 차관','스타벅스의 커피농가 기술지원'],answer:3,hint:'공공부문이 제공?',ex:'민간기업 활동(CSR)은 ODA가 아닙니다.'},
+    {t:'mc',q:'증여등가율에 대한 설명으로 옳은 것은?',choices:['100%면 시장금리와 같다','차관이 얼마나 무상에 가까운지를 %로 나타낸다','높을수록 양허성이 낮다','2018년 폐지되었다'],answer:1,hint:'공짜에 가까울수록 높음.',ex:'증여등가율은 차관이 무상(공짜)에 얼마나 가까운지를 %로 나타냅니다. 100%=완전 무상.'},
+    {t:'mc',q:'OECD가 권고하는 ODA/GNI 비율은?',choices:['0.15%','0.33%','0.7%','1.0%'],answer:2,hint:'오래된 권고치.',ex:'권고치는 0.7%, 실제 평균은 0.3%대입니다.'},
+    {t:'mc',q:'\'정부 축소·시장 확대\' 구조조정이 대대적으로 이뤄진 시기는?',choices:['1950년대','1960년대','1970년대','1980년대'],answer:3,hint:'워싱턴 컨센서스.',ex:'1980년대 구조조정정책(SAP)→워싱턴 컨센서스입니다.'},
+    {t:'mc',q:'로스토 경제개발 5단계에서 본격 성장이 시작되는 단계는?',choices:['전통사회','도약 준비기','도약기(Take-off)','대중소비사회'],answer:2,hint:'이륙.',ex:'도약기(Take-off)에서 본격 성장이 시작됩니다.'},
+    {t:'ox',q:'종속이론은 무역이 심화될수록 잉여가 주변부에서 중심부로 이전된다고 본다.',a:true,hint:'프랑크.',ex:'종속이론(프랑크)은 잉여의 중심부 이전을 설명합니다.'},
+    {t:'mc',q:'원조효과성 5대 원칙이 채택된 고위급포럼은?',choices:['2003 로마','2005 파리','2008 아크라','2011 부산'],answer:1,hint:'프랑스 수도.',ex:'2005년 파리 HLF-2에서 5대 원칙이 채택되었습니다.'},
+    {t:'mc',q:'파리선언 5대 원칙이 아닌 것은?',choices:['주인의식','원조일치','개도국 간 원조조화','상호책무성'],answer:2,hint:'\'조화\'는 공여국 간.',ex:'원조조화는 공여국 간 원칙입니다.'},
+    {t:'mc',q:'SDGs의 목표·세부목표 수로 옳은 것은?',choices:['8개·21개','17개·169개','12개·54개','15개·100개'],answer:1,hint:'8개는 MDGs.',ex:'SDGs는 17개 목표·169개 세부목표입니다.'},
+    {t:'mc',q:'저소득국에 무이자·초저리로 융자하는 세계은행그룹 기구는?',choices:['IBRD','IDA','IFC','MIGA'],answer:1,hint:'가장 가난한 나라.',ex:'IDA가 저소득국에 무이자·초저리로 융자합니다.'},
+    {t:'mc',q:'세계은행그룹 기구와 역할이 바르게 짝지어진 것은?',choices:['IBRD-국제개발협회','MIGA-국제투자보증기구','ICSID-국제개발협회','IFC-국제투자분쟁해결기구'],answer:1,hint:'MIGA의 G=보증.',ex:'MIGA=국제투자보증기구입니다.'},
+    {t:'mc',q:'한국이 수원국에서 공여국으로 공인된 2009년 사건은?',choices:['OECD 가입','OECD DAC 가입','UN 가입','부산총회'],answer:1,hint:'원조위원회.',ex:'2009년 OECD DAC 가입입니다.'},
+    {t:'mc',q:'한국 유상 ODA(EDCF)의 주관·집행으로 옳은 것은?',choices:['외교부-KOICA','기획재정부-한국수출입은행','외교부-수출입은행','기재부-KOICA'],answer:1,hint:'유상=차관.',ex:'유상은 기재부 주관, 수출입은행 집행입니다.'},
+    {t:'mc',q:'2015년 세계교육포럼에서 채택되어 SDG4 기반이 된 선언은?',choices:['좀티엔 선언','다카르 실행계획','인천선언','자카르타 선언'],answer:2,hint:'한국 도시.',ex:'2015년 인천선언입니다.'},
+    {t:'mc',q:'SDG 3의 핵심 가치로 강조되는 개념은?',choices:['보편적 의료보장(UHC)','구조조정','성주류화','녹색성장'],answer:0,hint:'누구도 소외 없이 의료.',ex:'UHC(보편적 의료보장)는 SDG 3 핵심입니다.'},
+    {t:'mc',q:'말라리아 예방의 핵심으로 옳지 않은 것은?',choices:['살충 처리 모기장','실내 살충제','임신부 예방약','성인 남성 우선 투약'],answer:3,hint:'누가 취약?',ex:'임신부 예방약 투여가 중요한 지위를 가집니다.'},
+    {t:'mc',q:'FAO가 제시한 식량안보 4요소가 아닌 것은?',choices:['가용성','접근성','안정성','수익성'],answer:3,hint:'가·접·안·활.',ex:'식량안보 4요소는 가용성·접근성·안정성·활용성입니다.'},
+    {t:'mc',q:'1989년 \'개발협력 실패=거버넌스의 실패\'를 지적한 기구는?',choices:['UNDP','세계은행','USAID','OECD'],answer:1,hint:'1989.',ex:'1989년 세계은행입니다.'},
+    {t:'mc',q:'분쟁이 커지기 전에 개입해 확대를 막는 평화 활동은?',choices:['평화 유지','평화 구축','평화 지속화','평화 강제'],answer:1,hint:'이전에 개입.',ex:'평화 구축(peace building)입니다.'},
+    {t:'mc',q:'교토의정서와 파리협정의 가장 큰 차이는?',choices:['둘 다 모든 나라 의무','교토=선진국 의무, 파리=모든 나라 자발적','교토=상향식, 파리=하향식','차이 없음'],answer:1,hint:'주체.',ex:'교토는 선진국 의무, 파리는 모든 나라 자발적(상향식 NDC)입니다.'},
+    {t:'mc',q:'선진국이 개도국 감축사업으로 크레딧을 얻는 교토 메커니즘은?',choices:['배출권거래(ETS)','공동이행(JI)','청정개발체제(CDM)','탄소국경조정'],answer:2,hint:'청정개발.',ex:'청정개발체제(CDM)입니다.'},
+    {t:'mc',q:'\'창조적 파괴\'로 기술혁신이 발전을 촉발한다고 본 학자는?',choices:['애덤 스미스','슘페터','솔로우','거센크론'],answer:1,hint:'경제발전의 이론.',ex:'슘페터입니다.'},
+    {t:'mc',q:'성평등 접근의 발전 순서로 옳은 것은?',choices:['성주류화→GAD→WID','WID→GAD→성주류화','GAD→WID→성주류화','WID→성주류화→GAD'],answer:1,hint:'여성을 개발에가 먼저.',ex:'WID→GAD→성주류화입니다.'},
+    {t:'mc',q:'1979년 채택, 여성 평등권 보장을 국가 의무로 규정한 협약은?',choices:['CEDAW','DEVAW','베이징 행동강령','GAD'],answer:0,hint:'여성차별철폐협약.',ex:'CEDAW(1979)입니다.'},
+    {t:'mc',q:'국가의 인권 3대 의무가 아닌 것은?',choices:['존중','보호','충족','처벌'],answer:3,hint:'지키고·막고·채우기.',ex:'존중·보호·충족입니다.'},
+    {t:'mc',q:'제3세대 인권(연대권)에 해당하는 것으로 묶인 것은?',choices:['자유권·참정권','사회권·노동권','발전권·평화권·환경권','재산권·계약권'],answer:2,hint:'집단 권리.',ex:'발전권·평화권·환경권이 제3세대 인권입니다.'},
+    {t:'mc',q:'개별 사업의 환경영향을 사전 평가하는 도구는?',choices:['SEA','EIA','환경주류화','리우마커'],answer:1,hint:'프로젝트 단위.',ex:'EIA(환경영향평가)입니다. 정책·계획 상위 단계는 SEA.'},
+    {t:'ox',q:'녹색기후기금(GCF) 사무국은 인천 송도에 있다.',a:true,hint:'한국 유치.',ex:'GCF 사무국은 인천 송도에 있습니다(2012 유치).'},
+    {t:'mc',q:'빈곤을 \'역량(가능성)의 박탈\'로 본 학자는?',choices:['아마르티아 센','로스토','프랑크','폴 콜리어'],answer:0,hint:'선택할 자유.',ex:'아마르티아 센은 빈곤을 역량·자유의 박탈로 보았습니다.'},
+    {t:'mc',q:'ODA를 넘어서는 다양한 재원의 가치를 인정하는 ODA 현대화 개념은?',choices:['TOSSD','OOF','FDI','PRSP'],answer:0,hint:'총공적지원.',ex:'TOSSD(총공적지원)는 ODA보다 넓은 재원을 집계합니다.'},
+    {t:'mc',q:'브릭스 신개발은행(NDB) 회원국이 아닌 나라는?',choices:['브라질','중국','남아프리카공화국','칠레'],answer:3,hint:'BRICS.',ex:'NDB는 브라질·러시아·인도·중국·남아공(BRICS)이며 칠레는 아닙니다.'},
+    {t:'mc',q:'학교 밖에서 운영되며 공식 학위로 인정되지 않는 의도된 교육은?',choices:['형식 교육','비형식 교육','무형식 교육','평생 교육'],answer:1,hint:'의도됐지만 비공식.',ex:'비형식(non-formal) 교육입니다.'},
+    {t:'mc',q:'인구문제를 사회·경제·인권 측면에서 다루는 1967년 설립 UN 기구는?',choices:['UNICEF','UNFPA','UNAIDS','WHO'],answer:1,hint:'인구(Population).',ex:'UNFPA(유엔인구기금, 1967)입니다.'},
+    {t:'mc',q:'FAO가 분류한 농업의 다원적 기능에 해당하지 않는 것은?',choices:['식량안보 기능','사회적 기능','문화적 기능','보호적 기능'],answer:3,hint:'5종을 떠올려요.',ex:'다원적 기능은 식량안보·사회·문화·환경·경제이며 보호적 기능은 아닙니다.'},
+    {t:'mc',q:'세계은행 거버넌스지수(WGI)의 하위지표가 아닌 것은?',choices:['참여 및 책임성','정부 효과성','법치주의','경제성장률'],answer:3,hint:'통치의 질 지표.',ex:'WGI 6개는 참여·책임성, 정치안정, 정부효과성, 규제의 질, 법치주의, 부패통제입니다.'},
+    {t:'mc',q:'해수면 상승에 대비해 방조제·내염성 작물을 도입하는 기후행동은?',choices:['완화','적응','탄소중립','배출권 거래'],answer:1,hint:'영향 대비.',ex:'영향을 줄이고 대비하는 것은 적응(adaptation)입니다.'},
+    {t:'mc',q:'1991년 세계은행 시범프로그램으로 설립된 가장 포괄적 환경 국제기금은?',choices:['GCF','GEF','GGGI','UNEP'],answer:1,hint:'가장 오래된 환경기금.',ex:'GEF(지구환경금융, 1991)입니다.'},
+    {t:'mc',q:'성평등이 사업의 \'주요 목적\'일 때 부여하는 OECD 젠더마커 값은?',choices:['0','1','2','3'],answer:2,hint:'주요=Principal.',ex:'젠더마커 2는 성평등이 주요 목적인 사업입니다.'},
+    {t:'free',q:'국가의 인권 3대 의무를 쓰시오.',keys:['존중','보호','충족'],model:'존중·보호·충족의 의무.',hint:'존·보·충',ex:'존중·보호·충족입니다.'}
+   ]}
+]},
 { id:'u1', title:'1. 국제개발협력의 이해', source:'1과목', color:'#58cc02', icon:'🌱', lessons:[
  { id:'u1l1', title:'빈곤과 불평등', en:'Poverty & Inequality',
    concept:{ why:'전 세계 인구의 상당수가 하루 2달러 남짓으로 살아갑니다. "왜 어떤 나라는 가난할까?"라는 질문에서 모든 개발협력이 시작돼요. 빈곤을 어떻게 정의하느냐에 따라 해결책이 완전히 달라지기 때문에, 빈곤 개념은 1과목의 출발점이자 단골 출제 포인트입니다.',
      def:{term:'빈곤(Poverty)', body:'기본적 욕구가 충족되지 못한 결핍 상태. 경제적 관점에선 절대·차상위·상대적 빈곤으로, 소득 외적 관점에선 아마르티아 센의 "역량(가능성)의 박탈"로 봅니다.'},
-     points:['<span class="kw">절대빈곤</span>: 생존 기본욕구 미충족 (세계은행, 2015년 <span class="kw">1.9달러/일</span>)','차상위빈곤: 가까스로 충족 / 상대적빈곤: 주관적으로 느끼는 빈곤','<span class="kw">아마르티아 센</span>: 빈곤=역량 결핍, "선택할 자유"의 박탈 → HDI·GDI·GII 등장','개도국 빈곤 원인은 자연·재해·분쟁·거버넌스 부재·식민유산이 <span class="kw">상호복합적</span>으로 얽힘'],
+     points:['<span class="kw">절대빈곤</span>: 생존 기본욕구 미충족 (세계은행, 2015년 <span class="kw">1.9달러/일</span>). <span style="color:#888">→ 하루 1.9달러로는 먹고사는 최소한도 충족하지 못하는 상태예요.</span>','차상위빈곤: 가까스로 충족 / 상대적빈곤: 주관적으로 느끼는 빈곤. <span style="color:#888">→ 차상위=겨우 버티는 수준, 상대적=남과 비교해 느끼는 박탈감.</span>','<span class="kw">아마르티아 센</span>: 빈곤=역량 결핍, "선택할 자유"의 박탈 → HDI(Human Development Index, 인간개발지수)·GDI(남녀평등지수)·GII(성불평등지수) 등장. <span style="color:#888">→ 돈이 아니라 \'원하는 삶을 선택할 능력\'의 결핍이 빈곤이라는 관점.</span>','개도국 빈곤 원인은 자연·재해·분쟁·거버넌스 부재·식민유산이 <span class="kw">상호복합적</span>으로 얽힘. <span style="color:#888">→ 원인이 하나가 아니라 여러 개가 서로 얽혀 굳어져요.</span>'],
      tip:'빈곤선 금액은 "1 → 1.25 → 1.9 달러" 순으로 올라간 것만 외워도 한 문제. (1990 / 2008 / 2015년)' },
    bridge:{lead:'빈곤을 "왜 줄여야 하는가"에 답했다면, 다음은 "누가, 어떤 돈으로 줄이는가" — 바로 ODA의 정의와 3대 조건입니다.', nextPreview:'ODA가 되려면 충족해야 하는 3가지 조건을 배웁니다.'},
    quiz:[
@@ -244,9 +312,9 @@ window.COURSE = { title:"국제개발협력(ODA) 자격시험", units:[
    ]},
  { id:'u1l2', title:'ODA의 정의와 3대 조건', en:'Definition of ODA',
    concept:{ why:'시험에서 가장 많이 나오는 함정이 "이건 ODA인가, 아닌가?"입니다. 스타벅스가 커피농가를 돕는 건 ODA일까요? (아니에요!) 세 가지 조건만 정확히 알면 이런 적용형 문제를 다 맞힐 수 있어요.',
-     def:{term:'ODA(공적개발원조)', body:'공공부문이 개발도상국·국제기구에 제공하는 양허성 자금. 1969년 OECD DAC가 도입한 개념입니다.'},
-     points:['① <span class="kw">공적기관</span>이 제공 (정부·집행기관)','② 주목적이 개도국의 <span class="kw">경제발전·복지 증진</span>','③ <span class="kw">양허적 성격</span> (상대에 유리한 조건)','2018년부터 양허성 판단이 <span class="kw">증여등가율</span> 방식으로 변경 (저소득국45%·저중소득국15%·고중소득국6%↑)'],
-     tip:'민간기업의 활동(FDI·CSR)은 ODA가 아님! "공공+개발목적+양허성" 셋 다 충족해야 ODA.' },
+     def:{term:'ODA(Official Development Assistance, 공적개발원조)', body:'공공부문이 개발도상국·국제기구에 제공하는 양허성 자금. 1969년 OECD(경제협력개발기구) DAC(개발원조위원회)가 도입한 개념이에요.'},
+     points:['① <span class="kw">공적기관</span>이 제공 (정부·집행기관). <span style="color:#888">→ 민간기업이 아니라 정부·공공기관이 줘야 해요.</span>','② 주목적이 개도국의 <span class="kw">경제발전·복지 증진</span>','③ <span class="kw">양허적 성격</span>(讓許性): 시중보다 금리 낮고 상환기간 길어 \'상대에게 유리한 조건\'','<span class="kw">증여등가율</span>(Grant Equivalent): 차관이 얼마나 \'공짜에 가까운가\'를 %로 표시 — 100%=완전 무상, 0%=시장금리(혜택 없음). 금리↓·상환기간↑일수록 ↑','2018년부터 ODA 인정 기준(증여등가율): 저소득국 45%·저중소득국 15%·고중소득국 6% 이상 (예전엔 \'증여율 25%\' 기준)'],
+     tip:'증여등가율은 "이 차관이 얼마나 공짜냐"의 점수예요. 무상원조는 100%! 민간기업 활동(FDI·CSR)은 ODA 아님.' },
    bridge:{lead:'ODA가 무엇인지 알았으니, 이제 "누가 ODA를 주고받는지"와 "어떤 방향이 올바른지"를 봅니다.', nextPreview:'공여국·다자기구·시민사회 등 협력의 주체와 올바른 방향을 배웁니다.'},
    quiz:[
     {t:'mc',q:'다음 중 공적개발원조(ODA)로 보기 가장 어려운 것은?',choices:['경상북도가 시행하는 캄보디아 농촌지도자 초청 연수','지진 복구를 위해 투입된 외국 군대의 인도적 구호활동','증여율 75%인 대외경제협력기금(EDCF) 차관','스타벅스가 르완다 커피농가에 제공하는 기술지원'],answer:3,hint:'"공공부문이 제공"하는지 따져보세요.',ex:'민간기업(스타벅스)의 활동은 CSR이지 ODA가 아닙니다. 지자체 연수·재난 시 군대의 인도적 원조·양허성 차관은 ODA로 인정됩니다.'},
@@ -258,7 +326,7 @@ window.COURSE = { title:"국제개발협력(ODA) 자격시험", units:[
  { id:'u1l3', title:'협력의 주체와 올바른 방향', en:'Actors & Principles',
    concept:{ why:'원조는 "주는 쪽 마음대로" 하면 실패합니다. 누가 참여하고, 어떤 원칙을 지켜야 효과가 나는지를 알아야 뒤에 나오는 원조효과성·파리선언이 이해돼요.',
      def:{term:'개발격차 & 주체', body:'선진국과 개도국의 차이를 개발격차라 하며, 이를 줄이기 위해 공여국·다자기구·시민사회·기업 등 다양한 주체가 협력합니다.'},
-     points:['개도국 기준: UN은 <span class="kw">HDI 0.8 미만</span>, 세계은행은 1인당 GNI 고소득 기준 이하','주체: OECD DAC 공여국 / 신흥공여국 / 다자기구 / 시민사회·기업','올바른 방향: 개도국 <span class="kw">수요 충족·기회의 평등·포용/참여·지속가능</span>','OECD 권고 <span class="kw">ODA/GNI 0.7%</span> (실제 평균은 0.3%대)'],
+     points:['개도국 기준: UN은 <span class="kw">HDI 0.8 미만</span>, 세계은행은 1인당 GNI(Gross National Income, 국민총소득) 고소득 기준 이하. <span style="color:#888">→ 기관마다 \'개도국\'을 가르는 잣대가 달라요.</span>','주체: OECD DAC 공여국 / 신흥공여국 / 다자기구 / 시민사회·기업','올바른 방향: 개도국 <span class="kw">수요 충족·기회의 평등·포용/참여·지속가능</span>. <span style="color:#888">→ 주는 쪽 편의가 아니라 받는 쪽 필요에 맞춰, 함께, 오래가게.</span>','OECD 권고 <span class="kw">ODA/GNI 0.7%</span> (실제 평균은 0.3%대)'],
      tip:'"0.7%"는 권고치, "0.3%대"는 현실. 이 숫자 대비가 자주 나와요.' },
    bridge:{lead:'주체와 원칙을 알았다면, 이 원칙들이 어떻게 역사 속에서 만들어졌는지 — 국제개발협력의 역사로 넘어갑니다.', nextPreview:'마셜플랜부터 시작되는 국제개발협력의 태동과 도약을 배웁니다.'},
    quiz:[
@@ -267,6 +335,46 @@ window.COURSE = { title:"국제개발협력(ODA) 자격시험", units:[
     {t:'ox',q:'선진국과 개발도상국 사이의 격차를 "개발격차"라고 한다.',a:true,hint:'용어 그대로예요.',ex:'개발격차(development gap)는 선진국과 개도국의 차이를 가리킵니다.'},
     {t:'ox',q:'개발도상국의 정의에는 모든 나라에 적용되는 단 하나의 고정된 기준이 있다.',a:false,hint:'UN과 세계은행 기준이 다르죠.',ex:'UN(HDI)·세계은행(GNI) 등 기관마다 기준이 달라 단일한 고정 기준은 없습니다.'},
     {t:'free',q:'국제개발협력이 지향해야 할 "올바른 방향" 원칙을 2가지 이상 쓰시오.',keys:['수요','참여','지속가능','평등'],model:'개도국의 개발수요 충족, 기회의 평등 촉진, 포용적·참여적 추진, 지속가능한 발전.',hint:'수요충족 / 참여 / 지속가능 / 기회평등',ex:'개도국 수요 충족·기회 평등·포용/참여·지속가능성이 핵심 원칙입니다.'}
+   ]},
+ { id:'u1l4', title:'빈곤의 복합적 원인·다면성', en:'Multidimensional Poverty',
+   concept:{ why:'"가난은 돈만의 문제가 아니다"라는 게 시험의 단골 함정이에요. 세계은행과 OECD가 빈곤을 어떻게 여러 측면으로 쪼갰는지 알면 \'다면성\' 문제를 다 맞혀요.',
+     def:{term:'빈곤의 다면성', body:'빈곤은 소득뿐 아니라 무력함·취약성 등 여러 차원이 얽힌 복합적 현상이다.'},
+     points:['세계은행 2000/2001 보고서 빈곤 3원인: <span class="kw">①소득·자산 부족 ②무력함(목소리 못 냄) ③취약성</span>(재해·질병). <span style="color:#888">→ 가난은 돈 부족만이 아니라, 목소리를 못 내는 무력함과 재해에 쉽게 무너지는 취약성까지 포함해요.</span>','OECD DAC(개발원조위원회) 빈곤 5측면: <span class="kw">경제·인적·정치·사회문화·보호</span>적 측면. <span style="color:#888">→ 소득(경제)·건강교육(인적)·권리(정치)·지위(사회문화)·안전(보호) 다섯 갈래로 봄.</span>','특히 OECD DAC은 <span class="kw">양성평등과 환경</span>을 빈곤과 교차하는 핵심으로 강조. <span style="color:#888">→ 성차별·환경파괴가 빈곤과 맞물려 작동한다고 본 것.</span>'],
+     tip:'세계은행=3원인(소득·무력함·취약성), OECD DAC=5측면(경·인·정·사·보). 숫자 3 vs 5로 구분!' },
+   bridge:{lead:'빈곤을 여러 각도로 봤으니, 개도국이 "왜" 가난한지 원인으로 들어갑니다.', nextPreview:'개발재원의 종류로 이어집니다.'},
+   quiz:[
+    {t:'mc',q:'세계은행 2000/2001 세계개발보고서가 제시한 빈곤의 3대 원인이 아닌 것은?',choices:['소득과 자산의 부족','목소리를 내지 못하는 무력함','자연재해·질병에 대한 취약성','과도한 사회보장 의존'],answer:3,hint:'소득·무력함·취약성 3가지.',ex:'세계은행은 빈곤 원인을 소득·자산 부족, 무력함, 취약성으로 봤습니다.'},
+    {t:'mc',q:'OECD DAC이 제시한 빈곤의 다원적 측면(5가지)에 해당하지 않는 것은?',choices:['경제적 측면','인적 측면','정치적 측면','군사적 측면'],answer:3,hint:'경제·인적·정치·사회문화·보호.',ex:'OECD DAC 빈곤 5측면은 경제·인적·정치·사회문화·보호적 측면입니다.'},
+    {t:'ox',q:'OECD DAC은 빈곤을 다룰 때 양성평등과 환경을 특히 교차 이슈로 강조한다.',a:true,hint:'젠더·환경.',ex:'OECD DAC은 양성평등과 환경을 빈곤과 상호작용하는 핵심으로 강조합니다.'},
+    {t:'mc',q:'빈곤의 "다면성"이 의미하는 바로 가장 옳은 것은?',choices:['빈곤은 소득 부족만을 뜻한다','빈곤은 소득 외 무력함·취약성 등 여러 차원이 얽힌 현상이다','빈곤은 정치와 무관하다','빈곤은 측정할 수 없다'],answer:1,hint:'여러 차원.',ex:'빈곤은 소득뿐 아니라 무력함·취약성 등 여러 차원이 복합된 다면적 현상입니다.'},
+    {t:'free',q:'세계은행이 제시한 빈곤의 3대 원인을 쓰시오.',keys:['소득','무력','취약'],model:'소득·자산 부족, 무력함(목소리 못 냄), 취약성.',hint:'소득 / 무력함 / 취약성',ex:'소득·자산 부족, 무력함, 취약성입니다.'},
+    {t:'mc',q:'[적용] B국 빈곤층이 자신의 요구를 정책에 반영하지 못해 무력감을 느낀다. 세계은행이 제시한 빈곤 3원인 중 어디에 해당하는가?',choices:['소득·자산의 부족','무력함','취약성','양성 불평등'],answer:1,hint:'목소리를 내지 못하는 상태.',ex:'정책에 자기 목소리를 반영하지 못하는 \'무력함\'이 세계은행 빈곤 3원인 중 하나입니다.'}
+   ]},
+ { id:'u1l5', title:'개발재원의 종류', en:'Development Finance Types',
+   concept:{ why:'"이 돈이 ODA냐 아니냐"를 가르려면 먼저 개발재원의 큰 분류를 알아야 해요. ODA·OOF·민간흐름·민간증여·송금 5종을 구분하면 측정 문제가 쉬워져요.',
+     def:{term:'개발재원', body:'개발도상국의 개발을 목적으로 사용되는 자금. 공적·민간으로 나뉜다.'},
+     points:['<span class="kw">ODA</span>(공적개발원조): 공공부문의 양허성 자금 (양자=무상/유상, 다자). <span style="color:#888">→ 정부가 주는, 갚더라도 조건이 유리한 돈.</span>','<span class="kw">기타공적자금(OOF</span>, Other Official Flows): 공적이지만 ODA 요건 미충족 (수출신용 등). <span style="color:#888">→ 정부 돈이지만 \'양허성\'이 약해 ODA로는 안 쳐줘요.</span>','<span class="kw">민간자본 흐름</span>: FDI(Foreign Direct Investment, 해외직접투자)·증권투자 등 / <span class="kw">민간증여</span>: NGO(비정부기구) 증여 / <span class="kw">송금</span>(remittance, 이주노동자가 본국에 보내는 돈)','남남협력도 있으나 통계가 부족해 규모 파악이 어려움. <span style="color:#888">→ 개도국끼리 돕는 협력은 집계가 잘 안 돼요.</span>'],
+     tip:'ODA=공공+양허, OOF=공공인데 양허성 부족, FDI=민간. "공공/민간 × 양허성"으로 갈래!' },
+   bridge:{lead:'재원 갈래를 알았으니, 그중 핵심인 ODA의 정의·조건으로 이어집니다.', nextPreview:'ODA 규모·성과·논란으로 이어집니다.'},
+   quiz:[
+    {t:'mc',q:'공여국 공공부문이 제공하지만 ODA 요건(양허성 등)을 충족하지 못하는 자금은?',choices:['ODA','기타공적자금(OOF)','해외직접투자(FDI)','민간증여'],answer:1,hint:'공적인데 ODA는 아닌 것.',ex:'기타공적자금(OOF)은 공적자금이지만 ODA 요건을 충족하지 못하는 자금(수출신용 등)입니다.'},
+    {t:'mc',q:'개발재원 분류에서 성격이 다른 하나는?',choices:['양자 무상원조','다자원조','해외직접투자(FDI)','양허성 차관'],answer:2,hint:'민간이 제공하는 것.',ex:'FDI는 민간자본 흐름이며, 나머지는 공적개발원조(ODA)입니다.'},
+    {t:'ox',q:'NGO가 개발도상국에 제공하는 증여(민간증여)도 개발재원에 포함된다.',a:true,hint:'민간증여.',ex:'민간증여(NGO 증여)도 개발재원의 한 종류입니다.'},
+    {t:'mc',q:'해외 노동자가 본국 가족에게 보내는 자금으로, 개발재원의 한 종류인 것은?',choices:['송금(remittance)','OOF','ODA','FDI'],answer:0,hint:'이주노동자의 본국 송금.',ex:'송금(remittance)은 개발도상국에 중요한 개발재원입니다.'},
+    {t:'free',q:'개발재원 중 공적개발원조(ODA)와 기타공적자금(OOF)의 차이를 한 가지로 쓰시오.',keys:['양허'],model:'둘 다 공적자금이나, ODA는 양허성(증여등가율) 요건을 충족하고 OOF는 충족하지 못한다.',hint:'양허성 충족 여부',ex:'ODA는 양허성 요건을 충족, OOF는 미충족입니다.'}
+   ]},
+ { id:'u1l6', title:'ODA 규모·성과·논란', en:'Scale, Results & Debate',
+   concept:{ why:'시험은 "원조가 효과 있었나?"라는 논쟁도 물어요. 0.7% 권고, 원조피로, ODA 무용론 vs 효용론을 알면 마지막 절을 잡아요.',
+     def:{term:'규모·성과·논란', body:'ODA 규모는 권고치(0.7%)에 못 미치고, 효과를 둘러싼 찬반 논쟁이 있다.'},
+     points:['OECD 권고 <span class="kw">ODA/GNI 0.7%</span>, 실제 ~0.33%(2021) / 1990년대 <span class="kw">원조피로</span>, 2000년대 MDGs·9.11로 반등. <span style="color:#888">→ GNI(국민총소득)의 0.7%를 권고하지만 현실은 절반도 안 돼요. 한때 식었다가(원조피로) 2000년대 다시 늘었어요.</span>','신흥공여국 규모: <span class="kw">중국 > 인도 > 브라질</span>','성과: 마셜플랜, <span class="kw">아시아의 네 마리 용</span>(한국·싱가포르·대만·홍콩), MDGs·SDGs','<span class="kw">ODA 무용론</span>: 국내산업 기회 박탈·저축/투자 억제·부패 심화. <span style="color:#888">→ "원조가 오히려 개도국 자립을 막는다"는 비판적 시각이에요.</span>'],
+     tip:'0.7%(권고) vs 0.33%(현실), 네 마리 용=한·싱·대·홍. ODA 무용론의 3가지 비판 기억!' },
+   bridge:{lead:'1장을 더 깊게 마쳤어요. 다음은 국제개발협력의 역사입니다.', nextPreview:'역사 — 태동기와 도약기로 이어집니다.'},
+   quiz:[
+    {t:'mc',q:'다음 중 신흥공여국의 원조 규모 순서로 옳은 것은?',choices:['인도 > 중국 > 브라질','중국 > 인도 > 브라질','브라질 > 중국 > 인도','인도 > 브라질 > 중국'],answer:1,hint:'가장 큰 신흥공여국은?',ex:'신흥공여국 규모는 중국 > 인도 > 브라질 순입니다.'},
+    {t:'mc',q:'\'아시아의 네 마리 용\'에 해당하지 않는 곳은?',choices:['한국','싱가포르','대만','일본'],answer:3,hint:'네 마리 용은 신흥공업국.',ex:'네 마리 용은 한국·싱가포르·대만·홍콩입니다. 일본은 포함되지 않습니다.'},
+    {t:'mc',q:'\'ODA 무용론\'의 비판 논거가 아닌 것은?',choices:['개도국 국내산업 발전 기회를 빼앗는다','국내 저축·투자를 억제한다','부패한 정부를 더 부패하게 만든다','원조를 더 늘려야 한다'],answer:3,hint:'무용론은 부정적 시각이에요.',ex:'\'더 많은 원조\'는 효용론의 주장입니다. 무용론은 기회 박탈·저축투자 억제·부패 심화를 비판합니다.'},
+    {t:'ox',q:'2000년대 들어 MDGs 채택과 9.11 테러를 계기로 ODA 규모가 다시 증가했다.',a:true,hint:'1990년대 원조피로 이후 반등.',ex:'1990년대 원조피로 이후 2000년대 MDGs·9.11을 계기로 원조가 반등했습니다.'},
+    {t:'free',q:'OECD의 ODA/GNI 권고치와 실제 평균을 각각 쓰시오.',keys:['0.7','0.3'],model:'권고치 0.7%, 실제 평균 약 0.33%(0.3%대).',hint:'권고 vs 현실',ex:'권고 0.7%, 현실 0.3%대입니다.'}
    ]}
 ]},
 
@@ -274,7 +382,7 @@ window.COURSE = { title:"국제개발협력(ODA) 자격시험", units:[
  { id:'u2l1', title:'태동기와 도약기 (1940~60s)', en:'Origins & Take-off',
    concept:{ why:'개발협력은 갑자기 생긴 게 아니라 2차 대전·냉전이라는 역사 속에서 태어났어요. 마셜플랜·브레턴우즈·DAC의 탄생을 알면 "왜 이런 기구들이 생겼나"가 한 번에 정리됩니다.',
      def:{term:'태동~도약기', body:'2차 대전 직후 미·소 냉전 속에서 본격화된 원조가, 1960년대 UN "개발의 10년"과 OECD DAC 설립으로 제도화된 시기.'},
-     points:['1944 <span class="kw">브레턴우즈 협정</span> → 1945 IMF·IBRD 창설','1948~52 <span class="kw">마셜플랜</span>(유럽부흥계획), 미국 주도','1960 DAG → 1961 OECD <span class="kw">DAC</span> 개편 / 1969 피어슨 보고서 → GNP 0.7% 권고','담론: <span class="kw">근대화이론</span>(로스토 5단계론) vs <span class="kw">종속이론</span>(프랑크: 중심부-주변부)'],
+     points:['1944 <span class="kw">브레턴우즈 협정</span> → 1945 IMF(International Monetary Fund, 국제통화기금)·IBRD(국제부흥개발은행) 창설. <span style="color:#888">→ 2차 대전 후 국제 금융질서를 세운 회의에서 두 기구가 탄생.</span>','1948~52 <span class="kw">마셜플랜</span>(유럽부흥계획), 미국 주도. <span style="color:#888">→ 전후 서유럽 재건을 도운 대규모 원조, 본격 개발원조의 출발점.</span>','1960 DAG(개발원조그룹) → 1961 OECD <span class="kw">DAC</span>(개발원조위원회) 개편 / 1969 피어슨 보고서 → GNP의 0.7% 원조 권고. <span style="color:#888">→ 공여국 협의체가 만들어지고 \'0.7%\' 권고가 처음 등장.</span>','담론: <span class="kw">근대화이론</span>(로스토 5단계론) vs <span class="kw">종속이론</span>(프랑크: 중심부-주변부). <span style="color:#888">→ "단계를 밟으면 발전" vs "무역할수록 주변부는 더 가난"의 대립.</span>'],
      tip:'"브레턴우즈(1944)→IMF·IBRD" / "DAG(1960)→DAC(1961)" 두 쌍만 외우면 절반은 맞아요.' },
    bridge:{lead:'도약 뒤엔 정체와 위기가 옵니다. 석유파동과 구조조정이 어떻게 원조의 방향을 바꿨는지 봅니다.', nextPreview:'1970~90년대 정체·위기와 워싱턴 컨센서스를 배웁니다.'},
    quiz:[
@@ -287,7 +395,7 @@ window.COURSE = { title:"국제개발협력(ODA) 자격시험", units:[
  { id:'u2l2', title:'정체기와 위기 (1970~90s)', en:'Stagnation & Crisis',
    concept:{ why:'"원조를 많이 했는데 왜 가난은 그대로지?"라는 회의(원조피로)가 이 시기에 터집니다. 구조조정의 실패는 오늘날 "주인의식·효과성" 논의가 나온 직접적 배경이에요.',
      def:{term:'정체~위기기', body:'두 차례 석유파동과 외채위기로 원조가 흔들리고, 신자유주의 구조조정(워싱턴 컨센서스)이 확산됐다가 실패하며 비판받은 시기.'},
-     points:['1970s: 석유파동 → 인프라 중심 → <span class="kw">인간의 기본적 욕구(BHN)</span>로 전환','신자유주의 구조조정(SAP) → <span class="kw">워싱턴 컨센서스</span>','선진국의 <span class="kw">원조피로(Aid Fatigue)</span> 현상, 냉전 종식','1987 브룬트란트 보고서 → <span class="kw">지속가능발전(SD)</span> 정의'],
+     points:['1970s: 석유파동 → 인프라 중심 → <span class="kw">인간의 기본적 욕구(BHN</span>, Basic Human Needs)로 전환. <span style="color:#888">→ 길·댐 같은 인프라보다 \'사람의 최소 필요(식량·물·보건)\'를 먼저 채우자는 흐름.</span>','신자유주의 구조조정(SAP, Structural Adjustment Program) → <span class="kw">워싱턴 컨센서스</span>. <span style="color:#888">→ "정부는 줄이고 시장은 키워라"는 처방.</span>','선진국의 <span class="kw">원조피로(Aid Fatigue)</span> 현상, 냉전 종식. <span style="color:#888">→ 오래 도왔는데 성과가 더디자 원조 의욕이 식음.</span>','1987 브룬트란트 보고서 → <span class="kw">지속가능발전(SD</span>, Sustainable Development) 정의. <span style="color:#888">→ "미래 세대를 해치지 않는 선에서 현 세대 필요 충족".</span>'],
      tip:'"정부 축소·시장 확대 → 구조조정 → 워싱턴 컨센서스"는 1980년대! 연대 묻는 문제 단골.' },
    bridge:{lead:'위기를 넘어 2000년대, 국제사회는 공동 목표(MDGs)와 원조효과성 규범으로 반격합니다.', nextPreview:'MDGs와 파리선언 등 원조효과성 고위급포럼을 배웁니다.'},
    quiz:[
@@ -300,7 +408,7 @@ window.COURSE = { title:"국제개발협력(ODA) 자격시험", units:[
  { id:'u2l3', title:'2000년대와 원조효과성', en:'MDGs & Aid Effectiveness',
    concept:{ why:'"돈을 얼마나 줬나"보다 "효과가 있었나"로 패러다임이 바뀐 결정적 시기예요. 파리선언 5대 원칙과 부산총회는 시험 최빈출 중 최빈출입니다.',
      def:{term:'원조효과성 시대', body:'2000년 MDGs 채택 이후, 로마-파리-아크라-부산으로 이어진 고위급포럼(HLF)을 통해 원조의 효과성·개발효과성을 추구한 시기.'},
-     points:['2000 새천년선언 → 2001 <span class="kw">MDGs</span>(8대 목표, ~2015)','개발재원총회: 2002 몬테레이 / 2008 도하 / 2015 아디스아바바','HLF: 2005 <span class="kw">파리(5대 원칙)</span> / 2008 아크라(CSO 인정) / 2011 <span class="kw">부산(개발효과성)</span>','파리선언 5대: 주인의식·원조일치·원조조화·성과관리·상호책무성'],
+     points:['2000 새천년선언 → 2001 <span class="kw">MDGs</span>(Millennium Development Goals, 새천년개발목표; 8대 목표, ~2015). <span style="color:#888">→ 전 세계가 처음 합의한 공동 개발목표.</span>','개발재원총회: 2002 몬테레이 / 2008 도하 / 2015 아디스아바바. <span style="color:#888">→ "이 목표를 무슨 돈으로 달성하나"를 논의한 3차례 회의.</span>','<span class="kw">HLF</span>(High-Level Forum, 원조효과성 고위급포럼): 2005 <span class="kw">파리(5대 원칙)</span> / 2008 아크라(CSO 인정) / 2011 <span class="kw">부산(개발효과성)</span>. <span style="color:#888">→ "얼마나 주나"보다 "효과가 있나"로 무게중심 이동.</span>','파리선언 5대: 주인의식·원조일치·원조조화·성과관리·상호책무성. <span style="color:#888">→ 받는 나라가 주도하고, 공여국끼리 발 맞추고, 성과로 관리하자.</span>'],
      tip:'"몬테레이→도하→아디스아바바"(재원), "로마→파리→아크라→부산"(효과성) 두 줄로 외우기!' },
    bridge:{lead:'MDGs의 한계를 넘어 더 넓은 목표가 등장합니다 — 바로 SDGs. 다음 단원에서 자세히 봅니다.', nextPreview:'MDGs에서 SDGs로의 전환과 17개 목표를 배웁니다.'},
    quiz:[
@@ -309,6 +417,59 @@ window.COURSE = { title:"국제개발협력(ODA) 자격시험", units:[
     {t:'mc',q:'2011년 부산세계개발원조총회(HLF-4)의 핵심 전환 방향은?',choices:['원조효과성 → 개발효과성','개발효과성 → 원조효과성','양자 → 다자','무상 → 유상'],answer:0,hint:'"원조를 넘어서"가 슬로건.',ex:'부산총회는 원조효과성을 넘어 포괄적 개발효과성으로 전환을 선언했습니다.'},
     {t:'ox',q:'MDGs는 경제적 불평등과 글로벌 이슈를 충분히 다루지 못했다는 비판을 받았다.',a:true,hint:'"one size fits all" 비판 기억나나요?',ex:'MDGs는 불평등·글로벌 이슈 미흡, 개도국 입장 미반영 등으로 비판받았습니다.'},
     {t:'free',q:'개발재원총회 3차례가 열린 도시를 순서대로 쓰시오.',keys:['몬테레이','도하','아디스아바바'],model:'2002 멕시코 몬테레이 → 2008 카타르 도하 → 2015 에티오피아 아디스아바바.',hint:'멕시코 / 카타르 / 에티오피아',ex:'몬테레이→도하→아디스아바바 순입니다.'}
+   ]},
+ { id:'u2l4', title:'근대화 이론', en:'Modernization Theory',
+   concept:{ why:'1960년대 개발의 주류 사고예요. "선진국처럼 단계를 밟으면 발전한다"는 낙관론인데, 로스토의 5단계론은 거의 매년 나옵니다.',
+     def:{term:'근대화 이론', body:'전근대→근대화→근대의 단계 모형으로, 개도국이 \'근대화\' 과정을 거쳐 선진국이 된다고 본 일방향적 사고.'},
+     points:['<span class="kw">로스토 5단계</span>: 전통사회→도약준비기→도약기→성숙기→대중소비사회. <span style="color:#888">→ 비행기 이륙(take-off)처럼 \'도약기\'에 본격 성장이 시작된다는 모형.</span>','<span class="kw">거센크론</span>: 후발주자의 이점(상대적 후진성에 대응). <span style="color:#888">→ 늦게 출발한 나라는 선진국을 그대로 베끼지 않고 자기 방식으로 따라잡는다.</span>','균형성장론: <span class="kw">넉시(빈곤의 악순환)</span>·로단(동시 투자) / 불균형성장론: <span class="kw">허시먼</span>(전략산업 집중). <span style="color:#888">→ "여러 산업 골고루" vs "전략 산업에 집중"의 대비.</span>','일방향 가정: 문화적 근대화→경제발전→민주주의. <span style="color:#888">→ 한 방향으로만 발전한다고 본 게 비판점.</span>'],
+     tip:'로스토=5단계(전·준·도·성·대), 허시먼=불균형(집중), 넉시=균형(빈곤 악순환). 학자-개념 매칭!' },
+   bridge:{lead:'근대화 이론에 반기를 든 게 종속이론이에요. 다음으로 이어집니다.', nextPreview:'종속이론·세계체제론으로 이어집니다.'},
+   quiz:[
+    {t:'mc',q:'로스토(W.W. Rostow) 경제개발 5단계론에서, 사회가 근대적 가치관을 확립하고 본격적 성장이 시작되는 단계는?',choices:['전통사회','도약 준비기','도약기(Take-off)','대중소비사회'],answer:2,hint:'비행기가 이륙(take-off)하듯.',ex:'도약기(Take-off)는 경제 발전이 가속되며 본격 성장이 이루어지는 단계입니다.'},
+    {t:'mc',q:'\'후발주자의 이점(상대적 후진성)\'을 주장한 학자는?',choices:['로스토','거센크론','프랑크','월러스턴'],answer:1,hint:'후발국은 다른 경로.',ex:'거센크론은 후발국이 상대적 후진성에 대응하며 선진국과 다른 성장 경로를 갈 수 있다고 보았습니다.'},
+    {t:'mc',q:'\'빈곤의 악순환\'을 들어 여러 산업에 골고루 투자하는 균형성장을 주장한 학자는?',choices:['넉시','허시먼','로스토','센'],answer:0,hint:'균형 vs 불균형.',ex:'넉시는 빈곤의 악순환을 들어 균형성장(여러 산업 동시 투자)을 주장했습니다. 허시먼은 불균형성장(전략산업 집중).'},
+    {t:'ox',q:'근대화 이론은 모든 사회가 전근대→근대화→근대의 일방향적 단계를 밟는다고 본다.',a:true,hint:'일방향 단계론.',ex:'근대화 이론은 서구 모델을 따라 일정 단계를 밟는다는 일방향적 사고에 기반합니다.'},
+    {t:'free',q:'로스토 경제개발 5단계를 순서대로 쓰시오.',keys:['전통','도약','성숙','대중'],model:'전통사회 → 도약 준비기 → 도약기 → 성숙기 → 대중소비사회.',hint:'전통-준비-도약-성숙-대중소비',ex:'전통사회→도약준비기→도약기→성숙기→대중소비사회입니다.'}
+   ]},
+ { id:'u2l5', title:'종속이론·세계체제론', en:'Dependency & World-System',
+   concept:{ why:'"왜 무역할수록 개도국은 더 가난해지나?"에 답한 비판 이론이에요. 근대화 이론과 정반대 시각이라 비교 문제로 자주 나옵니다.',
+     def:{term:'종속이론', body:'세계는 중심부와 주변부로 나뉘고, 무역이 심화될수록 경제적 잉여가 주변부에서 중심부로 이전된다고 본 이론(프랑크).'},
+     points:['프랑크 <span class="kw">종속이론</span>: \'저발전의 발전\', 중심부-주변부, 잉여 이전. <span style="color:#888">→ 무역할수록 이익이 주변부에서 중심부로 빠져나가 저발전이 고착돼요.</span>','전략: <span class="kw">수입대체산업화(ISI</span>, Import Substitution Industrialization) 제안 → 남미 채택 / 아시아는 <span class="kw">수출주도산업화(EOI</span>, Export-Oriented Industrialization) 채택. <span style="color:#888">→ 수입을 국산으로 막기 vs 수출로 키우기.</span>','<span class="kw">월러스턴 세계체제론</span>: 중심부-반주변부-주변부 (노동분업). <span style="color:#888">→ 종속이론에 \'반주변부\'를 더한 3층 구조.</span>','한계: 유통구조 중심이라 정치·군사 갈등 설명 부족'],
+     tip:'종속=중심/주변(2층), 세계체제=중심/반주변/주변(3층). ISI=수입대체(남미), EOI=수출주도(아시아)!' },
+   bridge:{lead:'1970년대엔 석유파동과 함께 새 담론이 등장해요. 다음으로 이어집니다.', nextPreview:'1970년대 NIEO·인간기본욕구(BHN)로 이어집니다.'},
+   quiz:[
+    {t:'mc',q:'\'저발전의 발전\'을 말하며 잉여가 주변부→중심부로 이전된다고 본 이론·학자는?',choices:['근대화 이론 - 로스토','종속이론 - 프랑크','균형성장론 - 넉시','내생적 성장 - 로머'],answer:1,hint:'중심부-주변부.',ex:'프랑크의 종속이론은 중심부-주변부 구조에서 잉여 이전을 설명합니다.'},
+    {t:'mc',q:'종속이론이 제안한, 수입품에 높은 장벽을 두고 국내 생산으로 대체하는 전략은?',choices:['수출주도산업화(EOI)','수입대체산업화(ISI)','녹색혁명','구조조정(SAP)'],answer:1,hint:'수입을 \'대체\'.',ex:'수입대체산업화(ISI)는 자국 산업 보호 전략으로 남미가 주로 채택했습니다. 아시아 신흥공업국은 EOI(수출주도)를 택했습니다.'},
+    {t:'mc',q:'세계를 중심부-반주변부-주변부 3층 구조로 본 학자는?',choices:['프랑크','월러스턴','거센크론','로스토'],answer:1,hint:'반주변부가 핵심.',ex:'월러스턴의 세계체제론은 중심부-반주변부-주변부 구조를 제시합니다.'},
+    {t:'ox',q:'아시아 신흥공업국은 종속이론의 처방(ISI)과 달리 수출주도산업화(EOI)를 채택했다.',a:true,hint:'아시아 \'네 마리 용\'.',ex:'부존자원이 부족한 아시아 신흥공업국은 수출주도산업화(EOI)를 택했습니다.'},
+    {t:'free',q:'수입대체산업화(ISI)와 수출주도산업화(EOI)를 채택한 지역을 각각 쓰시오.',keys:['남미','아시아'],model:'ISI=남미(중남미), EOI=아시아 신흥공업국.',hint:'ISI=남미 / EOI=아시아',ex:'ISI는 남미, EOI는 아시아입니다.'},
+    {t:'mc',q:'[적용] 부존자원이 부족한 아시아 신흥공업국이 종속이론의 처방과 달리 채택해 성공한 산업화 전략은?',choices:['수입대체산업화(ISI)','수출주도산업화(EOI)','균형성장','구조조정(SAP)'],answer:1,hint:'수출로 성장.',ex:'자원이 부족한 아시아 신흥공업국은 수출주도산업화(EOI)를 택했습니다. (남미는 ISI)'}
+   ]},
+ { id:'u2l6', title:'1970년대: NIEO와 기본욕구', en:'1970s: NIEO & BHN',
+   concept:{ why:'석유파동으로 개도국이 더 힘들어지자, "공정한 경제질서를 달라"는 요구(NIEO)와 "최소한 기본 욕구부터"라는 접근(BHN)이 동시에 떠올라요.',
+     def:{term:'1970년대 담론', body:'인프라 중심 성장에서 인간의 기본적 욕구(BHN)로 전환되고, 개도국이 신국제경제질서(NIEO)를 요구한 시기.'},
+     points:['1974 <span class="kw">신국제경제질서(NIEO</span>, New International Economic Order) 선언, G77(개도국 77개국 그룹)이 공정한 질서 요구. <span style="color:#888">→ 개도국들이 "불공정한 경제질서를 바꿔달라"고 목소리를 냄.</span>','<span class="kw">인간의 기본적 욕구(BHN)</span>: 식량·물·주거·위생·보건·교육. <span style="color:#888">→ 생존에 필요한 최소한부터 채우자는 접근.</span>','<span class="kw">빈곤선</span>: 생존 최소 소비 기준 / 파울 스트리텐: 물질적+비물질적 욕구. <span style="color:#888">→ 먹는 것뿐 아니라 자유·안보 같은 비물질 욕구까지 포함.</span>','환경(1972 스톡홀름 UNCHE→UNEP)·여성(1975 WID) 이슈 부상. <span style="color:#888">→ UNCHE=유엔인간환경회의, UNEP=유엔환경계획, WID=개발 속 여성.</span>'],
+     tip:'1974 NIEO(질서 요구), BHN(기본욕구), 1972 스톡홀름(환경 첫 국제회의→UNEP). 연도 묶기!' },
+   bridge:{lead:'1980년대엔 신자유주의 구조조정이 휘몰아칩니다. 다음으로 이어집니다.', nextPreview:'1980-90년대 구조조정·워싱턴 컨센서스로 이어집니다.'},
+   quiz:[
+    {t:'mc',q:'1970년대 원조 전략의 핵심 전환으로 옳은 것은?',choices:['BHN → 인프라 중심','인프라 중심 → 인간의 기본적 욕구(BHN)','유상 → 무상','다자 → 양자'],answer:1,hint:'사람의 기본 필요로.',ex:'1970년대는 인프라 중심에서 인간의 기본적 욕구(BHN) 접근으로 전환되었습니다.'},
+    {t:'mc',q:'1974년 개도국(G77)이 공정한 경제질서를 요구하며 선언한 것은?',choices:['신국제경제질서(NIEO)','워싱턴 컨센서스','파리선언','마셜플랜'],answer:0,hint:'New International Economic Order.',ex:'1974년 신국제경제질서(NIEO)가 선언되었습니다.'},
+    {t:'mc',q:'환경을 주제로 한 최초의 국제회의(1972)와 그 산물로 옳은 것은?',choices:['리우회의 → 의제21','스톡홀름 UNCHE → UNEP 설립','교토 → 교토의정서','요하네스버그 → WSSD'],answer:1,hint:'\'단 하나뿐인 지구\'.',ex:'1972년 스톡홀름 유엔인간환경회의(UNCHE)는 UNEP 설립으로 이어졌습니다.'},
+    {t:'ox',q:'인간의 기본적 욕구(BHN)에는 식량·물·주거·위생·보건·교육 등이 포함된다.',a:true,hint:'생존 최소 욕구.',ex:'BHN은 생존에 필수적인 식량·물·주거·위생·보건·교육 등을 포함합니다.'},
+    {t:'free',q:'1974년 개도국이 공정한 국제 경제질서를 요구하며 선언한 것의 약자를 쓰시오.',keys:['NIEO'],model:'신국제경제질서(NIEO).',hint:'영문 약자 4글자',ex:'NIEO입니다.'}
+   ]},
+ { id:'u2l7', title:'1980-90s: 구조조정·지속가능발전', en:'1980s-90s Discourse',
+   concept:{ why:'"정부를 줄이고 시장에 맡겨라"(워싱턴 컨센서스)가 실패하면서, \'지속가능발전\'과 \'인간개발\'이라는 대안이 떠올라요. 이 전환이 오늘날 SDGs로 이어집니다.',
+     def:{term:'1980-90년대 담론', body:'신자유주의 구조조정(워싱턴 컨센서스)이 확산·실패하고, 지속가능발전·인간개발 패러다임이 등장한 시기.'},
+     points:['세계은행 <span class="kw">SAL</span>(구조조정대부, 1980)·IMF <span class="kw">SAF</span>(구조조정신용, 1986)→구조조정(SAP)→<span class="kw">워싱턴 컨센서스</span>. <span style="color:#888">→ 돈을 빌려주는 대가로 정부 축소·민영화를 요구.</span>','1987 <span class="kw">브룬트란트 보고서</span>(지속가능발전 정의) / 1992 리우 UNCED(유엔환경개발회의)·의제21. <span style="color:#888">→ 환경과 개발을 함께 추구하자는 흐름이 제도화.</span>','<span class="kw">아마르티아 센</span>: \'자유로서의 발전\' / <span class="kw">챔버스</span>: 참여적 빈곤평가. <span style="color:#888">→ 발전=자유 확장, 빈곤은 당사자가 직접 정의.</span>','UNDP 1990 <span class="kw">인간개발보고서(HDR)·HDI</span>. <span style="color:#888">→ 소득 외 인간개발을 재는 지수가 등장.</span>'],
+     tip:'1987 브룬트란트(지속가능발전), 1990 HDI(UNDP), 워싱턴 컨센서스(신자유주의). 셋 다 단골!' },
+   bridge:{lead:'2장 역사 담론을 깊게 마쳤어요. 다음은 SDGs 단원입니다.', nextPreview:'3장 SDGs로 이어집니다.'},
+   quiz:[
+    {t:'mc',q:'정부 축소·시장 확대를 핵심으로 한 신자유주의 구조조정 담론을 무엇이라 하는가?',choices:['워싱턴 컨센서스','몬테레이 합의','베이징 컨센서스','파리선언'],answer:0,hint:'IMF·세계은행 처방.',ex:'구조조정정책(SAP)은 워싱턴 컨센서스로 불립니다.'},
+    {t:'mc',q:'지속가능발전 개념을 정의한 1987년 보고서는?',choices:['피어슨 보고서','브룬트란트 보고서','세계개발보고서','인간개발보고서'],answer:1,hint:'\'우리 공동의 미래\'.',ex:'1987년 브룬트란트 보고서(우리 공동의 미래)가 지속가능발전을 정의했습니다.'},
+    {t:'mc',q:'\'발전이란 자유를 확장하는 과정\'이라며 인간개발 패러다임의 사상적 기반을 제공한 학자는?',choices:['로스토','아마르티아 센','프랑크','넉시'],answer:1,hint:'역량 접근의 그 학자.',ex:'아마르티아 센은 발전을 자유의 확장으로 보았고 인간개발 패러다임의 근원을 제공했습니다.'},
+    {t:'ox',q:'UNDP는 1990년 인간개발보고서(HDR)를 발간하며 인간개발지수(HDI)를 도입했다.',a:true,hint:'인간 중심 개발.',ex:'UNDP는 1990년 HDR을 통해 HDI를 도입했습니다.'},
+    {t:'free',q:'1980년대 세계은행·IMF가 추진한 구조조정 정책이 이어진 신자유주의 담론의 이름을 쓰시오.',keys:['워싱턴'],model:'워싱턴 컨센서스(Washington Consensus).',hint:'미국 수도 이름',ex:'워싱턴 컨센서스입니다.'}
    ]}
 ]},
 
@@ -316,7 +477,7 @@ window.COURSE = { title:"국제개발협력(ODA) 자격시험", units:[
  { id:'u3l1', title:'MDGs에서 SDGs로', en:'From MDGs to SDGs',
    concept:{ why:'MDGs는 절반의 성공이었어요. "무엇이 부족했고 무엇을 바꿨나"를 알면 SDGs의 17개 목표가 왜 그렇게 생겼는지 이해돼요.',
      def:{term:'전환의 핵심', body:'개도국에만 책임을 지운 MDGs의 한계를 넘어, 선진국·개도국 모두에 적용되는 보편적 목표로 확장한 것이 SDGs.'},
-     points:['MDGs 성과: 절대빈곤율 1990년 36% → 2015년 12%','한계: 개도국 입장 미반영, 불평등·글로벌 이슈 미흡','SDGs 슬로건: <span class="kw">"Leave No One Behind"</span>','3대 가치(인권·평등·지속가능성), 4대 핵심(경제·사회·환경·평화)'],
+     points:['MDGs 성과: 절대빈곤율 1990년 36% → 2015년 12%. <span style="color:#888">→ 가장 큰 성과는 빈곤율을 3분의 1로 줄인 것.</span>','한계: 개도국 입장 미반영, 불평등·글로벌 이슈 미흡. <span style="color:#888">→ 선진국이 개도국에 \'시켜준\' 목표라는 비판.</span>','SDGs 슬로건: <span class="kw">"Leave No One Behind"</span>. <span style="color:#888">→ "그 누구도 뒤에 남기지 않는다".</span>','3대 가치(인권·평등·지속가능성), 4대 핵심(경제·사회·환경·평화)'],
      tip:'MDGs=8개 목표(개도국 중심), SDGs=17개 목표(보편적). 숫자 8↔17만 헷갈리지 마세요.' },
    bridge:{lead:'전환 배경을 알았으니, SDGs의 실제 구조(17목표 169세부목표)를 들여다봅니다.', nextPreview:'SDGs의 구조와 기억해야 할 핵심 목표 번호를 배웁니다.'},
    quiz:[
@@ -329,7 +490,7 @@ window.COURSE = { title:"국제개발협력(ODA) 자격시험", units:[
  { id:'u3l2', title:'SDGs의 구조와 주요 목표', en:'Structure of SDGs',
    concept:{ why:'17개를 다 외울 필요는 없어요. 자주 나오는 번호(1·4·5·13·16·17)만 잡으면 시험은 충분합니다.',
      def:{term:'SDGs 구조', body:'"2030 지속가능발전의제"에 담긴 17개 목표·169개 세부목표. 경제·사회·환경·평화를 통합합니다.'},
-     points:['<span class="kw">17개 목표 · 169개 세부목표</span>','자주 나오는 번호: 1 빈곤 · 4 교육 · 5 성평등 · 13 기후 · 16 평화/제도 · 17 파트너십','MDGs보다 넓고, 다양한 개발재원을 강조','이행에 다양한 이해관계자 참여 필요'],
+     points:['<span class="kw">17개 목표 · 169개 세부목표</span>. <span style="color:#888">→ MDGs(8개)보다 범위가 훨씬 넓어졌어요.</span>','자주 나오는 번호: 1 빈곤 · 4 교육 · 5 성평등 · 13 기후 · 16 평화/제도 · 17 파트너십','MDGs보다 넓고, 다양한 개발재원을 강조. <span style="color:#888">→ ODA만이 아니라 민간 재원까지 끌어옴.</span>','이행에 다양한 이해관계자 참여 필요. <span style="color:#888">→ 정부뿐 아니라 기업·시민사회가 함께 참여.</span>'],
      tip:'8(MDGs) vs 17(SDGs), 21(MDGs 세부) vs 169(SDGs 세부) — 숫자 짝을 외우세요.' },
    bridge:{lead:'목표를 알았으니, 이 목표들을 "무슨 돈으로" 달성할지 — 개발재원과 ODA 현대화로 이어집니다.', nextPreview:'개발재원의 다각화와 TOSSD 등 ODA 현대화를 배웁니다.'},
    quiz:[
@@ -342,7 +503,7 @@ window.COURSE = { title:"국제개발협력(ODA) 자격시험", units:[
  { id:'u3l3', title:'개발재원과 ODA 현대화', en:'Development Finance',
    concept:{ why:'목표는 거창한데 돈이 부족하면 그림의 떡이죠. 그래서 "ODA만으론 부족하다, 민간재원도 끌어오자"는 흐름이 생겼고, ODA를 측정하는 방식도 진화했어요.',
      def:{term:'ODA 현대화', body:'ODA의 정확한 측정·투명성을 높이고, ODA를 넘어선 다양한 재원의 가치를 인정하려는 흐름. 대표 개념이 TOSSD.'},
-     points:['개발재원이 공적재원 위주 → <span class="kw">민간재원으로 다각화</span>','<span class="kw">TOSSD</span>(총공적지원): ODA를 넘는 재원의 가치 인정','DFI·PSI: 민간동원용 공적재원의 양허분을 ODA로 인정','코로나·전쟁으로 ODA 추가 확대는 쉽지 않음'],
+     points:['개발재원이 공적재원 위주 → <span class="kw">민간재원으로 다각화</span>. <span style="color:#888">→ 정부 돈만으론 부족해 민간 돈까지 끌어오는 추세.</span>','<span class="kw">TOSSD</span>(Total Official Support for Sustainable Development, 총공적지원): ODA를 넘는 재원의 가치 인정. <span style="color:#888">→ ODA보다 넓은 그릇으로 다양한 공적 지원을 집계.</span>','<span class="kw">DFI</span>(개발금융기관)·<span class="kw">PSI</span>(민간금융수단): 민간동원용 공적재원의 양허분을 ODA로 인정. <span style="color:#888">→ 공적 돈으로 민간투자 위험을 덜어주면 그 양허분을 ODA로 인정.</span>','코로나·전쟁으로 ODA 추가 확대는 쉽지 않음'],
      tip:'"TOSSD = ODA보다 넓은 그릇" 한 줄이면 충분.' },
    bridge:{lead:'재원을 알았으니, 실제로 그 돈을 움직이는 "주체들"을 본격적으로 살펴봅니다.', nextPreview:'양자 공여국(미·영·독·일 등)부터 시작합니다.'},
    quiz:[
@@ -350,6 +511,45 @@ window.COURSE = { title:"국제개발협력(ODA) 자격시험", units:[
     {t:'ox',q:'SDGs 시대에는 개발재원이 공적재원 단일 구조로 회귀하고 있다.',a:false,hint:'반대 방향이에요.',ex:'SDGs 시대에는 민간재원으로 다각화되는 추세입니다.'},
     {t:'mc',q:'다음 중 개발재원의 성격이 다른 하나는?',choices:['양자 무상원조(ODA)','다자 ODA','민간기업의 해외직접투자(FDI)','양허성 차관(ODA)'],answer:2,hint:'"공적"이 아닌 것은?',ex:'FDI는 민간자본 흐름으로, 나머지 공적개발원조(ODA)와 성격이 다릅니다.'},
     {t:'free',q:'SDGs 시대 개발재원 흐름의 핵심 변화를 한 문장으로 쓰시오.',keys:['민간','다각화'],model:'공적재원 중심에서 민간재원을 포함한 다양한 재원으로 다각화되고 있다.',hint:'민간 / 다각화',ex:'공적재원 중심에서 민간재원으로의 다각화가 핵심입니다.'}
+   ]},
+ { id:'u3l4', title:'MDGs 8대 목표·성과·한계', en:'MDGs in Detail',
+   concept:{ why:'SDGs를 이해하려면 그 전신인 MDGs를 알아야 해요. 8개 목표와 \'무엇이 성공이고 무엇이 한계였나\'가 단골 출제 포인트입니다.',
+     def:{term:'MDGs', body:'2000 새천년선언을 거쳐 2001년 발표된 8대 목표·21개 세부목표·60개 지표. 2015년까지 인간개발에 초점을 둔 결과 중심 목표.'},
+     points:['2000 새천년선언 → 2001 MDGs 발표, <span class="kw">8대 목표</span>(빈곤·기아, 초등교육, 양성평등, 아동사망률, 모성보건, 질병퇴치, 지속가능환경, 글로벌파트너십). <span style="color:#888">→ 사람 중심(빈곤·교육·보건) 8개 목표.</span>','성과: 절대빈곤율 <span class="kw">1990년 36% → 2015년 12%</span>','한계: <span class="kw">\'one size fits all\'</span>, 불평등 미고려, 개도국만의 과제로 인식. <span style="color:#888">→ \'one size fits all\'=모든 나라에 똑같은 목표를 들이댄 획일 적용.</span>','경제개발의 중요성 간과, 개도국 입장 미반영'],
+     tip:'MDGs=8목표(개도국 중심), 성과=빈곤율 36→12%, 한계=one size fits all. 숫자/한계 키워드!' },
+   bridge:{lead:'MDGs의 한계를 넘으려 SDGs가 어떻게 만들어졌는지 봅니다.', nextPreview:'SDGs 수립 과정·구조로 이어집니다.'},
+   quiz:[
+    {t:'mc',q:'MDGs의 구성으로 옳은 것은?',choices:['17대 목표, 169개 세부목표','8대 목표, 21개 세부목표, 60개 지표','12대 목표, 54개 세부목표','15대 목표, 100개 지표'],answer:1,hint:'8개는 MDGs.',ex:'MDGs는 8대 목표·21개 세부목표·60개 지표입니다. (17개는 SDGs)'},
+    {t:'mc',q:'MDGs의 대표적 성과로 옳은 것은?',choices:['절대빈곤율 1990년 36% → 2015년 12%로 감소','모든 지역에서 모든 목표 달성','경제 불평등 완전 해소','선진국 빈곤 종식'],answer:0,hint:'빈곤율 수치.',ex:'절대빈곤율이 1990년 36%에서 2015년 12%로 크게 감소했습니다.'},
+    {t:'mc',q:'MDGs의 한계로 보기 어려운 것은?',choices:['모든 나라에 동일 목표(one size fits all)','경제적 불평등 고려 미흡','결과 중심 패러다임을 전혀 만들지 못함','개도국만의 과제로 인식'],answer:2,hint:'성과도 있었죠.',ex:'MDGs는 결과 중심 패러다임을 정착시킨 성과가 있습니다. 나머지는 한계입니다.'},
+    {t:'ox',q:'MDGs는 2000년 새천년선언을 거쳐 2001년에 발표되었다.',a:true,hint:'선언 후 발표.',ex:'2000년 새천년선언 → 2001년 MDGs 발표 순입니다.'},
+    {t:'free',q:'MDGs가 받은 대표적 비판을 \'획일성\' 관점에서 영어 표현으로 쓰시오.',keys:['one size'],model:'모든 나라에 같은 목표를 적용한 \'one size fits all\' 비판.',hint:'영어 관용구',ex:"'one size fits all'입니다."}
+   ]},
+ { id:'u3l5', title:'SDGs 수립과정·17목표', en:'Making of SDGs',
+   concept:{ why:'SDGs 17개를 다 외울 필요는 없지만, "어떻게·어떤 가치로 만들어졌고 어떻게 분류되나"는 자주 나와요.',
+     def:{term:'SDGs 수립', body:'2012년부터 UN 작업반·고위급패널·공개작업반을 거쳐 17개 목표·169개 세부목표로 확정된 보편적 목표.'},
+     points:['2012 반기문 UN 작업반: <span class="kw">4핵심</span>(경제·사회·환경·평화안보), <span class="kw">3가치</span>(인권·평등·지속가능성). <span style="color:#888">→ SDGs를 떠받치는 네 기둥과 세 가치.</span>','100만의 목소리, 공개작업반(리우+20) → 17목표·169세부. <span style="color:#888">→ 전 세계 의견을 모아 만든 목표.</span>','영역 분류 예: 경제(8·9·12)·환경(7·14·15)·사회(3·5·10·16)','슬로건 <span class="kw">Leave No One Behind</span>'],
+     tip:'4핵심(경·사·환·평) + 3가치(인·평·지). 17목표는 영역별로 묶어 기억!' },
+   bridge:{lead:'목표를 만들었으면 \'얼마나 달성했나\'를 재야겠죠. 다음으로 이어집니다.', nextPreview:'SDGs 이행성과 측정으로 이어집니다.'},
+   quiz:[
+    {t:'mc',q:'SDGs 수립 시 UN 작업반이 제시한 4대 핵심요소가 아닌 것은?',choices:['경제','사회','환경','군사'],answer:3,hint:'경제·사회·환경·평화안보.',ex:'4대 핵심요소는 경제·사회·환경·평화와 안보입니다.'},
+    {t:'mc',q:'SDGs의 3대 가치로 옳은 것은?',choices:['인권·평등·지속가능성','효율·성장·이윤','자유·시장·경쟁','안보·질서·통제'],answer:0,hint:'인간 중심 가치.',ex:'3대 가치는 인권·평등·지속가능성입니다.'},
+    {t:'mc',q:'SDGs의 목표·세부목표 수로 옳은 것은?',choices:['8개·21개','17개·169개','12개·54개','15개·100개'],answer:1,hint:'17개.',ex:'SDGs는 17개 목표·169개 세부목표입니다.'},
+    {t:'ox',q:'SDGs는 개도국뿐 아니라 선진국에도 적용되는 보편적 목표이다.',a:true,hint:'보편성.',ex:'SDGs는 선진국·개도국 모두에 적용되는 보편적 목표입니다.'},
+    {t:'free',q:'SDGs 수립 시 제시된 3대 가치를 쓰시오.',keys:['인권','평등','지속가능'],model:'인권·평등·지속가능성.',hint:'인권 / 평등 / 지속가능성',ex:'인권·평등·지속가능성입니다.'}
+   ]},
+ { id:'u3l6', title:'SDGs 이행성과 측정', en:'Measuring SDGs',
+   concept:{ why:'"달성도를 누가·어떻게 재나"가 의외로 자주 나와요. SDGR·VNR·IATI 같은 측정·투명성 장치를 정리합니다.',
+     def:{term:'성과 측정', body:'SDGs 이행은 유엔 고위급 정치포럼 주도의 보고서와 국가 자발적 보고로 측정되며, \'데이터 혁명\'과 투명성이 강조된다.'},
+     points:['<span class="kw">SDGR</span>(SDGs Report, SDGs 보고서): 유엔 고위급 정치포럼 주도, 지표별 데이터 수집. <span style="color:#888">→ 유엔이 작성하는 공식 성과 보고서.</span>','<span class="kw">VNR</span>(Voluntary National Review, 자발적 국가 보고서): 회원국이 17목표 성과·과제 제출. <span style="color:#888">→ 각 나라가 스스로 내는 성적표.</span>','데이터 혁명·<span class="kw">IATI</span>(International Aid Transparency Initiative, 국제원조투명성기구, 2008 아크라) → 한국 2016 가입. <span style="color:#888">→ 원조 정보를 투명하게 공개하자는 흐름.</span>','상호책무성(공여국·수원국 상호 책임)'],
+     tip:'SDGR=유엔이 작성, VNR=각국이 자발 제출, IATI=원조 투명성. 약자 3종 구분!' },
+   bridge:{lead:'3장 SDGs를 깊게 마쳤어요. 다음은 4장 다양한 주체입니다.', nextPreview:'4장 주체로 이어집니다.'},
+   quiz:[
+    {t:'mc',q:'각 회원국이 17개 목표에 대한 성과·과제를 자발적으로 작성해 유엔 고위급 정치포럼에 제출하는 보고서는?',choices:['SDGR','VNR(자발적 국가보고서)','HDR','IATI'],answer:1,hint:'Voluntary National Review.',ex:'VNR(자발적 국가 보고서)은 회원국이 자발적으로 제출하는 보고서입니다.'},
+    {t:'mc',q:'원조 정보의 투명성을 위해 2008년 아크라 포럼을 계기로 설립된 기구는?',choices:['IATI(국제원조투명성기구)','GPEDC','OECD DAC','UNDP'],answer:0,hint:'투명성·데이터 공개.',ex:'IATI는 2008년 아크라 포럼을 계기로 설립되었고, 한국은 2016년 가입했습니다.'},
+    {t:'ox',q:'상호책무성은 공여국과 수원국이 서로에 대해 책임을 진다는 원칙이다.',a:true,hint:'양방향 책임.',ex:'상호책무성은 공여국·수원국 상호 간의 책임을 의미합니다.'},
+    {t:'mc',q:'유엔 고위급 정치포럼 주도로 지표별 데이터를 모아 발간하는 SDGs 성과 보고서는?',choices:['SDGR(SDGs 보고서)','VNR','피어슨 보고서','브룬트란트 보고서'],answer:0,hint:'SDGs Report.',ex:'SDGR(SDGs 보고서)은 유엔 고위급 정치포럼이 주도합니다.'},
+    {t:'free',q:'원조 정보 투명성을 위한 국제기구의 약자를 쓰시오.',keys:['IATI'],model:'IATI(국제원조투명성기구).',hint:'영문 약자 4글자',ex:'IATI입니다.'}
    ]}
 ]},
 
@@ -357,7 +557,7 @@ window.COURSE = { title:"국제개발협력(ODA) 자격시험", units:[
  { id:'u4l1', title:'양자 공여국', en:'Bilateral Donors',
    concept:{ why:'미국·영국·독일·일본은 각자 "원조 스타일"이 달라요. 누가 어떤 기관으로, 어떤 철학으로 원조하는지 구분하는 문제가 자주 나옵니다.',
      def:{term:'양자 공여국', body:'자국 예산으로 개도국에 직접 원조하는 국가. OECD DAC 회원국이 대표적입니다.'},
-     points:['미국: 케네디가 <span class="kw">대외원조법·USAID</span> 설립, 9.11 후 3D(외교·국방·개발)','영국: DFID → 2020 외교부와 합병해 <span class="kw">FCDO</span>','독일: BMZ(정책 총괄) 산하 <span class="kw">KfW(금융)·GIZ(기술협력)</span>','일본: JICA, <span class="kw">비구속화율 100%</span>, 2015 개발협력대강(군 비군사 분야 관여 가능)'],
+     points:['미국: 케네디가 <span class="kw">대외원조법·USAID</span>(United States Agency for International Development, 미국국제개발처) 설립, 9.11 후 3D(외교·국방·개발). <span style="color:#888">→ 미국 원조의 핵심 집행기관이 USAID.</span>','영국: DFID(Department for International Development, 국제개발부) → 2020 외교부와 합병해 <span class="kw">FCDO</span>(외교영연방개발부). <span style="color:#888">→ 독립 원조부처가 외교부로 흡수됨.</span>','독일: BMZ(연방경제협력개발부, 정책 총괄) 산하 <span class="kw">KfW(금융)·GIZ(기술협력)</span>. <span style="color:#888">→ BMZ가 머리, KfW·GIZ가 손발.</span>','일본: JICA(국제협력기구), <span class="kw">비구속화율 100%</span>, 2015 개발협력대강(군 비군사 분야 관여 가능). <span style="color:#888">→ 비구속=자국 물자 강제 구매가 없음.</span>'],
      tip:'"독일=BMZ가 머리, KfW·GIZ가 손발" / "일본=JICA + 비구속 100%"로 묶어 외우기.' },
    bridge:{lead:'한 나라가 아니라 여러 나라가 모인 기구는? 다음은 UN·IMF·세계은행 같은 다자기구입니다.', nextPreview:'UN·국제금융기구·세계은행그룹을 배웁니다.'},
    quiz:[
@@ -369,21 +569,22 @@ window.COURSE = { title:"국제개발협력(ODA) 자격시험", units:[
    ]},
  { id:'u4l2', title:'다자개발기구 (UN·IFI·WBG)', en:'Multilateral Agencies',
    concept:{ why:'세계은행그룹 5형제(IBRD·IDA·IFC·MIGA·ICSID)는 이름이 비슷해 헷갈리기 딱 좋아요. 각자 뭘 하는지 구분하면 "바르게 짝지은 것" 문제를 쓸어담아요.',
-     def:{term:'다자개발기구', body:'여러 나라가 함께 만든 국제기구. UN(개발은 ECOSOC), 국제금융기구(IMF·MDB), 세계은행그룹이 대표적.'},
-     points:['UNDP: 매년 <span class="kw">인간개발지수(HDI)</span> 발표 (수명·지식·생활수준)','IMF: 일시적 <span class="kw">국제수지 불균형</span> 시 긴급 금융 / MDB: 개발 프로젝트 차관','세계은행: <span class="kw">IBRD</span>(중소득) · <span class="kw">IDA</span>(저소득 무이자) · <span class="kw">IFC</span>(민간) · <span class="kw">MIGA</span>(투자보증) · <span class="kw">ICSID</span>(분쟁해결)','OECD/DAC 3대 기능: ODA 모니터링·표준화·동료검토 (한국 2010 DAC 가입)'],
-     tip:'IDA=I-D-A의 D를 "Development(저소득 무이자)"로, MIGA=보증(보험), ICSID=분쟁(재판)으로 연상.' },
+     def:{term:'다자개발기구', body:'여러 나라가 함께 만든 국제기구. UN(United Nations, 국제연합)·국제금융기구·세계은행그룹(WBG)이 대표적. <span style="color:#888">(한 나라가 직접 주는 양자원조와 달리, 여러 나라가 모은 공동 재원으로 돕는 방식이에요.)</span>'},
+     points:['<span class="kw">UNDP</span>(United Nations Development Programme, 유엔개발계획): 매년 <span class="kw">인간개발지수(HDI</span>, Human Development Index)를 발표. <span style="color:#888">→ 소득만이 아니라 수명·지식(교육)·생활수준을 합쳐 한 나라의 발전 정도를 재는 지표예요.</span>','<span class="kw">IMF</span>(International Monetary Fund, 국제통화기금): 일시적 국제수지 불균형 시 긴급 금융. <span style="color:#888">→ 한 나라가 갑자기 외화가 부족할 때 급한 불을 꺼주는 긴급 대출이에요.</span>','<span class="kw">MDB</span>(Multilateral Development Bank, 다자개발은행): 개발 프로젝트 차관. <span style="color:#888">→ 개도국 개발사업에 장기 자금을 빌려줘요.</span>','<span class="kw">세계은행그룹(WBG)</span>: IBRD(중소득)·<span class="kw">IDA</span>(저소득 무이자)·IFC(민간)·MIGA(투자보증)·ICSID(분쟁해결). <span style="color:#888">→ 누구에게·무엇을 주느냐로 나뉜 5개 기구예요.</span>','<span class="kw">OECD</span>(Organisation for Economic Co-operation and Development, 경제협력개발기구) 산하 <span class="kw">DAC</span>(Development Assistance Committee, 개발원조위원회) 3대 기능: ODA 모니터링·표준화·동료검토. (한국 2010 가입)'],
+     tip:'세계은행 5형제는 "누구에게 주느냐"로 구분: 중소득=IBRD, 최빈국=IDA(무이자), 민간기업=IFC, 보증=MIGA, 분쟁=ICSID.' },
    bridge:{lead:'정부와 큰 기구 말고도, 신흥공여국·시민사회·기업이 새 주체로 떠오릅니다.', nextPreview:'중국 등 신흥공여국과 CSO·기업의 역할을 배웁니다.'},
    quiz:[
     {t:'mc',q:'세계은행그룹 기구와 역할이 바르게 짝지어진 것은?',choices:['IBRD - 국제개발협회','MIGA - 국제투자보증기구','ICSID - 국제개발협회','IFC - 국제투자분쟁해결기구'],answer:1,hint:'MIGA의 G가 Guarantee(보증).',ex:'MIGA는 국제투자보증기구입니다. IBRD=국제부흥개발은행, IFC=국제금융공사, ICSID=국제투자분쟁해결센터.'},
     {t:'mc',q:'저소득국에 무이자·초저리로 융자하는 세계은행그룹 기구는?',choices:['IBRD','IDA','IFC','MIGA'],answer:1,hint:'가장 가난한 나라를 위한 창구.',ex:'IDA(국제개발협회)는 저소득국에 무이자 또는 초저리로 융자합니다.'},
     {t:'mc',q:'IMF의 주요 기능으로 옳은 것은?',choices:['개도국 장기 개발 프로젝트 차관','일시적 국제수지 불균형 시 긴급 외환 지원','민간기업 직접 투자','투자분쟁 조정'],answer:1,hint:'"긴급 외환"이 핵심.',ex:'IMF는 회원국의 일시적 국제수지 불균형 시 긴급 외환을 지원합니다.'},
     {t:'ox',q:'매년 인간개발지수(HDI)를 발표하는 기구는 세계은행이다.',a:false,hint:'HDI는 UN 기구가 발표해요.',ex:'HDI는 UNDP가 매년 발표합니다.'},
-    {t:'free',q:'OECD DAC의 3대 핵심 기능을 쓰시오.',keys:['모니터링','표준','동료검토'],model:'ODA 모니터링(통계), 개발협력 표준화(규범·가이드라인), 동료검토(Peer Review).',hint:'모니터링 / 표준화 / 동료검토',ex:'DAC의 3대 기능은 ODA 모니터링·표준화·동료검토입니다.'}
+    {t:'free',q:'OECD DAC의 3대 핵심 기능을 쓰시오.',keys:['모니터링','표준','동료검토'],model:'ODA 모니터링(통계), 개발협력 표준화(규범·가이드라인), 동료검토(Peer Review).',hint:'모니터링 / 표준화 / 동료검토',ex:'DAC의 3대 기능은 ODA 모니터링·표준화·동료검토입니다.'},
+    {t:'mc',q:'[적용] 한 개도국 민간기업에 정부 보증 없이도 직접 투자·융자하려 한다. 적절한 세계은행그룹 기구는?',choices:['IBRD','IDA','IFC','MIGA'],answer:2,hint:'민간부문 전담.',ex:'IFC(국제금융공사)는 정부 보증 없이 개도국 민간부문에 투자·융자합니다. (MIGA는 보증, IDA는 저소득국 융자)'}
    ]},
  { id:'u4l3', title:'신흥공여국·시민사회·기업', en:'New Actors',
    concept:{ why:'중국 같은 신흥공여국, 게이츠 재단 같은 민간, 옥스팜 같은 NGO가 판을 키우고 있어요. "전통적 공여국 외에 누가 있나"를 묻는 문제가 늘고 있습니다.',
      def:{term:'다양한 주체', body:'OECD DAC 밖의 신흥공여국, 시민사회단체(CSO), 민간재단·기업이 새로운 개발 주체로 부상.'},
-     points:['신흥공여국: 중국(2018 CICDA), <span class="kw">남남협력</span>(개도국 간), 삼각협력(남+남+북)','AIIB(중국 주도, OECD국도 참여) / NDB(<span class="kw">BRICS</span> 5개국)','CSO: 2008 아크라(AAA)에서 <span class="kw">독립적 개발주체로 인정</span>','기업: FDI(생산거점형/시장접근형)·CSR / 게이츠재단(보건 집중)'],
+     points:['신흥공여국: 중국(2018 CICDA, 국제개발협력청), <span class="kw">남남협력</span>(개도국끼리 돕는 협력), 삼각협력(남+남+북). <span style="color:#888">→ 전통 공여국 외에 중국 등이 새 주체로 부상.</span>','AIIB(아시아인프라투자은행, 중국 주도·OECD국도 참여) / NDB(신개발은행, <span class="kw">BRICS</span> 5개국). <span style="color:#888">→ BRICS=브라질·러시아·인도·중국·남아공.</span>','CSO(Civil Society Organization, 시민사회단체): 2008 아크라(AAA, 아크라행동계획)에서 <span class="kw">독립적 개발주체로 인정</span>. <span style="color:#888">→ NGO 등도 정식 개발 파트너로 인정됨.</span>','기업: FDI(해외직접투자; 생산거점형/시장접근형)·CSR(기업의 사회적 책임) / 게이츠재단(보건 집중)'],
      tip:'NDB=BRICS(브라질·러시아·인도·중국·남아공), AIIB=중국 주도. 칠레는 BRICS 아님!' },
    bridge:{lead:'세계의 주체들을 봤으니, 마지막으로 "우리 한국"의 특별한 이야기로 마무리합니다.', nextPreview:'수원국에서 공여국으로 변신한 한국의 역사를 배웁니다.'},
    quiz:[
@@ -392,6 +593,45 @@ window.COURSE = { title:"국제개발협력(ODA) 자격시험", units:[
     {t:'mc',q:'시장접근형 FDI에 대한 설명으로 옳은 것은?',choices:['원·부자재를 수입해 가공하는 생산이 일반적','일정 구매력 이상의 제3국 시장 접근이 목표','값싼 노동력 활용이 핵심 목적','고용 창출만을 목적으로 함'],answer:1,hint:'"시장"에 접근하려는 투자.',ex:'시장접근형 FDI는 일정 수준 이상 구매력을 가진 제3국 시장에 접근하려는 목적의 투자입니다. (값싼 노동·생산비 절감은 생산거점형)'},
     {t:'ox',q:'남남협력에 선진국(북)이 함께 참여하는 형태를 삼각협력이라 한다.',a:true,hint:'남+남+북.',ex:'삼각협력은 남+남+북이 함께하는 협력입니다.'},
     {t:'free',q:'AIIB와 NDB의 주도 세력 차이를 간단히 쓰시오.',keys:['중국','BRICS'],model:'AIIB는 중국 주도(다수 OECD국도 참여), NDB는 BRICS 5개국 주도.',hint:'AIIB=중국 / NDB=BRICS',ex:'AIIB는 중국 주도, NDB는 BRICS 주도입니다.'}
+   ]},
+ { id:'u4l4', title:'수원국', en:'Recipient Countries',
+   concept:{ why:'원조는 결국 받는 나라(수원국)가 잘 써야 효과가 나요. 수원국의 돈줄(조세)과 발전전략, 수원 체제가 출제 포인트입니다.',
+     def:{term:'수원국', body:'원조를 받는 개발도상국. 국내 재원은 주로 세금(조세)이며, 주체적 발전전략과 수원 체제가 중요하다.'},
+     points:['국내재원=세금. 조세부담률 권고 <span class="kw">세계은행 15%</span>, OECD 평균 33.8%, 취약국 10.4%. <span style="color:#888">→ 수원국이 스스로 걷는 세금이 부족하면 자립이 어려워요.</span>','세금 낮은 원인: 천연자원 의존·조세기반 취약·다국적기업 면세·탈세','경제발전전략: 1999 <span class="kw">PRSP</span>(Poverty Reduction Strategy Paper, 빈곤감소전략보고서) → 2016 국가개발계획(NDP)와 통합. <span style="color:#888">→ 수원국이 직접 짜는 발전전략.</span>','진정한 수원국 체제 활용 = <span class="kw">공공재정관리시스템(PFM</span>, Public Financial Management) 활용. <span style="color:#888">→ 공여국 시스템이 아닌 수원국 자체 시스템으로 집행.</span>'],
+     tip:'세계은행 권고 조세부담률 15%, PRSP→NDP, PFM(공공재정관리). 숫자/약자 세트!' },
+   bridge:{lead:'받는 쪽을 봤으니, 민간이 끌어오는 \'개발금융 전담기관\'으로 이어집니다.', nextPreview:'개발금융 전담기관(DFI)으로 이어집니다.'},
+   quiz:[
+    {t:'mc',q:'수원국의 세금 징수율이 낮은 원인으로 보기 어려운 것은?',choices:['비재생 천연자원에 과도하게 의존','조세 기반 증대의 어려움','국민들의 세금 납부율이 현저히 낮음','탈세와 자본 도피'],answer:2,hint:'구조적 요인.',ex:'국민 납부율 자체는 원인이 아닙니다. 천연자원 의존·조세기반 취약·탈세 등이 원인입니다.'},
+    {t:'mc',q:'세계은행이 권고하는 개도국 조세부담률 수준은?',choices:['약 15%','약 33.8%','약 50%','약 5%'],answer:0,hint:'OECD 평균(33.8%)보다 낮은 권고치.',ex:'세계은행 권고는 약 15%, OECD 평균은 33.8%입니다.'},
+    {t:'mc',q:'1999년 도입되어 2016년 국가개발계획(NDP)과 통합된 수원국 발전전략은?',choices:['PRSP(빈곤감소전략보고서)','SAP','MDGs','TOSSD'],answer:0,hint:'빈곤감소전략.',ex:'PRSP(빈곤감소전략보고서)는 1999년 도입되어 2016년 NDP와 통합되었습니다.'},
+    {t:'ox',q:'진정한 의미의 수원국 체제 활용은 수원국의 공공재정관리시스템(PFM)을 활용하는 것이다.',a:true,hint:'수원국 시스템 사용.',ex:'PFM(공공재정관리시스템) 활용이 진정한 수원국 체제 활용입니다.'},
+    {t:'free',q:'개발도상국의 조세 기반을 확충하는 방법을 한 가지 쓰시오.',keys:['직접세','면세','투명'],model:'직접세 기반 확대, 천연자원 수입 관리 개선, 면세 특혜 축소, 다국적기업 투명성 증대 중 하나.',hint:'직접세 확대 / 면세 축소 / 투명성',ex:'직접세 확대·면세 특혜 축소·다국적기업 투명성 증대 등이 있습니다.'}
+   ]},
+ { id:'u4l5', title:'개발금융 전담기관(DFI)', en:'Development Finance Institutions',
+   concept:{ why:'민간 자본을 개도국으로 끌어오는 전문기관들이에요. 나라별 DFI 이름이 비슷해 헷갈리니 한 번에 정리합니다.',
+     def:{term:'개발금융 전담기관(DFI)', body:'공적재원으로 민간 위험을 일부 부담해 개도국 민간부문 투자를 유도하는 기관.'},
+     points:['영국 <span class="kw">CDC</span>(영연방개발공사, 1948): 세계 최초 DFI(개발금융기관) → 2022 영국국제투자(BII). <span style="color:#888">→ 가장 오래된 개발금융기관.</span>','미국 <span class="kw">DFC</span>(국제개발금융공사, 2018): OPIC+USAID 통합, \'BUILD 법\', 중국 일대일로 견제. <span style="color:#888">→ 미중 경쟁 맥락에서 개발금융을 활용.</span>','프랑스 <span class="kw">Proparco</span>: AFD(프랑스개발청)의 자회사','독일 <span class="kw">DEG</span>: KfW(독일재건은행)의 자회사'],
+     tip:'영국=CDC(최초·1948), 미국=DFC(2018), 프랑스=Proparco(AFD), 독일=DEG(KfW). 나라-기관 매칭!' },
+   bridge:{lead:'마지막으로 기업의 역할(FDI·CSR)을 봅니다.', nextPreview:'기업·FDI·CSR로 이어집니다.'},
+   quiz:[
+    {t:'mc',q:'세계 최초의 개발금융기관(DFI)으로, 2022년 영국국제투자(BII)로 재탄생한 영국 기관은?',choices:['CDC','DFC','Proparco','DEG'],answer:0,hint:'1948년 영국.',ex:'영국 CDC(1948)는 세계 최초의 DFI이며 2022년 BII로 재탄생했습니다.'},
+    {t:'mc',q:'2018년 출범한 미국 국제개발금융공사(DFC)에 대한 설명으로 옳은 것은?',choices:['OPIC와 USAID 개발금융부가 통합, BUILD법 근거','프랑스 AFD의 자회사','독일 KfW의 자회사','세계 최초의 DFI'],answer:0,hint:'미국, BUILD법.',ex:'DFC는 OPIC과 USAID 개발금융부가 통합되어 2018년 출범했고 BUILD법에 근거합니다.'},
+    {t:'mc',q:'프랑스와 독일의 개발금융기관을 바르게 짝지은 것은?',choices:['프랑스 DEG - 독일 Proparco','프랑스 Proparco - 독일 DEG','프랑스 CDC - 독일 DFC','프랑스 KfW - 독일 AFD'],answer:1,hint:'Proparco=프랑스(AFD), DEG=독일(KfW).',ex:'프랑스는 Proparco(AFD 자회사), 독일은 DEG(KfW 자회사)입니다.'},
+    {t:'ox',q:'미국 DFC는 중국의 일대일로 정책을 견제하려는 목적도 가진다.',a:true,hint:'미중 경쟁.',ex:'DFC는 개발금융으로 중국 일대일로를 견제하는 국가안보적 목적도 표방합니다.'},
+    {t:'free',q:'세계 최초의 개발금융기관(DFI)을 운영한 나라와 기관명을 쓰시오.',keys:['영국','CDC'],model:'영국의 CDC(영연방개발공사, 1948).',hint:'영국 / CDC',ex:'영국 CDC(1948)입니다.'}
+   ]},
+ { id:'u4l6', title:'기업·FDI·CSR', en:'Business, FDI & CSR',
+   concept:{ why:'기업도 중요한 개발 주체예요. FDI의 두 유형과 CSR·ESG 규범을 구분하면 기업 관련 문제를 잡습니다.',
+     def:{term:'기업의 역할', body:'기업은 해외직접투자(FDI)·사회적 책임(CSR)·ESG를 통해 개발에 기여한다.'},
+     points:['FDI <span class="kw">생산거점형</span>(값싼 노동·원자재→생산비 절감) vs <span class="kw">시장접근형</span>(제3국 시장 접근). <span style="color:#888">→ 싼 생산기지냐, 시장 진출이냐.</span>','정치적 위험 대비: <span class="kw">MIGA</span>(국제투자보증기구)·MDB(다자개발은행) 활용. <span style="color:#888">→ 몰수·전쟁 같은 위험을 보증으로 줄여 투자를 유인.</span>','<span class="kw">CSR</span>(Corporate Social Responsibility, 기업의 사회적 책임): 2000 UN 글로벌콤팩트(UNGC)·2010 ISO 26000','<span class="kw">ESG</span>(Environmental·Social·Governance, 환경·사회·지배구조) / 게이츠재단(보건 집중)'],
+     tip:'생산거점형=싼 노동(반쪽 FDI), 시장접근형=구매력 있는 시장. CSR=2000 UNGC·2010 ISO26000!' },
+   bridge:{lead:'4장 주체를 깊게 마쳤어요. 다음은 5장 한국의 국제개발협력입니다.', nextPreview:'5장 한국으로 이어집니다.'},
+   quiz:[
+    {t:'mc',q:'시장접근형 FDI에 대한 설명으로 옳은 것은?',choices:['값싼 노동력으로 생산비를 절감하려는 투자','일정 구매력 이상의 제3국 시장에 접근하려는 투자','원자재 수입·가공이 일반적','자본축적·기술이전이 없는 \'반쪽 FDI\''],answer:1,hint:'\'시장\'에 접근.',ex:'시장접근형 FDI는 일정 구매력 이상의 제3국 시장 접근이 목적입니다. (값싼 노동·생산비 절감은 생산거점형)'},
+    {t:'mc',q:'기업의 사회적 책임(CSR) 관련 국제규범으로 옳은 것은?',choices:['2000 UN 글로벌콤팩트(UNGC), 2010 ISO 26000','1969 OECD DAC','2015 파리협정','1944 브레턴우즈'],answer:0,hint:'UNGC·ISO26000.',ex:'CSR 규범에는 2000년 UN 글로벌콤팩트와 2010년 ISO 26000이 있습니다.'},
+    {t:'mc',q:'비상업적 위험으로부터 외국인 투자를 보증해 개도국 투자를 유인하는 세계은행그룹 기구는?',choices:['MIGA','IDA','IFC','ICSID'],answer:0,hint:'보증(Guarantee).',ex:'MIGA(국제투자보증기구)는 비상업적 투자위험을 보증합니다.'},
+    {t:'ox',q:'생산거점형 FDI는 자본축적·기술이전이 충분치 않아 \'반쪽짜리 FDI\'로 불리기도 한다.',a:true,hint:'싼 노동만 활용.',ex:'생산거점형 FDI는 자본축적·기술이전이 미흡해 반쪽 FDI로 평가되기도 합니다.'},
+    {t:'free',q:'FDI의 두 가지 유형을 쓰시오.',keys:['생산거점','시장접근'],model:'생산거점형 FDI, 시장접근형 FDI.',hint:'생산거점형 / 시장접근형',ex:'생산거점형·시장접근형입니다.'}
    ]}
 ]},
 
@@ -399,7 +639,7 @@ window.COURSE = { title:"국제개발협력(ODA) 자격시험", units:[
  { id:'u5l1', title:'수원국에서 공여국으로', en:'Recipient to Donor',
    concept:{ why:'한국은 "원조 받던 나라에서 주는 나라"가 된 유일한 사례예요. 이 스토리 자체가 한국 ODA의 정체성이라 시험에 꼭 나옵니다.',
      def:{term:'한국의 전환', body:'해방·전쟁 후 원조로 재건한 한국이 EDCF·KOICA 설립과 2009 OECD DAC 가입으로 공여국이 된 과정.'},
-     points:['수원 성과: 대일청구권→포항제철, 일본 OECF→경부고속도로, 세계은행→새마을운동, 미국→KIST','1987 재무부 <span class="kw">EDCF</span>(유상) / 1991 외무부 <span class="kw">KOICA</span>(무상)','2009 <span class="kw">OECD DAC 가입</span> → 수원국→공여국','한국 경제성장은 파리선언 5대 원칙과 대체로 일치'],
+     points:['수원 성과: 대일청구권→포항제철, 일본 OECF(해외경제협력기금)→경부고속도로, 세계은행→새마을운동, 미국→KIST(한국과학기술연구원). <span style="color:#888">→ 받은 원조가 무엇이 됐는지 매칭이 단골.</span>','1987 재무부 <span class="kw">EDCF</span>(대외경제협력기금, 유상) / 1991 외무부 <span class="kw">KOICA</span>(한국국제협력단, 무상)','2009 <span class="kw">OECD DAC 가입</span> → 수원국→공여국. <span style="color:#888">→ 받던 나라에서 주는 나라로 공인된 상징.</span>','한국 경제성장은 파리선언 5대 원칙과 대체로 일치'],
      tip:'"1987 EDCF(유상) → 1991 KOICA(무상) → 2009 DAC" 연도 3개가 핵심.' },
    bridge:{lead:'기관이 생겼으니, 한국이 실제로 "어떤 형태로" 원조하는지 봅니다.', nextPreview:'한국 ODA의 무상·유상·다자 형태별 지원을 배웁니다.'},
    quiz:[
@@ -407,12 +647,13 @@ window.COURSE = { title:"국제개발협력(ODA) 자격시험", units:[
     {t:'mc',q:'한국이 수원국에서 공여국으로 전환된 상징적 사건(2009)은?',choices:['OECD 가입','OECD DAC 가입','UN 가입','부산총회 개최'],answer:1,hint:'원조"위원회" 가입.',ex:'2009년 OECD DAC 가입으로 한국은 받던 나라에서 주는 나라가 되었습니다.'},
     {t:'mc',q:'한국이 받은 원조의 성과로 잘못 짝지어진 것은?',choices:['대일청구권자금 → 포항제철','일본 OECF → 경부고속도로','세계은행 → 새마을운동','미국 ODA → 부산총회'],answer:3,hint:'부산총회는 2011년 행사예요.',ex:'미국 ODA는 KIST 설립으로 이어졌습니다. 부산총회는 원조효과성 포럼(HLF-4)입니다.'},
     {t:'ox',q:'한국은 OECD에 가입한 해와 OECD DAC에 가입한 해가 같다.',a:false,hint:'OECD(1996)와 DAC(2009)는 달라요.',ex:'한국은 1996년 OECD, 2009년 DAC에 가입했습니다.'},
-    {t:'free',q:'한국 ODA 역사에서 핵심 연도 3개(EDCF·KOICA·DAC)를 쓰시오.',keys:['1987','1991','2009'],model:'1987 EDCF 설립, 1991 KOICA 설립, 2009 OECD DAC 가입.',hint:'87 / 91 / 2009',ex:'1987(EDCF)·1991(KOICA)·2009(DAC)입니다.'}
+    {t:'free',q:'한국 ODA 역사에서 핵심 연도 3개(EDCF·KOICA·DAC)를 쓰시오.',keys:['1987','1991','2009'],model:'1987 EDCF 설립, 1991 KOICA 설립, 2009 OECD DAC 가입.',hint:'87 / 91 / 2009',ex:'1987(EDCF)·1991(KOICA)·2009(DAC)입니다.'},
+    {t:'mc',q:'[적용] 한국이 \'원조를 받던 나라\'에서 \'주는 나라\'로 국제적으로 공인된 2009년의 사건은?',choices:['OECD 가입','OECD DAC 가입','UN 가입','부산총회 개최'],answer:1,hint:'원조위원회 가입.',ex:'2009년 OECD DAC 가입으로 한국은 수원국에서 공여국으로 전환했습니다. (OECD 가입은 1996년)'}
    ]},
  { id:'u5l2', title:'한국 ODA의 형태별 지원', en:'Korea ODA Modalities',
    concept:{ why:'KSP는 외교부가 아니라 기획재정부가 한다는 식의 "주관 부처" 함정이 자주 나와요. 형태와 담당을 정확히 매칭해야 합니다.',
      def:{term:'형태별 지원', body:'한국 ODA는 무상(KOICA), 유상(EDCF), 다자로 나뉘며 부처별로 담당이 다릅니다.'},
-     points:['무상(KOICA): 프로젝트형·연수·봉사단·인도적 지원 등','<span class="kw">KSP(경제발전경험공유)</span>: <span class="kw">기획재정부</span> 주관','유상(EDCF): 장기·저리 양허성차관, <span class="kw">기재부 주관·수출입은행 집행</span>','국제질병퇴치기금: <span class="kw">항공권연대기여금</span>(국제선 1,000원), SDG3 기여'],
+     points:['무상(KOICA): 프로젝트형·연수·봉사단·인도적 지원 등','<span class="kw">KSP(경제발전경험공유)</span>: <span class="kw">기획재정부</span> 주관. <span style="color:#888">→ 다른 무상사업과 달리 외교부가 아니라 기재부 소관.</span>','유상(EDCF): 장기·저리 양허성차관, <span class="kw">기재부 주관·수출입은행 집행</span>','국제질병퇴치기금: <span class="kw">항공권연대기여금</span>(국제선 1,000원), SDG3(보건) 기여'],
      tip:'"KSP·유상=기획재정부" / "무상=외교부(KOICA)"로 부처를 갈라 외우기.' },
    bridge:{lead:'어떻게 주는지 봤으니, 이를 총괄하는 "체제와 정책", 그리고 과제로 마무리합니다.', nextPreview:'한국 ODA 추진체제·기본법·위상·과제를 배웁니다.'},
    quiz:[
@@ -425,7 +666,7 @@ window.COURSE = { title:"국제개발협력(ODA) 자격시험", units:[
  { id:'u5l3', title:'한국 ODA 체제·정책·과제', en:'System & Tasks',
    concept:{ why:'1과목의 마무리. 누가 총괄하고(국제개발협력위원회), 무엇이 과제인지(양적 확대+질적 개선)를 알면 한국 파트가 완성됩니다.',
      def:{term:'추진체제', body:'국무총리 소속 국제개발협력위원회가 총괄·조정하고, 유상=기재부(수은)·무상=외교부(KOICA)로 이원화.'},
-     points:['총괄: <span class="kw">국제개발협력위원회</span> (2010 국제개발협력기본법)','재원 배분: 유상:무상 <span class="kw">40:60</span>, 중점협력국에 양자 70%','위상: 2012 <span class="kw">GCF 사무국 인천 송도</span> 유치, 2016 IATI 정보 제공','과제: ODA/GNI 비율 상향(양적)·무상/비구속성 비율 확대(질적)'],
+     points:['총괄: <span class="kw">국제개발협력위원회</span> (2010 국제개발협력기본법)','재원 배분: 유상:무상 <span class="kw">40:60</span>, 중점협력국에 양자 70%','위상: 2012 <span class="kw">GCF</span>(Green Climate Fund, 녹색기후기금) 사무국 인천 송도 유치, 2016 <span class="kw">IATI</span>(국제원조투명성기구) 정보 제공','과제: ODA/GNI 비율 상향(양적)·무상/비구속성 비율 확대(질적)'],
      tip:'"유상:무상=40:60"과 "GCF=인천 송도"는 한국 파트 단골 숫자/장소.' },
    bridge:{lead:'1과목(국제개발협력의 이해)을 완주했어요! 이제 2과목, 교육·보건 등 분야별 이슈로 들어갑니다.', nextPreview:'2과목 첫 분야인 "교육"으로 이어집니다.'},
    quiz:[
@@ -433,7 +674,47 @@ window.COURSE = { title:"국제개발협력(ODA) 자격시험", units:[
     {t:'mc',q:'한국 ODA 종합기본계획상 유상:무상 재원 배분 방향은?',choices:['60:40','40:60','50:50','30:70'],answer:1,hint:'무상 비중이 더 커요.',ex:'유상:무상 비율은 40:60으로 운영 방향이 설정되어 있습니다.'},
     {t:'mc',q:'2012년 한국이 사무국을 인천 송도에 유치한 국제기금은?',choices:['지구환경금융(GEF)','녹색기후기금(GCF)','세계백신면역연합(GAVI)','적응기금'],answer:1,hint:'기후 분야 대표 기금.',ex:'녹색기후기금(GCF) 사무국이 2012년 인천 송도에 유치되었습니다.'},
     {t:'ox',q:'한국 ODA의 향후 질적 과제로 무상·비구속성 비율 확대가 꼽힌다.',a:true,hint:'"질"을 높이려면?',ex:'무상·비구속성 비율 확대가 대표적 질적 개선 과제입니다.'},
-    {t:'free',q:'한국 ODA 추진체제에서 유상·무상의 주관 부처를 각각 쓰시오.',keys:['기획재정부','외교부'],model:'유상은 기획재정부(수출입은행 집행), 무상은 외교부(KOICA 집행).',hint:'유상=기재부 / 무상=외교부',ex:'유상=기재부(수은), 무상=외교부(KOICA)입니다.'}
+    {t:'free',q:'한국 ODA 추진체제에서 유상·무상의 주관 부처를 각각 쓰시오.',keys:['기획재정부','외교부'],model:'유상은 기획재정부(수출입은행 집행), 무상은 외교부(KOICA 집행).',hint:'유상=기재부 / 무상=외교부',ex:'유상=기재부(수은), 무상=외교부(KOICA)입니다.'},
+    {t:'mc',q:'[적용] 한국이 개도국에 정책 자문·지식 공유를 제공하는 사업으로, 외교부가 아니라 기획재정부가 주관하는 것은?',choices:['KSP(경제발전경험공유)','EDCF','글로벌연수(CIAT)','해외봉사단'],answer:0,hint:'\'경제발전 경험\'.',ex:'KSP(경제발전경험공유사업)는 기획재정부가 주관하는 지식공유형 사업입니다.'}
+   ]},
+ { id:'u5l4', title:'수원 역사와 외자 활용 성과', en:'Korea as Recipient',
+   concept:{ why:'"한강의 기적"이 어떻게 가능했나가 한국 파트의 핵심 스토리예요. 어떤 원조가 무엇으로 이어졌는지(성과 매칭)가 단골입니다.',
+     def:{term:'수원국 한국', body:'해방·전쟁 후 원조로 재건하고, 1962년 경제개발 5개년 계획으로 도약하며 외자를 성공적으로 활용한 역사.'},
+     points:['복구기(1945~60s초): 미군정 구호, CRIK(한국민간구호, 1950)·<span class="kw">UNKRA</span>(유엔한국재건기구, 1951), 미국 PL480(잉여농산물 원조). <span style="color:#888">→ 전쟁 직후 구호·재건 원조를 받던 시기.</span>','도약기: 1962 <span class="kw">제1차 경제개발 5개년 계획</span>','외자 성과: 미국→<span class="kw">KIST</span>, 일본 OECF→<span class="kw">경부고속도로</span>, 대일청구권→<span class="kw">포항제철</span>, 세계은행→<span class="kw">새마을운동</span>','시사점: 파리선언 5대 원칙과 대체로 일치(주인의식 등)'],
+     tip:'성과 매칭: 미국=KIST, 일본 OECF=경부고속도로, 대일청구권=포항제철, 세계은행=새마을운동!' },
+   bridge:{lead:'받던 나라가 주는 나라가 됐어요. 이제 한국이 어떤 형태로 주는지 봅니다.', nextPreview:'한국 ODA 형태별 지원으로 이어집니다.'},
+   quiz:[
+    {t:'mc',q:'한국이 받은 원조와 성과의 연결로 옳지 않은 것은?',choices:['대일청구권자금 → 포항제철','일본 OECF → 경부고속도로','세계은행 → 새마을운동','미국 ODA → 부산총회 개최'],answer:3,hint:'부산총회는 2011년 행사.',ex:'미국 ODA는 KIST 설립으로 이어졌습니다. 부산총회(HLF-4)는 원조효과성 포럼입니다.'},
+    {t:'mc',q:'한국 도약의 출발점이 된 것은?',choices:['1962년 제1차 경제개발 5개년 계획','1991년 KOICA 설립','2009년 DAC 가입','1945년 미군정'],answer:0,hint:'1962년.',ex:'1962년 제1차 경제개발 5개년 계획으로 한국은 도약을 시작했습니다.'},
+    {t:'ox',q:'한국전쟁 시기 한국민간구호(CRIK)와 유엔한국재건기구(UNKRA)의 원조를 받았다.',a:true,hint:'전쟁·재건 원조.',ex:'CRIK(1950)·UNKRA(1951) 등의 원조를 받았습니다.'},
+    {t:'mc',q:'미국 ODA로 설립되어 한국 과학기술의 토대가 된 기관은?',choices:['KIST(한국과학기술연구원)','KOICA','EDCF','KDI'],answer:0,hint:'과학기술연구.',ex:'미국 ODA를 활용해 KIST가 설립되었습니다.'},
+    {t:'free',q:'대일청구권자금이 활용된 대표적 산업 성과를 쓰시오.',keys:['포항제철'],model:'포항제철(포스코) 건설.',hint:'제철소',ex:'대일청구권자금은 포항제철 건설에 활용되었습니다.'}
+   ]},
+ { id:'u5l5', title:'한국 ODA 형태별 지원 상세', en:'Korea ODA Modalities',
+   concept:{ why:'한국 ODA는 무상·유상·다자로 나뉘고, 무상 안에도 여러 사업 유형이 있어요. 어떤 사업이 무상이고 누가 주관하는지 매칭이 핵심.',
+     def:{term:'형태별 지원', body:'무상(KOICA)·유상(EDCF)·다자로 구분되며, 부처별로 담당이 다르다.'},
+     points:['무상(KOICA): 국별협력(<span class="kw">프로젝트형</span> 최대)·글로벌연수(CIAT/씨앗)·해외봉사단·<span class="kw">혁신적개발협력(CTS·IBS·IPS)</span>·인도적지원(KDRT, 해외긴급구호대). <span style="color:#888">→ CTS=혁신적기술, IBS=포용적비즈니스, IPS=혁신적파트너십.</span>','<span class="kw">KSP</span>(경제발전경험공유): 기획재정부 주관','유상(EDCF): 40년 만기·0.01~2.5% 저금리, 기재부 주관·<span class="kw">수출입은행 집행</span>','다자: 기재부(MDB 등)·외교부(UN 등)'],
+     tip:'무상=외교부/KOICA, KSP·유상=기획재정부. 프로젝트형이 무상 비중 1위!' },
+   bridge:{lead:'어떻게 주는지 봤으니, 한국의 위상과 향후 과제로 마무리합니다.', nextPreview:'한국 ODA 위상·과제로 이어집니다.'},
+   quiz:[
+    {t:'mc',q:'경제발전경험공유사업(KSP)을 주관하는 부처는?',choices:['외교부','기획재정부','산업통상자원부','교육부'],answer:1,hint:'\'경제발전\'.',ex:'KSP는 기획재정부가 주관합니다.'},
+    {t:'mc',q:'다음 중 한국 무상원조(KOICA) 사업으로 보기 어려운 것은?',choices:['해외봉사단 파견','글로벌 연수(CIAT)','대외경제협력기금(EDCF) 차관','혁신적 기술 프로그램(CTS)'],answer:2,hint:'EDCF는 유상.',ex:'EDCF 차관은 유상 ODA입니다. 나머지는 KOICA 무상 사업입니다.'},
+    {t:'mc',q:'한국 유상 ODA(EDCF)의 집행 기관은?',choices:['KOICA','한국수출입은행','한국은행','외교부'],answer:1,hint:'차관 집행.',ex:'유상 ODA는 기재부 주관, 한국수출입은행이 집행합니다.'},
+    {t:'ox',q:'한국 무상원조 사업 중 비중이 가장 높은 것은 프로젝트형 사업이다.',a:true,hint:'국별협력의 핵심.',ex:'프로젝트형 사업이 KOICA 무상원조에서 비중이 가장 높습니다.'},
+    {t:'free',q:'한국 ODA의 유상·무상 집행기관을 각각 쓰시오.',keys:['수출입은행','KOICA'],model:'유상은 한국수출입은행, 무상은 KOICA.',hint:'유상=수은 / 무상=KOICA',ex:'유상=한국수출입은행, 무상=KOICA입니다.'}
+   ]},
+ { id:'u5l6', title:'한국의 위상과 향후 과제', en:'Korea: Status & Tasks',
+   concept:{ why:'1과목의 마지막. 한국이 국제사회에서 어떤 위상을 갖고, 무엇을 더 해야 하는지(양적·질적 과제)가 마무리 포인트예요.',
+     def:{term:'위상·과제', body:'한국은 GCF·GGGI 유치 등으로 위상이 높아졌고, ODA의 양적 확대와 질적 개선이 과제로 남아 있다.'},
+     points:['위상: 2012 <span class="kw">GCF</span>(녹색기후기금) 사무국 인천 송도 유치, GGGI(글로벌녹색성장연구소), 2016 아시아 최초 <span class="kw">IATI</span> 정보 제공','양적: ODA/GNI 비율 상향(2020 0.14% → 확대 목표), 중점협력국 <span class="kw">27개국</span>에 양자 70%','질적: <span class="kw">무상·비구속성 비율 확대</span>','신남방(아세안·인도)·신북방(몽골·중앙아) 지원 확대'],
+     tip:'GCF=송도(2012), IATI 아시아 최초(2016), 중점협력국 27개국. 위상 키워드!' },
+   bridge:{lead:'1과목을 소개념 단위로 모두 완주했어요! 다음은 2과목 분야별 이슈입니다.', nextPreview:'2과목 교육으로 이어집니다.'},
+   quiz:[
+    {t:'mc',q:'2012년 한국이 사무국을 인천 송도에 유치한 기후 분야 국제기금은?',choices:['지구환경금융(GEF)','녹색기후기금(GCF)','GAVI','적응기금'],answer:1,hint:'기후 대표 기금.',ex:'녹색기후기금(GCF) 사무국이 2012년 인천 송도에 유치되었습니다.'},
+    {t:'mc',q:'한국 ODA의 질적 개선 과제로 옳은 것은?',choices:['유상 비율 확대','무상·비구속성 비율 확대','중점협력국 축소','다자 비중 0%화'],answer:1,hint:'\'질\'을 높이려면.',ex:'무상·비구속성 비율 확대가 대표적 질적 개선 과제입니다.'},
+    {t:'mc',q:'한국 ODA의 지역 전략으로 옳은 것은?',choices:['신남방(아세안·인도)·신북방(몽골·중앙아) 확대','아프리카 단일 집중','선진국 위주 지원','지역 구분 없음'],answer:0,hint:'남방·북방.',ex:'신남방(아세안·인도)·신북방(몽골·중앙아) 지원을 확대하고 있습니다.'},
+    {t:'ox',q:'한국은 2016년 아시아 최초로 IATI에 ODA 정보를 제공했다.',a:true,hint:'투명성 선도.',ex:'한국은 2016년 아시아 최초로 IATI에 ODA 정보를 제공했습니다.'},
+    {t:'free',q:'한국 ODA 중점협력국 수와 이들에 투입하는 양자 ODA 비중을 쓰시오.',keys:['27','70'],model:'중점협력국 27개국, 양자 ODA의 약 70%.',hint:'27개국 / 70%',ex:'중점협력국 27개국에 양자 ODA의 약 70%를 투입합니다.'}
    ]}
 ]},
 
@@ -441,7 +722,7 @@ window.COURSE = { title:"국제개발협력(ODA) 자격시험", units:[
  { id:'u6l1', title:'양자 공여국 디테일', en:'Donor Details',
    concept:{ why:'1과목 후반엔 공여국별 "누가·언제·무엇을" 묻는 디테일 문제가 나와요. 미국·일본·독일·프랑스·영국의 핵심 사실을 콕 집어 정리합니다.',
      def:{term:'공여국 디테일', body:'각 공여국은 고유한 원조 역사·기관·정책 기조를 가진다. 헷갈리기 쉬운 연도·인물·기관을 구분하는 것이 관건.'},
-     points:['미국: 케네디가 대외원조법·<span class="kw">USAID</span> 설립 / 2010 QDDR(힐러리)','일본: 2014 <span class="kw">개발협력대강</span>(군의 비군사 분야 관여 가능), 전후 무상원조 대상=캄보디아·라오스·말레이시아·싱가포르','독일: <span class="kw">GTZ</span>는 독일기술공사+독일개발서비스+국제인력개발 통합(2010)','프랑스(올랑드): 민주·법치·여성권리 / 경제발전·안전 / 환경보호 강조, 영국 <span class="kw">DFID</span>=국제개발부'],
+     points:['미국: 케네디가 대외원조법·<span class="kw">USAID</span> 설립 / 2010 QDDR(4개년 외교·개발 검토보고서, 힐러리). <span style="color:#888">→ QDDR=미국의 외교·개발 전략 문서.</span>','일본: 2014 <span class="kw">개발협력대강</span>(군의 비군사 분야 관여 가능), 전후 무상원조 대상=캄보디아·라오스·말레이시아·싱가포르','독일: <span class="kw">GTZ</span>(독일기술공사)는 독일기술공사+독일개발서비스+국제인력개발 통합(2010, 현 GIZ)','프랑스(올랑드): 민주·법치·여성권리 / 경제발전·안전 / 환경보호 강조, 영국 <span class="kw">DFID</span>=국제개발부'],
      tip:'미국=케네디 USAID, 일본=개발협력대강(군 관여), 독일=GTZ 3기관 통합. 인물·기관 매칭!' },
    bridge:{lead:'공여국 디테일을 잡았어요. 다음은 다자기구·수원국 디테일입니다.', nextPreview:'다자기구·수원국 세부로 이어집니다.'},
    quiz:[
@@ -454,7 +735,7 @@ window.COURSE = { title:"국제개발협력(ODA) 자격시험", units:[
  { id:'u6l2', title:'다자기구·수원국 디테일', en:'Multilateral Details',
    concept:{ why:'다자기구는 약자가 비슷해 헷갈려요. EBRD·ADB의 설립 목적과 수원국 조세, 파리선언, CSO 이스탄불 같은 단골 디테일을 정리합니다.',
      def:{term:'다자·수원국 디테일', body:'지역개발은행과 세계은행그룹 기구의 목적, 수원국 재원, 파리선언 5원칙이 핵심.'},
-     points:['<span class="kw">EBRD</span>: 유럽·체제전환국의 정치·경제 체제전환 지원(민간) / <span class="kw">ADB</span>: 아시아·태평양 개도국(1966)','수원국 세금 징수율이 낮은 원인: 천연자원 의존·조세기반 취약·탈세 (국민 납부율은 아님)','파리선언 5원칙: 주인의식·원조일치·<span class="kw">(공여국 간)원조조화</span>·성과관리·상호책무성','CSO: 2010 이스탄불 <span class="kw">제1차 오픈 포럼 세계총회</span> → 이스탄불 원칙'],
+     points:['<span class="kw">EBRD</span>(유럽부흥개발은행): 유럽·체제전환국의 정치·경제 체제전환 지원(민간) / <span class="kw">ADB</span>(아시아개발은행): 아시아·태평양 개도국(1966)','수원국 세금 징수율이 낮은 원인: 천연자원 의존·조세기반 취약·탈세 (국민 납부율은 아님)','파리선언 5원칙: 주인의식·원조일치·<span class="kw">(공여국 간)원조조화</span>·성과관리·상호책무성','CSO(시민사회단체): 2010 이스탄불 <span class="kw">제1차 오픈 포럼 세계총회</span> → 이스탄불 원칙'],
      tip:'EBRD=체제전환(유럽), ADB=아시아(1966). 파리선언 \'원조조화\'는 공여국 간(개도국 간 아님)!' },
    bridge:{lead:'1과목 디테일까지 마쳤어요! 이제 2과목 분야별 이슈로 들어갑니다.', nextPreview:'2과목 첫 분야 교육으로 이어집니다.'},
    quiz:[
@@ -465,11 +746,28 @@ window.COURSE = { title:"국제개발협력(ODA) 자격시험", units:[
     {t:'free',q:'2010년 터키에서 열린, 시민사회(CSO)의 개발효과성을 위한 첫 세계총회 이름을 쓰시오.',keys:['이스탄불','오픈'],model:'이스탄불 제1차 오픈 포럼 세계총회(이스탄불 원칙).',hint:'이스탄불 / 오픈 포럼',ex:'2010년 이스탄불 제1차 오픈 포럼 세계총회입니다.'}
    ]}
 ]},
+{ id:'u7', title:'7. 적용형 집중 (1과목)', source:'1과목', color:'#06d6a0', icon:'🎯', lessons:[
+ { id:'u7l1', title:'사례·상황 적용 문제', en:'Application Questions',
+   concept:{ why:'실제 시험에서 변별력이 가장 높은 게 적용형이에요. "이 사례가 ODA인가? 어느 담론인가?"처럼 개념을 구체적 상황에 끌어다 쓰는 연습을 합니다.',
+     def:{term:'적용형 문항', body:'일반화된 개념·원리를 실제 또는 유사 상황에 적용하는 능력을 측정하는 문항.'},
+     points:['핵심 전략: 먼저 사례의 \'핵심 키워드\'를 잡고 → 해당 개념을 끌어온다','ODA 판별: <span class="kw">공공 + 개발목적 + 양허성</span> 셋 다 충족하는가?','담론·이론 매칭: 제시문 → 워싱턴 컨센서스 / 참여적 개발 / 근대화·종속 등','자주 나오는 함정: 민간기업 활동(CSR)·군 인도적 원조 예외 등'],
+     tip:'적용형은 "이게 무슨 개념의 예시지?"를 거꾸로 찾는 연습! 사례→개념 역추적.' },
+   bridge:{lead:'1과목 적용 연습을 마쳤어요. 이제 2과목 분야별 이슈로 들어갑니다.', nextPreview:'2과목 교육으로 이어집니다.'},
+   quiz:[
+    {t:'mc',q:'다음 중 공적개발원조(ODA) 사업으로 가장 거리가 먼 것은?',choices:['경상북도가 시행하는 캄보디아 농촌지도자 초청 연수','아이티 지진 복구에 투입된 외국 군대의 인도적 구호활동','증여율 75%인 대외경제협력기금(EDCF) 양허성 차관','스타벅스가 르완다 커피농가에 제공하는 기술지원'],answer:3,hint:'\'공공부문\'이 제공하나요?',ex:'민간기업(스타벅스)의 활동은 CSR이지 ODA가 아닙니다. 지자체 연수·재난 시 군대 인도적 원조·양허성 차관은 ODA로 인정됩니다.'},
+    {t:'mc',q:'다음 제시문 (ㄱ)에 해당하는 개념은? — "개도국이 발전하려면 좋은 정책·제도를 채택해야 한다는, IMF·세계은행 중심으로 주장된 신자유주의 담론"',choices:['참여적 개발','성주류화','워싱턴 컨센서스','인간기본욕구(BHN)'],answer:2,hint:'IMF·세계은행·신자유주의.',ex:'IMF·세계은행 중심의 신자유주의 담론은 워싱턴 컨센서스입니다.'},
+    {t:'mc',q:'A국이 IMF 차관을 받는 조건으로 정부 지출을 줄이고 국영기업을 민영화했다. 이 정책 기조와 가장 관련 깊은 것은?',choices:['구조조정정책(SAP)·워싱턴 컨센서스','인간기본욕구(BHN)','신국제경제질서(NIEO)','지속가능발전(SD)'],answer:0,hint:'정부 축소·시장 확대.',ex:'정부 축소·민영화는 구조조정정책(SAP)이며 워싱턴 컨센서스로 이어집니다.'},
+    {t:'mc',q:'어느 학자가 "후발국은 선진국과 같은 경로를 밟을 필요 없이 상대적 후진성에 대응하며 발전한다"고 했다. 누구의 견해인가?',choices:['로스토','거센크론','넉시','프랑크'],answer:1,hint:'후발주자의 이점.',ex:'거센크론의 \'후발주자의 이점(상대적 후진성)\'입니다.'},
+    {t:'mc',q:'최빈국에 무이자로 장기 융자하려 한다. 세계은행그룹 중 적절한 창구는?',choices:['IBRD','IDA','IFC','MIGA'],answer:1,hint:'가장 가난한 나라 대상.',ex:'IDA(국제개발협회)가 저소득국에 무이자·초저리로 융자합니다.'},
+    {t:'mc',q:'한국 정부가 개도국에 양허성 \'차관\'을 제공하려 한다. 주관·집행 기관으로 옳은 것은?',choices:['외교부 - KOICA','기획재정부 - 한국수출입은행(EDCF)','외교부 - 수출입은행','산업부 - KOICA'],answer:1,hint:'유상=차관.',ex:'유상 ODA(차관)는 기획재정부 주관, 한국수출입은행이 EDCF로 집행합니다.'},
+    {t:'free',q:'"한 다국적 기업이 개도국에 공장을 세워 일자리를 만들고 이윤도 얻는 활동"은 ODA인가? 이유와 함께 쓰시오.',keys:['아니','민간','공공'],model:'ODA가 아니다. ODA는 공공부문이 제공해야 하는데 이는 민간기업의 투자(FDI)이기 때문이다.',hint:'공공부문이 아님',ex:'민간기업의 투자(FDI)이므로 ODA가 아닙니다. ODA는 공적기관이 제공해야 합니다.'}
+   ]}
+]},
 { id:'a1', title:'심화 1. 교육', source:'2과목', color:'#2ec4b6', icon:'📖', lessons:[
  { id:'a1l1', title:'교육과 국제개발', en:'Education',
    concept:{ why:'교육은 "빈곤의 대물림을 끊는 가장 강력한 백신"이라 불려요. 그래서 MDGs·SDGs 모두 교육을 핵심 목표로 넣었죠. 2과목의 첫 분야이자 출제 비중이 높습니다.',
      def:{term:'교육과 개발', body:'교육은 빈곤을 줄이고 고용·경제성장을 촉진하며, 더 건강하고 민주적인 사회를 만든다. 형식·비형식·무형식으로 구분됩니다.'},
-     points:['형식(학교)·<span class="kw">비형식(인정 안 되는 프로그램)</span>·무형식(의도치 않은 활동)','이니셔티브: 1990 좀티엔 <span class="kw">EFA</span> → 2000 다카르 행동계획 → 2015 <span class="kw">인천선언</span>(SDG4 기반)','2012 반기문 <span class="kw">글로벌교육우선구상(GEFI)</span> / 노동 전문기구 <span class="kw">ILO</span>','KOICA 교육 핵심가치 3: <span class="kw">형평성·양질·적절성</span>'],
+     points:['형식(학교)·<span class="kw">비형식(인정 안 되는 프로그램)</span>·무형식(의도치 않은 활동). <span style="color:#888">→ 형식=학교 정규, 비형식=학원·프로그램, 무형식=일상 속 우연한 배움.</span>','이니셔티브: 1990 좀티엔 <span class="kw">EFA</span>(Education for All, 모두를 위한 교육) → 2000 다카르 행동계획 → 2015 <span class="kw">인천선언</span>(SDG4 기반)','2012 반기문 <span class="kw">글로벌교육우선구상(GEFI</span>, Global Education First Initiative) / 노동 전문기구 <span class="kw">ILO</span>(International Labour Organization, 국제노동기구)','KOICA 교육 핵심가치 3: <span class="kw">형평성·양질·적절성</span>'],
      tip:'교육=SDG 4. "형평성·양질·적절성" 3종 세트는 KOICA 교육 단골.' },
    bridge:{lead:'교육이 사람을 키운다면, 보건은 사람을 살립니다. 다음은 국제보건이에요.', nextPreview:'국제보건과 보편적 의료보장(UHC)을 배웁니다.'},
    quiz:[
@@ -477,7 +775,8 @@ window.COURSE = { title:"국제개발협력(ODA) 자격시험", units:[
     {t:'mc',q:'2015년 세계교육포럼(WEF)에서 채택되어 SDG 4의 기반이 된 선언은?',choices:['좀티엔 선언','다카르 실행계획','인천선언','자카르타 선언'],answer:2,hint:'한국 도시 이름.',ex:'2015년 인천선언이 채택되어 SDG 4의 기반이 되었습니다.'},
     {t:'ox',q:'교육 분야와 직접 연계된 지속가능발전목표는 SDG 4이다.',a:true,hint:'양질의 교육.',ex:'SDG 4가 포용적·공평한 양질의 교육과 평생학습을 다룹니다.'},
     {t:'mc',q:'2012년 제67차 UN총회에서 반기문 사무총장이 제시한 교육 이니셔티브는?',choices:['EFA','GEFI(글로벌교육우선구상)','MDGs','다카르 프레임워크'],answer:1,hint:'반기문 + 2012 + 글로벌.',ex:'2012년 반기문 사무총장이 글로벌교육우선구상(GEFI)을 제시했습니다.'},
-    {t:'free',q:'KOICA 교육분야 전략의 핵심가치 3가지를 쓰시오.',keys:['형평성','양질','적절성'],model:'교육의 형평성, 양질의 교육, 교육의 적절성.',hint:'형평성 / 양질 / 적절성',ex:'KOICA 교육분야 핵심가치는 형평성·양질·적절성입니다.'}
+    {t:'free',q:'KOICA 교육분야 전략의 핵심가치 3가지를 쓰시오.',keys:['형평성','양질','적절성'],model:'교육의 형평성, 양질의 교육, 교육의 적절성.',hint:'형평성 / 양질 / 적절성',ex:'KOICA 교육분야 핵심가치는 형평성·양질·적절성입니다.'},
+    {t:'mc',q:'[적용] 한 국가가 여성 중등교육 이수율을 2배로 높였다. 기대되는 직접 효과로 보기 어려운 것은?',choices:['출산율 감소','아동 사망률 감소','여성 경제활동 참여 증가','교육과 무관한 임금격차 고정'],answer:3,hint:'여성교육은 거의 모든 지표를 개선.',ex:'여성교육은 출산율↓·아동사망률↓·경제활동 참여↑ 등 광범위한 효과가 있습니다. 임금격차 고정은 효과가 아닙니다.'}
    ]},
  { id:'a1l2', title:'교육 현황·전략 심화', en:'Education Deep-dive',
    concept:{ why:'교육 분야 문제는 "여성교육·문해·초등교육·6대 목표" 같은 세부 사실에서 갈려요. 평가문제에 반복 등장하는 수치와 이니셔티브를 한 번에 정리합니다.',
@@ -504,6 +803,32 @@ window.COURSE = { title:"국제개발협력(ODA) 자격시험", units:[
     {t:'ox',q:'1980년대 태국 좀티엔 회의에서 \'모두를 위한 교육(EFA) 세계선언\'이 채택되었다.',a:true,hint:'EFA의 출발.',ex:'1980년대(1990) 좀티엔 회의에서 EFA 세계선언이 채택되었습니다.'},
     {t:'mc',q:'2015년 세계교육포럼(WEF)이 개최된 장소는?',choices:['세네갈 다카르','인천 송도','파리','태국 좀티엔'],answer:1,hint:'한국에서 열렸어요.',ex:'2015년 WEF는 인천 송도에서 개최되어 인천선언을 채택했습니다.'},
     {t:'free',q:'직업훈련 추진을 위해 수립해야 할 4가지 요소를 쓰시오.',keys:['정책','제도','재원','실습'],model:'정책, 제도, 재원조달방안, 실습 중심.',hint:'정책 / 제도 / 재원 / 실습',ex:'정책·제도·재원조달방안·실습 중심입니다.'}
+   ]},
+ { id:'a1l4', title:'교육 주요 개념·세계시민교육', en:'Key Concepts & GCED',
+   concept:{ why:'교육 분야는 용어 정의 문제가 많아요. 교육 구성요소·문해·세계시민교육(GCED)의 영역을 알면 개념 문제를 다 맞혀요.',
+     def:{term:'교육 주요 개념', body:'교육은 구성요소·형태·수준으로 구분되며, 문해와 세계시민교육이 핵심 개념이다.'},
+     points:['교육 3요소: <span class="kw">교육자·피교육자·교육콘텐츠</span> / 3주체: 교사·학생·학부모','<span class="kw">문해(literacy)</span>: 짧은 문장 읽고 쓰기 / 생활기술: 인지·개인·대인관계 기술','<span class="kw">세계시민교육(GCED</span>, Global Citizenship Education) 3영역: 인지·사회정서·행동','UNESCO(유엔교육과학문화기구) <span class="kw">GEM</span>(Global Education Monitoring, 세계 교육 현황 보고서), UIS(통계연구소)가 SDG4 지표 관리'],
+     tip:'GCED 3영역=인지·사회정서·행동. 교육 3요소(자·피·콘) vs 3주체(교사·학생·학부모) 구분!' },
+   bridge:{lead:'개념을 잡았으니, 한국(KOICA)이 교육에서 무엇을 하는지 봅니다.', nextPreview:'교육 KOICA 전략·사례·과제로 이어집니다.'},
+   quiz:[
+    {t:'mc',q:'세계시민교육(GCED)의 3가지 핵심 영역으로 옳은 것은?',choices:['인지·사회정서·행동','읽기·쓰기·셈하기','초등·중등·고등','형식·비형식·무형식'],answer:0,hint:'머리·마음·행동.',ex:'GCED의 3영역은 인지·사회정서·행동 영역입니다.'},
+    {t:'mc',q:'교육의 3요소로 옳은 것은?',choices:['교사·학생·학부모','교육자·피교육자·교육콘텐츠','정책·제도·재원','초등·중등·고등'],answer:1,hint:'요소 vs 주체.',ex:'교육 3요소는 교육자·피교육자·교육콘텐츠이고, 3주체는 교사·학생·학부모입니다.'},
+    {t:'ox',q:'UNESCO는 세계 교육 현황을 담은 GEM(세계 교육 현황 보고서)을 제작한다.',a:true,hint:'Global Education Monitoring.',ex:'UNESCO는 GEM 보고서를 통해 세계 교육 현황을 모니터링합니다.'},
+    {t:'mc',q:'문해(literacy)에 대한 설명으로 옳은 것은?',choices:['고등 수학 능력','짧은 문장을 읽고 쓸 수 있는 능력','외국어 구사 능력','디지털 기기 사용 능력'],answer:1,hint:'기초 읽기·쓰기.',ex:'문해는 짧은 문장을 읽고 쓸 수 있는 기초 능력입니다.'},
+    {t:'free',q:'세계시민교육(GCED)의 3영역을 쓰시오.',keys:['인지','사회정서','행동'],model:'인지 영역, 사회-정서적 영역, 행동 영역.',hint:'인지 / 사회정서 / 행동',ex:'인지·사회정서·행동 영역입니다.'}
+   ]},
+ { id:'a1l5', title:'교육 KOICA 전략·사례·과제', en:'Education: KOICA & Cases',
+   concept:{ why:'KOICA가 교육에서 무엇을 목표로, 어떤 사례를 만들었는지가 후반 문제로 나와요. 비전·프로그램·대표 사례를 정리합니다.',
+     def:{term:'교육 KOICA', body:'KOICA는 \'양질의 교육을 통한 포용적 발전\'을 비전으로 기초·디지털·청년 프로그램을 운영한다.'},
+     points:['비전: <span class="kw">양질의 교육을 통한 포용적 발전</span>','전략 프로그램: 기초교육 질 제고·디지털 교육 역량·청년 인재 양성','사례: 탄자니아 <span class="kw">결과기반(PforR</span>, Program-for-Results) BRNEd→EPforR, 우즈벡 사마르칸트 직업훈련. <span style="color:#888">→ PforR=성과(결과)에 연동해 지원하는 방식.</span>','과제: 원조 시 수원국 재정시스템 활용 합의했으나 <span class="kw">12%만</span> 정부 예산시스템 통해 지원'],
+     tip:'탄자니아=결과기반(PforR) 교육사업, 우즈벡=직업훈련. 과제 숫자 \'12%\' 기억!' },
+   bridge:{lead:'교육을 깊게 마쳤어요. 다음은 보건입니다.', nextPreview:'보건 분야로 이어집니다.'},
+   quiz:[
+    {t:'mc',q:'KOICA 교육분야의 비전으로 옳은 것은?',choices:['양질의 교육을 통한 포용적 발전','모두를 위한 교육(EFA)','글로벌교육우선구상','초등교육 보편화'],answer:0,hint:'포용적 발전.',ex:'KOICA 교육분야 비전은 \'양질의 교육을 통한 포용적 발전\'입니다.'},
+    {t:'mc',q:'탄자니아 교육분야 사업(BRNEd→EPforR)의 특징으로 옳은 것은?',choices:['결과 기반(PforR) 재정 지원','단순 시설 건축','무상 식량 지원','군사 협력'],answer:0,hint:'성과에 연동.',ex:'탄자니아 사업은 결과기반(PforR) 재정 지원 형태로 진행되었습니다.'},
+    {t:'ox',q:'원조 시 수원국 재정시스템을 활용하자고 합의했지만 실제로는 약 12%만 정부 예산시스템을 통해 교육 분야를 지원했다.',a:true,hint:'합의 vs 현실 격차.',ex:'파리·부산 선언의 합의에도 실제로는 12%만 정부 예산시스템을 통해 지원했습니다.'},
+    {t:'mc',q:'KOICA 교육 전략 프로그램으로 보기 어려운 것은?',choices:['기초교육 질 제고','디지털 교육 역량 강화','청년 인재 양성','군 장교 양성'],answer:3,hint:'교육 분야 프로그램.',ex:'KOICA 교육 프로그램은 기초교육·디지털교육·청년인재 양성 등입니다.'},
+    {t:'free',q:'KOICA 교육분야 비전을 쓰시오.',keys:['양질','포용'],model:'양질의 교육을 통한 포용적 발전.',hint:'양질의 교육 / 포용적 발전',ex:'\'양질의 교육을 통한 포용적 발전\'입니다.'}
    ]}
 ]},
 
@@ -511,7 +836,7 @@ window.COURSE = { title:"국제개발협력(ODA) 자격시험", units:[
  { id:'a2l1', title:'국제보건과 UHC', en:'Global Health',
    concept:{ why:'코로나가 보여줬듯, 한 나라의 질병은 곧 모두의 문제예요. 국경을 넘는 "국제보건"의 개념과 핵심 기구·협약이 자주 출제됩니다.',
      def:{term:'국제보건', body:'국경을 넘는 보건문제를 다루며 "건강 형평성"과 "모든 사람"을 강조하는 개념. 핵심 가치는 보편적 의료보장(UHC).'},
-     points:['공중보건(한 나라)·세계보건(중저소득국)·<span class="kw">국제보건(국경 넘는 형평성)</span>','<span class="kw">UHC(보편적 의료보장)</span> = SDG 3 핵심','기구: <span class="kw">WHO</span>(1948)·UNICEF·UNFPA·UNAIDS','파트너십: GAVI(백신)·GFATM(3대 감염병)·CEPI·COVAX / 보건 최초 국제조약 <span class="kw">FCTC(담배규제)</span>'],
+     points:['공중보건(한 나라)·세계보건(중저소득국)·<span class="kw">국제보건(국경 넘는 형평성)</span>','<span class="kw">UHC(보편적 의료보장</span>, Universal Health Coverage) = SDG 3 핵심. <span style="color:#888">→ 누구도 돈 때문에 치료를 못 받지 않게 하는 것.</span>','기구: <span class="kw">WHO</span>(World Health Organization, 세계보건기구, 1948)·UNICEF(유엔아동기금)·UNFPA(유엔인구기금)·UNAIDS(유엔에이즈계획)','파트너십: GAVI(세계백신면역연합)·GFATM(에이즈·결핵·말라리아 퇴치 세계기금)·CEPI·COVAX / 보건 최초 국제조약 <span class="kw">FCTC(담배규제기본협약)</span>'],
      tip:'WHO=1948년 설립, FCTC=보건 최초 국제조약. 두 사실만 잡아도 한 문제.' },
    bridge:{lead:'건강한 사람이 일할 땅이 필요하죠. 다음은 식량과 농촌개발입니다.', nextPreview:'농업·농촌개발과 식량안보를 배웁니다.'},
    quiz:[
@@ -519,12 +844,13 @@ window.COURSE = { title:"국제개발협력(ODA) 자격시험", units:[
     {t:'mc',q:'SDG 3의 핵심 가치로 강조되는 개념은?',choices:['보편적 의료보장(UHC)','구조조정','성주류화','녹색성장'],answer:0,hint:'"누구도 소외 없이" 의료.',ex:'보편적 의료보장(UHC)은 SDG 3의 핵심 가치입니다.'},
     {t:'ox',q:'세계보건기구(WHO)는 1948년에 설립되었다.',a:true,hint:'2차 대전 직후.',ex:'WHO는 1948년 UN 산하 전문기구로 설립되었습니다.'},
     {t:'mc',q:'보건 분야 최초의 국제조약은?',choices:['국제보건규약(IHR)','담배규제기본협약(FCTC)','TRIPs','알마아타선언'],answer:1,hint:'담배를 규제하는 협약.',ex:'담배규제기본협약(FCTC)이 보건 분야 최초의 국제조약입니다.'},
-    {t:'free',q:'공중보건·세계보건·국제보건 중 "국제보건"의 특징을 한 문장으로 쓰시오.',keys:['국경','형평'],model:'국경을 넘는 보건문제를 다루며 모든 사람의 건강 형평성을 강조한다.',hint:'국경 / 형평성',ex:'국제보건은 국경을 넘는 보건문제와 건강 형평성을 강조합니다.'}
+    {t:'free',q:'공중보건·세계보건·국제보건 중 "국제보건"의 특징을 한 문장으로 쓰시오.',keys:['국경','형평'],model:'국경을 넘는 보건문제를 다루며 모든 사람의 건강 형평성을 강조한다.',hint:'국경 / 형평성',ex:'국제보건은 국경을 넘는 보건문제와 건강 형평성을 강조합니다.'},
+    {t:'mc',q:'[적용] 어느 보건사업이 \'살충 처리된 모기장 보급\'과 \'임신부 예방약 투여\'를 핵심으로 한다. 어떤 질병 대응 사업인가?',choices:['결핵','말라리아','HIV/AIDS','코로나19'],answer:1,hint:'모기장이 핵심.',ex:'모기장 보급·임신부 예방약은 말라리아 예방의 핵심입니다.'}
    ]},
  { id:'a2l2', title:'보건 기구·질병·전략', en:'Health Actors & Diseases',
    concept:{ why:'보건 문제는 "어느 기구가 무엇을 하나"와 "질병별 대응"에서 갈려요. UNFPA·UNAIDS·GAVI·GFATM의 역할과 3대 감염병, 비전염성 질병을 정리하면 득점이 쉬워요.',
      def:{term:'보건 주체·질병', body:'빈곤해결과 건강증진은 불가분 관계. 의료는 넓게 건강을 유지·회복·증진하는 행위이며, 다양한 UN기구·기금이 분야별로 대응한다.'},
-     points:['<span class="kw">UNFPA</span>(1967): 인구문제의 사회·경제·인권 인식 제고 / <span class="kw">UNAIDS</span>: HIV/AIDS','<span class="kw">GAVI</span>(백신면역연합)·<span class="kw">GFATM</span>(에이즈·결핵·말라리아 기금)','말라리아 핵심: <span class="kw">모기장·실내 살충제</span>, 임신부 예방약 중요','MDGs 8목표 중 3개가 보건(아동사망↓·모성건강·감염병) / KOICA 핵심 3프로그램: <span class="kw">식수위생·모자보건·감염병(소외열대)</span>'],
+     points:['<span class="kw">UNFPA</span>(United Nations Population Fund, 유엔인구기금, 1967): 인구문제의 사회·경제·인권 인식 제고 / <span class="kw">UNAIDS</span>(유엔에이즈계획): HIV/AIDS 대응','<span class="kw">GAVI</span>(세계백신면역연합)·<span class="kw">GFATM</span>(에이즈·결핵·말라리아 퇴치 세계기금)','말라리아 핵심: <span class="kw">모기장·실내 살충제</span>, 임신부 예방약 중요','MDGs 8목표 중 3개가 보건(아동사망↓·모성건강·감염병) / KOICA 핵심 3프로그램: <span class="kw">식수위생·모자보건·감염병(소외열대)</span>'],
      tip:'UNFPA=인구(1967), UNAIDS=에이즈, GAVI=백신, GFATM=3대 감염병 기금. 약자-역할 매칭이 핵심!' },
    bridge:{lead:'건강한 사람이 일할 땅 — 다음은 농림수산·농촌개발입니다.', nextPreview:'농업·식량안보로 이어집니다.'},
    quiz:[
@@ -532,12 +858,13 @@ window.COURSE = { title:"국제개발협력(ODA) 자격시험", units:[
     {t:'mc',q:'말라리아 대응에 대한 설명으로 옳지 않은 것은?',choices:['살충 처리된 모기장 지급이 핵심 예방','실내 살충제 살포','신속한 진단과 즉각적 치료약 투약','예방약 투여는 성인 남성이 임신부보다 우선'],answer:3,hint:'누가 가장 취약할까요?',ex:'임신부 대상 예방약 투여가 말라리아 예방에서 중요한 지위를 갖습니다.'},
     {t:'mc',q:'새천년개발목표(MDGs)에서 직접 다룬 보건 목표가 아닌 것은?',choices:['아동 사망률 감소','모성건강 향상','HIV/AIDS·말라리아 등 질병 퇴치','비전염성 질병 사망률 감소'],answer:3,hint:'MDGs 보건 3목표를 떠올려요.',ex:'MDGs 보건 3목표는 아동사망률 감소·모성건강 향상·감염병 퇴치입니다. (비전염성 질병은 SDGs에서 강조)'},
     {t:'ox',q:'KOICA 보건분야 핵심 3대 프로그램은 식수위생·모자보건·감염병(소외열대질병)이다.',a:true,hint:'물·엄마아기·감염병.',ex:'KOICA는 식수위생·모자보건·감염병(소외열대질병)을 핵심 3프로그램으로 운영합니다.'},
-    {t:'free',q:'에이즈·결핵·말라리아 퇴치를 목표로 하는 세계기금의 약자를 쓰시오.',keys:['GFATM'],model:'GFATM(에이즈·결핵·말라리아 퇴치 세계기금).',hint:'영문 약자 5글자',ex:'GFATM입니다.'}
+    {t:'free',q:'에이즈·결핵·말라리아 퇴치를 목표로 하는 세계기금의 약자를 쓰시오.',keys:['GFATM'],model:'GFATM(에이즈·결핵·말라리아 퇴치 세계기금).',hint:'영문 약자 5글자',ex:'GFATM입니다.'},
+    {t:'mc',q:'[적용] 인구문제를 사회·경제·인권 측면에서 다루며 개도국의 인구정책·성생식·모자보건을 지원하는 1967년 설립 UN 기구는?',choices:['UNICEF','UNFPA(유엔인구기금)','UNAIDS','WHO'],answer:1,hint:'인구(Population) 기금.',ex:'UNFPA(유엔인구기금, 1967)는 인구문제의 사회·경제·인권 측면을 다룹니다.'}
    ]},
  { id:'a2l3', title:'보건 개념·기구 활동', en:'Health Concepts',
    concept:{ why:'보건 분야 세부 문제는 "기구별 활동 내용"과 "비전염성 질병(NCD)"에서 갈려요. UNICEF·NCD·KOICA 비전을 정리합니다.',
      def:{term:'보건 개념·활동', body:'의료는 넓게 건강을 유지·회복·증진하는 행위. 빈곤해결과 건강증진은 불가분 관계다.'},
-     points:['의료(넓은 의미) = 건강을 <span class="kw">유지·회복·증진</span>','UNICEF 활동: 긴급구호·식수/환경개선·예방접종·기초교육 (자원봉사자 훈련 아님)','<span class="kw">비전염성 질병(NCD)</span>: 생활습관·음주·흡연 원인, 사망 4명 중 3명이 저·중소득국','여성교육↑ → 아동·가정·지역사회 건강 증진'],
+     points:['의료(넓은 의미) = 건강을 <span class="kw">유지·회복·증진</span>','UNICEF 활동: 긴급구호·식수/환경개선·예방접종·기초교육 (자원봉사자 훈련 아님)','<span class="kw">비전염성 질병(NCD</span>, Non-Communicable Diseases): 생활습관·음주·흡연 원인, 사망 4명 중 3명이 저·중소득국. <span style="color:#888">→ 병원체가 아니라 생활습관이 원인인 당뇨·암·고혈압 등.</span>','여성교육↑ → 아동·가정·지역사회 건강 증진'],
      tip:'NCD(고혈압·당뇨·암 등)는 "생활습관병". 전염병과 달리 병원체가 아니라 생활습관이 원인!' },
    bridge:{lead:'보건을 마무리했어요. 다음은 농림수산입니다.', nextPreview:'농림수산 분야로 이어집니다.'},
    quiz:[
@@ -546,6 +873,32 @@ window.COURSE = { title:"국제개발협력(ODA) 자격시험", units:[
     {t:'mc',q:'비전염성 질병(NCD)에 대한 설명으로 옳은 것은?',choices:['병원체 감염으로 발생한다','주 원인은 생활습관·음주·흡연이다','사망자는 대부분 고소득국에서 발생','전염성이 강하다'],answer:1,hint:'생활습관병.',ex:'NCD는 고혈압·당뇨·암 등으로, 생활습관·음주·흡연이 원인이며 사망 4명 중 3명이 저·중소득국에서 발생합니다.'},
     {t:'ox',q:'여성의 교육 수준은 아동·가정·지역사회의 건강 증진과 깊은 상관관계를 가진다.',a:true,hint:'여성교육의 파급.',ex:'여성교육은 아동·가정·지역사회 건강 증진과 강한 상관관계가 있습니다.'},
     {t:'free',q:'국제개발협력에서 보건의료와 불가분 관계인 두 가지를 쓰시오.',keys:['빈곤','건강'],model:'빈곤해결과 건강증진.',hint:'빈곤해결 / 건강증진',ex:'빈곤해결과 건강증진은 보건의료와 불가분 관계입니다.'}
+   ]},
+ { id:'a2l4', title:'국제보건 윤리·핵심개념', en:'Health Ethics & Concepts',
+   concept:{ why:'보건은 "윤리 원칙"과 "건강권·형평성" 개념 문제가 자주 나와요. 생명윤리 4원칙과 건강권 근거를 정리합니다.',
+     def:{term:'국제보건 윤리·개념', body:'2005 UNESCO 생명윤리·인권 보편선언의 원칙이 국제보건에 적용되며, 건강권·건강형평성이 핵심 개념이다.'},
+     points:['생명윤리 4원칙: <span class="kw">자율성 존중·악행 금지·선행·정의</span>','건강권: 1948 세계인권선언, 1976 <span class="kw">ICESCR 제12조</span>(경제·사회·문화적 권리 규약 — 최고 수준 건강을 누릴 권리)','건강불평등 vs <span class="kw">건강불형평</span>(불공정·예방가능한 차이). <span style="color:#888">→ 불평등=단순 차이, 불형평=고칠 수 있는데 방치된 불공정한 차이.</span>','건강의 사회적 결정요인(2008 WHO 위원회), <span class="kw">UHC 직육면체 모델</span>'],
+     tip:'생명윤리 4원칙 \'자·악·선·정\'. 건강불평등(차이) vs 건강불형평(불공정한 차이) 구분!' },
+   bridge:{lead:'윤리·개념을 잡았으니, 보건 파트너십·규약과 KOICA 사례로 이어집니다.', nextPreview:'보건 파트너십·규약·사례로 이어집니다.'},
+   quiz:[
+    {t:'mc',q:'국제보건에 적용되는 생명윤리 4원칙이 아닌 것은?',choices:['자율성 존중','악행 금지','선행','이윤 극대화'],answer:3,hint:'자·악·선·정.',ex:'생명윤리 4원칙은 자율성 존중·악행 금지·선행·정의입니다.'},
+    {t:'mc',q:'\'성취할 수 있는 최고 수준의 신체적·정신적 건강을 누릴 권리\'를 명시한 1976년 국제규약은?',choices:['세계인권선언','ICESCR 제12조','알마아타선언','FCTC'],answer:1,hint:'경제·사회·문화적 권리 규약.',ex:'ICESCR(경제·사회·문화적 권리 국제규약) 제12조가 건강권을 명시합니다.'},
+    {t:'mc',q:'건강불평등 중 \'불공정하고 예방·치료가 가능한\' 차이를 가리키는 개념은?',choices:['건강불형평','건강형평성','건강격차','건강지수'],answer:0,hint:'불공정한 차이.',ex:'건강불형평은 불공정하고 예방·치료 가능한 건강 격차를 뜻합니다.'},
+    {t:'ox',q:'보편적 의료보장(UHC)은 누구도 소외 없이 필요한 보건서비스를 재정적 어려움 없이 제공하는 것을 지향한다.',a:true,hint:'WHO 직육면체 모델.',ex:'UHC는 모두에게 필요한 서비스를 재정 부담 없이 지속가능하게 제공하는 것을 지향합니다.'},
+    {t:'free',q:'국제보건에 적용되는 생명윤리 4원칙을 쓰시오.',keys:['자율성','악행','선행','정의'],model:'자율성 존중, 악행 금지, 선행, 정의.',hint:'자율성/악행금지/선행/정의',ex:'자율성 존중·악행 금지·선행·정의입니다.'}
+   ]},
+ { id:'a2l5', title:'보건 파트너십·규약·KOICA', en:'Health Partnerships & Law',
+   concept:{ why:'보건은 국제 파트너십과 규약이 많아 약자가 헷갈려요. 일차보건의료(알마아타)부터 IHR·FCTC까지 정리합니다.',
+     def:{term:'보건 파트너십·규약', body:'일차보건의료 이념 위에 다양한 파트너십·기금과 국제보건 규약이 운영된다.'},
+     points:['<span class="kw">알마아타선언(1978)</span>: 일차보건의료(PHC), 건강권 실현','파트너십: RBM(롤백말라리아)·StopTB(결핵)·<span class="kw">GAVI</span>·GFATM·CEPI·COVAX·GHSA(국제보건안보구상)','규약: <span class="kw">IHR</span>(International Health Regulations, 국제보건규약; PHEIC=국제공중보건위기사태)·<span class="kw">FCTC</span>(담배규제, 보건 최초 조약)·TRIPs(무역관련 지식재산권)','KOICA 사례: 수단 소외열대질환(주혈흡충증), 에티오피아 식수위생'],
+     tip:'알마아타(1978)=일차보건의료, IHR=PHEIC 선언 기준, FCTC=보건 최초 국제조약!' },
+   bridge:{lead:'보건을 깊게 마쳤어요. 다음 분야로 이어집니다.', nextPreview:'다음 분야로 이어집니다.'},
+   quiz:[
+    {t:'mc',q:'1978년 채택되어 \'일차보건의료(PHC)\'를 천명한 선언은?',choices:['알마아타선언','다카르선언','인천선언','리우선언'],answer:0,hint:'일차보건의료.',ex:'알마아타선언(1978)은 일차보건의료와 건강권 실현을 천명했습니다.'},
+    {t:'mc',q:'국제공중보건위기사태(PHEIC) 선언 기준을 담은 준국제법적 규약은?',choices:['IHR(국제보건규약)','FCTC','TRIPs','ICESCR'],answer:0,hint:'보건 \'규칙\'.',ex:'IHR(국제보건규약)은 PHEIC 선언 여부를 결정하는 기준 체계를 담고 있습니다.'},
+    {t:'mc',q:'다음 중 보건 분야 \'최초의 국제조약\'은?',choices:['IHR','담배규제기본협약(FCTC)','TRIPs','알마아타선언'],answer:1,hint:'담배 규제.',ex:'FCTC(담배규제기본협약, 2003 채택/2005 발효)가 보건 분야 최초의 국제조약입니다.'},
+    {t:'ox',q:'KOICA의 수단 사업은 소외열대질환(주혈흡충증) 퇴치를 다뤘다.',a:true,hint:'NTD.',ex:'KOICA는 수단에서 소외열대질환(주혈흡충증) 퇴치·네트워크 구축 사업을 수행했습니다.'},
+    {t:'free',q:'1978년 일차보건의료를 천명한 선언의 이름을 쓰시오.',keys:['알마아타'],model:'알마아타선언.',hint:'카자흐스탄 도시',ex:'알마아타선언입니다.'}
    ]}
 ]},
 
@@ -553,7 +906,7 @@ window.COURSE = { title:"국제개발협력(ODA) 자격시험", units:[
  { id:'a3l1', title:'농업·농촌개발과 식량안보', en:'Rural Development',
    concept:{ why:'개도국 인구의 다수는 농촌에 살아요. 농업을 살리는 건 곧 빈곤을 줄이는 길이죠. 식량안보 4요소는 외워두면 무조건 득점입니다.',
      def:{term:'농촌개발', body:'농촌(산촌·어촌 포함)의 생산성과 삶의 질을 높여 빈곤을 줄이는 것. 핵심 개념은 식량안보와 가치사슬.'},
-     points:['농업의 <span class="kw">다원적 기능</span>(1992 리우회의 언급): 식량·사회·문화·환경·경제','식량안보 4요소(FAO 2006): <span class="kw">가용성·접근성·안정성·활용성</span> → SDG 2','주체: <span class="kw">FAO</span>(4B 전략)·WFP(1961 식량지원)·<span class="kw">IFAD</span>(1977 소농 중심)','곡물메이저 "ABCD"가 세계 곡물시장 약 80% 점유'],
+     points:['농업의 <span class="kw">다원적 기능</span>(1992 리우회의 언급): 식량·사회·문화·환경·경제. <span style="color:#888">→ 농업이 식량 생산만이 아니라 환경·문화 등 여러 역할을 한다는 뜻.</span>','식량안보 4요소(<span class="kw">FAO</span> 2006, 식량농업기구): <span class="kw">가용성·접근성·안정성·활용성</span> → SDG 2','주체: <span class="kw">FAO</span>(Food and Agriculture Organization, 식량농업기구; 4B 전략)·WFP(세계식량계획, 1961)·<span class="kw">IFAD</span>(국제농업개발기금, 1977 소농 중심)','곡물메이저 "ABCD"가 세계 곡물시장 약 80% 점유'],
      tip:'식량안보 4요소 "가·접·안·활"로 리듬 타서 외우기.' },
    bridge:{lead:'먹고사는 문제 다음은 "어떻게 다스리는가" — 거버넌스와 평화입니다.', nextPreview:'굿 거버넌스와 평화의 3단계를 배웁니다.'},
    quiz:[
@@ -561,12 +914,13 @@ window.COURSE = { title:"국제개발협력(ODA) 자격시험", units:[
     {t:'mc',q:'농업의 다원적 기능이 처음 언급된 국제회의는?',choices:['1992 리우회의','1996 세계식량정상회의','2000 다카르포럼','2015 아디스아바바'],answer:0,hint:'환경 정상회의.',ex:'농업의 다원적 기능은 1992년 리우회의에서 처음 언급되었습니다.'},
     {t:'mc',q:'1977년 설립되어 소농 중심 농촌개발에 주력하는 국제금융기구는?',choices:['FAO','WFP','IFAD','WTO'],answer:2,hint:'농업개발"기금".',ex:'IFAD(국제농업개발기금, 1977)는 소농·농촌 빈곤층 지원에 주력합니다.'},
     {t:'ox',q:'농촌개발은 농촌뿐 아니라 산촌·어촌을 포함하는 개념이다.',a:true,hint:'국제개발에서의 범위.',ex:'국제개발에서 농촌개발은 산촌·어촌을 포함합니다.'},
-    {t:'free',q:'식량안보의 4가지 요소를 쓰시오.',keys:['가용성','접근성','안정성','활용성'],model:'가용성, 접근성, 안정성, 활용성.',hint:'가 / 접 / 안 / 활',ex:'가용성·접근성·안정성·활용성입니다.'}
+    {t:'free',q:'식량안보의 4가지 요소를 쓰시오.',keys:['가용성','접근성','안정성','활용성'],model:'가용성, 접근성, 안정성, 활용성.',hint:'가 / 접 / 안 / 활',ex:'가용성·접근성·안정성·활용성입니다.'},
+    {t:'mc',q:'[적용] 불규칙한 강우 지역의 소농이 \'식량을 얻기 위한 일에 종사할 수 없는 위험\'에 처했다. 식량안보 4요소 중 무엇이 위협받는가?',choices:['가용성','접근성','안정성','활용성'],answer:2,hint:'위험의 강도.',ex:'생존 위험으로 식량 획득 활동에 종사하지 못할 위험은 식량의 안정성(stability)에 해당합니다.'}
    ]},
  { id:'a3l2', title:'식량 수급·기구·현황', en:'Food & Actors',
    concept:{ why:'농업 문제는 "수요는 왜 늘고 공급은 왜 불안한가"와 "어느 기구가 무엇을 하나"로 출제돼요. 다원적 기능 5종과 WFP·IFAD·세계은행의 역할을 정리합니다.',
      def:{term:'식량 수급·주체', body:'농업의 다원적 기능은 식량안보·사회·문화·환경·경제. 수요는 개도국 소득·인구 증가로 늘고, 공급은 이상기후로 불안정해진다.'},
-     points:['농업 <span class="kw">다원적 기능 5종</span>: 식량안보·사회·문화·환경·경제 (보호적 기능 아님)','수요 급증: 개도국 소득↑·식생활 개선·인구↑·바이오연료 / 공급 불안: 이상기후, 농업용수 70%','<span class="kw">WFP</span>(1961): 세계 최대 인도주의 기관, 식량 지원 / <span class="kw">IFAD</span>(1977): 소농 중심','식량안보 4요소: 안정성=위험 강도, 활용성=영양·위생 / CSV(포터, 2011): 기업활동 자체가 사회가치 창출'],
+     points:['농업 <span class="kw">다원적 기능 5종</span>: 식량안보·사회·문화·환경·경제 (보호적 기능 아님)','수요 급증: 개도국 소득↑·식생활 개선·인구↑·바이오연료 / 공급 불안: 이상기후, 농업용수 70%','<span class="kw">WFP</span>(World Food Programme, 세계식량계획, 1961): 세계 최대 인도주의 기관 / <span class="kw">IFAD</span>(국제농업개발기금, 1977): 소농 중심','식량안보 4요소: 안정성=위험 강도, 활용성=영양·위생 / CSV(Creating Shared Value, 공유가치창출; 포터, 2011): 기업활동 자체가 사회가치 창출'],
      tip:'WFP=가장 큰 인도주의기관(1961), IFAD=소농(1977). "보호적 기능"은 다원적 기능에 없다(함정)!' },
    bridge:{lead:'먹는 문제 다음은 다스리는 문제 — 거버넌스·평화입니다.', nextPreview:'굿 거버넌스와 측정지표로 이어집니다.'},
    quiz:[
@@ -579,7 +933,7 @@ window.COURSE = { title:"국제개발협력(ODA) 자격시험", units:[
  { id:'a3l3', title:'세계 농업현황·대륙별 특징', en:'Regional Agriculture',
    concept:{ why:'농업 문제는 "대륙별 특징"과 "현황" 사실 확인에서 갈려요. 아시아·아프리카·중남미의 차이를 잡으면 함정 문제를 피할 수 있어요.',
      def:{term:'세계 농업현황', body:'산업화로 선진국 농업은 위축·고령화되고, 개도국은 대륙별로 농업 구조가 크게 다르다.'},
-     points:['선진국: 산업화로 농업 위축, <span class="kw">농촌 고령화</span>·노동력 부족','아프리카: 농업기반·<span class="kw">소농 구조</span>·토질 저하, 가치사슬 미형성','중남미: <span class="kw">도시화 국가</span>, 대규모 상업농 / 아시아: 녹색혁명, 다양한 발전수준','ICT 농촌지도: <span class="kw">인터넷·모바일</span> / SDG 2 = 식량안보'],
+     points:['선진국: 산업화로 농업 위축, <span class="kw">농촌 고령화</span>·노동력 부족','아프리카: 농업기반·<span class="kw">소농 구조</span>·토질 저하, 가치사슬 미형성','중남미: <span class="kw">도시화 국가</span>, 대규모 상업농 / 아시아: 녹색혁명, 다양한 발전수준','<span class="kw">ICT</span>(Information & Communication Technology, 정보통신기술) 농촌지도: <span class="kw">인터넷·모바일</span> / SDG 2 = 식량안보'],
      tip:'아프리카=소농·토질저하, 중남미=도시화·상업농, 아시아=다양·녹색혁명. 대륙별 키워드 매칭!' },
    bridge:{lead:'농업을 마무리했어요. 다음은 거버넌스·평화입니다.', nextPreview:'거버넌스 분야로 이어집니다.'},
    quiz:[
@@ -588,6 +942,32 @@ window.COURSE = { title:"국제개발협력(ODA) 자격시험", units:[
     {t:'mc',q:'최근 개도국 농촌지도(정보 제공)에서 주요 논의 대상이 되는 수단은?',choices:['TV와 라디오','신문과 농업지도사','인터넷과 모바일','우편'],answer:2,hint:'디지털 수단.',ex:'전통적 수단(TV·라디오 등)에서 인터넷·모바일로 농촌지도 수단이 이동하고 있습니다.'},
     {t:'ox',q:'식량안보는 지속가능발전목표(SDGs) 중 SDG 2에 해당한다.',a:true,hint:'기아 종식.',ex:'식량안보·기아 종식은 SDG 2입니다.'},
     {t:'free',q:'중남미 대륙 농업의 대표적 특징을 한 가지 쓰시오.',keys:['도시화'],model:'대부분 도시화 국가이며 대규모 상업농이 발달.',hint:'도시화 / 상업농',ex:'중남미는 도시화 국가가 많고 대규모 상업농이 발달했습니다.'}
+   ]},
+ { id:'a3l4', title:'농촌개발 주요 주체·전략', en:'Rural Actors & Strategy',
+   concept:{ why:'농업 분야는 "어느 기구가 어떤 전략을 쓰나"가 출제돼요. FAO·WFP·IFAD의 전략 키워드를 구분하면 됩니다.',
+     def:{term:'농촌개발 주체', body:'FAO·WFP·IFAD·세계은행·USAID·JICA 등이 각자의 전략으로 농업·농촌개발을 지원한다.'},
+     points:['FAO 중기전략 <span class="kw">4B</span>: Better Production·Nutrition·Environment·Life. <span style="color:#888">→ 더 나은 생산·영양·환경·삶.</span>','WFP: 식량지원 5대 전략목표 / IFAD: <span class="kw">소농 중심</span> 농촌개발','USAID <span class="kw">Feed the Future</span>(미국 식량안보 이니셔티브; 2016 세계식량안보법 GFSA 법제화)','농업과 물: 농업이 전 세계 취수량의 <span class="kw">70%</span> → 통합물관리(IWRM, Integrated Water Resources Management)'],
+     tip:'FAO=4B, USAID=Feed the Future, 농업 물 사용 70%. 기구-전략 매칭!' },
+   bridge:{lead:'주체·전략을 봤으니, KOICA의 농촌 사례·과제로 이어집니다.', nextPreview:'농촌개발 KOICA 사례·과제로 이어집니다.'},
+   quiz:[
+    {t:'mc',q:'FAO 중기전략의 핵심 \'4B\'에 해당하지 않는 것은?',choices:['Better Production','Better Nutrition','Better Environment','Better Profit'],answer:3,hint:'생산·영양·환경·삶.',ex:'FAO 4B는 Better Production·Nutrition·Environment·Life입니다.'},
+    {t:'mc',q:'미국 USAID가 주도하는 식량안보 이니셔티브는?',choices:['Feed the Future','New Deal','Marshall Plan','Build Back Better'],answer:0,hint:'2016 GFSA 법제화.',ex:'Feed the Future는 USAID의 식량안보 이니셔티브로 2016년 세계식량안보법으로 법제화됐습니다.'},
+    {t:'ox',q:'농업은 전 세계 취수량의 약 70%를 사용한다.',a:true,hint:'물 사용 최대.',ex:'농업은 전 세계 취수량의 약 70%를 차지해 통합물관리(IWRM)가 강조됩니다.'},
+    {t:'mc',q:'소농 중심 농촌개발에 주력하는 1977년 설립 국제금융기구는?',choices:['FAO','WFP','IFAD','WTO'],answer:2,hint:'농업개발기금.',ex:'IFAD(1977)는 소농 중심 농촌개발에 주력합니다.'},
+    {t:'free',q:'FAO 중기전략의 핵심 \'4B\'를 쓰시오.',keys:['production','nutrition','environment','life'],model:'Better Production, Better Nutrition, Better Environment, Better Life.',hint:'생산·영양·환경·삶',ex:'Better Production·Nutrition·Environment·Life입니다.'}
+   ]},
+ { id:'a3l5', title:'농촌개발 KOICA 사례·과제', en:'Rural: KOICA & Cases',
+   concept:{ why:'한국의 강점인 새마을운동 모델 사례가 농촌 분야 단골이에요. KOICA 비전·사례·과제를 정리합니다.',
+     def:{term:'농촌 KOICA', body:'KOICA는 \'안정적이고 풍요로운 농촌주민의 삶\'을 비전으로 새마을운동형 사업을 추진한다.'},
+     points:['KOICA 비전: <span class="kw">안정적이고 풍요로운 농촌주민의 삶 실현</span>','사례: 베트남 새마을(CJ제일제당 <span class="kw">CSV</span> 4자계약), 키르기스스탄 통합농촌개발(\'아사르\' 정신)','가치사슬(생산→가공→유통→판매) 형성이 핵심','과제: 소농·여성 농민 지원 확대, 환경 지속가능성(세계식량안보지수 GFSI)'],
+     tip:'베트남=CJ CSV 새마을, 키르기스스탄=아사르(같이 일하자). 새마을=한국 농촌 브랜드!' },
+   bridge:{lead:'농촌을 깊게 마쳤어요. 다음은 거버넌스·평화입니다.', nextPreview:'거버넌스·평화로 이어집니다.'},
+   quiz:[
+    {t:'mc',q:'KOICA 농촌개발 분야의 비전으로 옳은 것은?',choices:['안정적이고 풍요로운 농촌주민의 삶 실현','양질의 교육을 통한 포용적 발전','인간의 건강권 보장','탄소중립 달성'],answer:0,hint:'농촌주민의 삶.',ex:'KOICA 농촌개발 비전은 \'안정적이고 풍요로운 농촌주민의 삶 실현\'입니다.'},
+    {t:'mc',q:'베트남 농촌 새마을 사업에서 기업의 공유가치창출(CSV) 방식으로 참여한 기업은?',choices:['CJ제일제당','삼성','현대','포스코'],answer:0,hint:'식품 기업.',ex:'CJ제일제당이 CSV 방식으로 참여해 KOICA·농민협동조합·성정부와 4자 계약을 맺었습니다.'},
+    {t:'ox',q:'농산물은 부패하기 쉬워 생산 부문에만 집중할 수 없고 가치사슬(가공·유통·판매) 형성이 필요하다.',a:true,hint:'가치사슬.',ex:'농산물 특성상 생산-가공-유통-판매로 이어지는 가치사슬 조성이 중요합니다.'},
+    {t:'mc',q:'키르기스스탄 통합농촌개발사업에서 활용된 농촌 공동노동 전통은?',choices:['아사르(Ashar)','우분투','하람베','품앗이'],answer:0,hint:'\'같이 일하자\'.',ex:'키르기스스탄의 \'아사르(같이 일하자)\' 정신을 활용했습니다.'},
+    {t:'free',q:'농산물 특성상 생산뿐 아니라 가공·유통·판매까지 이어져야 하는 개념을 쓰시오.',keys:['가치사슬'],model:'농업 가치사슬(value chain).',hint:'생산→가공→유통→판매',ex:'농업 가치사슬입니다.'}
    ]}
 ]},
 
@@ -595,7 +975,7 @@ window.COURSE = { title:"국제개발협력(ODA) 자격시험", units:[
  { id:'a4l1', title:'거버넌스와 평화', en:'Governance & Peace',
    concept:{ why:'아무리 돈을 부어도 부패하고 불안정한 나라에선 원조가 새어나가요. "거버넌스의 실패가 개발의 실패"라는 말이 핵심이에요.',
      def:{term:'거버넌스·평화', body:'국가의 제도·권력 행사 방식(거버넌스)과 분쟁 예방·재건(평화)은 원조 효과성의 토대. SDG 16과 연결됩니다.'},
-     points:['1989 세계은행: "개발협력 실패 = <span class="kw">거버넌스의 실패</span>"','굿 거버넌스(UNDP): 참여·투명성·책임성·형평성·법치주의','평화 3단계: <span class="kw">유지(종료 후)·구축(확대 전 개입)·지속화(예방·재건)</span>','SDG <span class="kw">16</span> / HDP Nexus(인도지원-개발-평화 연계)'],
+     points:['1989 세계은행: "개발협력 실패 = <span class="kw">거버넌스의 실패</span>". <span style="color:#888">→ 제도·통치가 부실하면 원조도 효과를 못 낸다는 인식.</span>','굿 거버넌스(UNDP, 유엔개발계획): 참여·투명성·책임성·형평성·법치주의','평화 3단계: <span class="kw">유지(종료 후)·구축(확대 전 개입)·지속화(예방·재건)</span>','SDG <span class="kw">16</span> / HDP Nexus(Humanitarian-Development-Peace, 인도지원-개발-평화 연계)'],
      tip:'평화 "유지(after)·구축(before)·지속화(예방+재건)" 시점 구분이 함정 포인트.' },
    bridge:{lead:'안정된 나라 위에 지구 전체의 위기가 닥칩니다 — 기후행동으로 넘어갑니다.', nextPreview:'기후위기 대응과 파리협정을 배웁니다.'},
    quiz:[
@@ -603,12 +983,13 @@ window.COURSE = { title:"국제개발협력(ODA) 자격시험", units:[
     {t:'mc',q:'거버넌스·평화 분야와 직접 연계된 SDG는?',choices:['SDG 5','SDG 10','SDG 16','SDG 13'],answer:2,hint:'평화·정의·제도.',ex:'SDG 16(평화·정의·제도)이 이 분야와 연계됩니다.'},
     {t:'ox',q:'1989년 세계은행은 개발협력 실패의 원인으로 "거버넌스의 실패"를 지적했다.',a:true,hint:'세계은행, 1989.',ex:'1989년 세계은행이 거버넌스의 실패를 지적했습니다.'},
     {t:'mc',q:'UNDP가 제시한 굿 거버넌스 원칙으로 보기 어려운 것은?',choices:['참여','투명성','법치주의','이윤극대화'],answer:3,hint:'기업 목표가 아니에요.',ex:'굿 거버넌스 원칙은 참여·투명성·책임성·형평성·법치주의입니다.'},
-    {t:'free',q:'평화의 3단계(유지·구축·지속화) 중 "평화 유지"의 시점을 쓰시오.',keys:['종료','이후','파견'],model:'분쟁 사태가 종료된 후 평화유지군이 파견되어 활동하는 단계.',hint:'분쟁 종료 후',ex:'평화 유지는 분쟁 종료 후 평화유지군이 파견되는 단계입니다.'}
+    {t:'free',q:'평화의 3단계(유지·구축·지속화) 중 "평화 유지"의 시점을 쓰시오.',keys:['종료','이후','파견'],model:'분쟁 사태가 종료된 후 평화유지군이 파견되어 활동하는 단계.',hint:'분쟁 종료 후',ex:'평화 유지는 분쟁 종료 후 평화유지군이 파견되는 단계입니다.'},
+    {t:'mc',q:'[적용] 분쟁이 끝난 뒤 재발을 막고 전후 재건과 사회 공통 비전 수립까지 아우르는 평화 활동은?',choices:['평화 유지','평화 구축','평화 지속화','평화 강제'],answer:2,hint:'예방+재발방지+재건.',ex:'분쟁 예방·재발방지·전후재건·공통비전 수립은 평화 지속화(sustaining peace)입니다.'}
    ]},
  { id:'a4l2', title:'거버넌스 측정·전략', en:'Governance Metrics',
    concept:{ why:'거버넌스 문제는 "정의·지표·기관 역할"에서 갈려요. 특히 세계은행 WGI의 6개 하위지표와 UNDP 굿거버넌스 원칙이 단골입니다.',
      def:{term:'거버넌스 측정', body:'개도국에서 거버넌스는 "국가의 능력 — 정치·행정·사법 전 분야에서 제도를 관리하는 것". 다양한 지표로 측정한다.'},
-     points:['1989년 <span class="kw">세계은행</span>이 보고서에서 거버넌스 개념 처음 사용','<span class="kw">WGI 6개 하위지표</span>: 참여·책임성 / 정치안정 / 정부효과성 / 규제의 질 / 법치주의 / 부패통제','UNDP 굿거버넌스: 참여·투명성·책임성·형평성·법치 등','KOICA: <span class="kw">공공행정</span>을 5대 중점분야로, 목표=효과성·책임성·포용성 향상 (SDG16)'],
+     points:['1989년 <span class="kw">세계은행</span>이 보고서에서 거버넌스 개념 처음 사용','<span class="kw">WGI 6개 하위지표</span>(Worldwide Governance Indicators, 세계 거버넌스 지수): 참여·책임성 / 정치안정 / 정부효과성 / 규제의 질 / 법치주의 / 부패통제','UNDP 굿거버넌스: 참여·투명성·책임성·형평성·법치 등','KOICA: <span class="kw">공공행정</span>을 5대 중점분야로, 목표=효과성·책임성·포용성 향상 (SDG16)'],
      tip:'WGI 6개: "참·정·정·규·법·부" — 참여·정치안정·정부효과성·규제질·법치·부패통제!' },
    bridge:{lead:'다스리는 문제 다음은 지구를 지키는 환경입니다.', nextPreview:'환경 분야로 이어집니다.'},
    quiz:[
@@ -630,6 +1011,32 @@ window.COURSE = { title:"국제개발협력(ODA) 자격시험", units:[
     {t:'mc',q:'거버넌스의 3주체에 해당하지 않는 것은?',choices:['국가','민간','시민사회','국제기구'],answer:3,hint:'국내 3주체.',ex:'거버넌스 3주체는 국가·민간·시민사회입니다.'},
     {t:'ox',q:'거버넌스와 빈곤의 관계는 국가 발전수준에 따라 다르게 나타날 수 있다.',a:true,hint:'발전 단계별 차이.',ex:'거버넌스와 개발의 관계는 국가 발전수준에 따라 다르게 나타날 수 있습니다.'},
     {t:'free',q:'거버넌스의 3가지 주체를 쓰시오.',keys:['국가','민간','시민사회'],model:'국가, 민간, 시민사회.',hint:'국가 / 민간 / 시민사회',ex:'국가·민간·시민사회입니다.'}
+   ]},
+ { id:'a4l4', title:'평화와 개발', en:'Peace & Development',
+   concept:{ why:'거버넌스의 짝인 \'평화\'도 출제돼요. 빈곤-분쟁의 악순환과 평화 3단계, HDP 연계를 정리합니다.',
+     def:{term:'평화와 개발', body:'분쟁은 빈곤과 악순환을 이루며, 평화 구축·유지·지속화와 인도-개발-평화 연계가 강조된다.'},
+     points:['<span class="kw">폴 콜리어 \'분쟁의 덫\'</span>: 빈곤과 분쟁의 악순환','평화 3단계: 유지(종료 후)·구축(확대 전)·지속화(예방·재건)','<span class="kw">HDP Nexus</span>(인도적지원-개발-평화 연계), 2019 OECD DAC 권고','지표: 세계평화지수(<span class="kw">GPI</span>, Global Peace Index), 취약국가지수(<span class="kw">FSI</span>, Fragile States Index) / 관련 목표 SDG 16'],
+     tip:'폴 콜리어=분쟁의 덫, GPI=평화지수, FSI=취약국가지수, HDP=인도·개발·평화 연계!' },
+   bridge:{lead:'평화를 봤으니, 거버넌스 지표·기관·사례로 마무리합니다.', nextPreview:'거버넌스 지표·기관·사례로 이어집니다.'},
+   quiz:[
+    {t:'mc',q:'\'분쟁의 덫\'을 통해 빈곤과 분쟁의 악순환을 설명한 학자는?',choices:['폴 콜리어','아마르티아 센','로스토','월러스턴'],answer:0,hint:'Conflict Trap.',ex:'폴 콜리어는 \'분쟁의 덫\'으로 빈곤-분쟁의 악순환을 설명했습니다.'},
+    {t:'mc',q:'인도적 지원-개발-평화를 통합적으로 연계하는 접근을 무엇이라 하는가?',choices:['HDP Nexus','SAP','PFM','WGI'],answer:0,hint:'Humanitarian-Development-Peace.',ex:'HDP Nexus는 인도적 지원-개발-평화 연계 접근으로, 2019년 OECD DAC 권고가 채택됐습니다.'},
+    {t:'mc',q:'국가의 취약성 정도를 정치·경제·사회·사회통합 차원에서 분석하는 지표는?',choices:['세계평화지수(GPI)','취약국가지수(FSI)','WGI','CPI'],answer:1,hint:'Fragile State Index.',ex:'취약국가지수(FSI)는 국가 취약성을 네 차원에서 분석합니다.'},
+    {t:'ox',q:'평화·정의·제도와 관련된 지속가능발전목표는 SDG 16이다.',a:true,hint:'평화·제도.',ex:'SDG 16이 평화·정의·포용적 제도를 다룹니다.'},
+    {t:'free',q:'빈곤과 분쟁의 악순환을 \'분쟁의 덫\'으로 설명한 학자를 쓰시오.',keys:['콜리어'],model:'폴 콜리어(Paul Collier).',hint:'분쟁의 덫 저자',ex:'폴 콜리어입니다.'}
+   ]},
+ { id:'a4l5', title:'거버넌스 지표·기관·사례', en:'Governance Indices & Cases',
+   concept:{ why:'기구마다 거버넌스를 다르게 정의하고, 측정 지표도 여러 가지예요. 정의·지표·사례를 묶어 정리합니다.',
+     def:{term:'거버넌스 정의·지표', body:'세계은행·UNDP·DAC·USAID·DFID이 거버넌스를 조금씩 다르게 정의하며, 다양한 지표로 측정한다.'},
+     points:['정의: 세계은행(권력 행사 방식·반부패)·UNDP(권한 행사·민주제도)·DAC(정치경제행정 권력)·DFID(능력·책임성·반응성)','지표: <span class="kw">WGI</span>·CPIA(국가정책·제도평가, 세계은행)·Freedom House·국제투명성기구 <span class="kw">CPI</span>(Corruption Perceptions Index, 부패인식지수)·QoG(스웨덴)','KOICA 공공행정 전략목표: <span class="kw">효과성·책임성·포용성</span> 향상','사례: 필리핀 거주지 소유권 인정제도'],
+     tip:'CPI=부패인식지수(국제투명성기구), WGI=세계은행 6지표, Freedom House=자유도. 지표-기관 매칭!' },
+   bridge:{lead:'거버넌스를 깊게 마쳤어요. 다음 분야로 이어집니다.', nextPreview:'다음 분야로 이어집니다.'},
+   quiz:[
+    {t:'mc',q:'거버넌스를 \'정부의 능력·책임성·반응성\' 세 가지로 정의하는 기관은?',choices:['세계은행','UNDP','DFID','USAID'],answer:2,hint:'영국 기관.',ex:'DFID는 거버넌스를 정부의 능력·책임성·반응성으로 정의합니다.'},
+    {t:'mc',q:'국제투명성기구가 발표하는, 부패 수준을 나타내는 지표는?',choices:['WGI','CPI(부패인식지수)','GPI','FSI'],answer:1,hint:'Corruption Perceptions Index.',ex:'CPI(부패인식지수)는 국제투명성기구가 발표합니다.'},
+    {t:'mc',q:'KOICA 공공행정 분야의 상위 전략목표가 아닌 것은?',choices:['행정서비스의 효과성 향상','정치·행정 체제의 책임성 향상','법 제도의 포용성 향상','경제적 효과성 향상'],answer:3,hint:'효과성·책임성·포용성.',ex:'KOICA 공공행정 목표는 효과성·책임성·포용성 향상입니다.'},
+    {t:'ox',q:'필리핀 거주지 소유권 인정제도 사업은 빈곤층의 재산권 보장 거버넌스 사례이다.',a:true,hint:'토지·재산권.',ex:'필리핀 거주지 소유권 인정제도는 빈곤층 재산권 보장 거버넌스 사례입니다.'},
+    {t:'free',q:'세계은행이 발표하는 6개 하위지표로 구성된 거버넌스 지수의 약자를 쓰시오.',keys:['WGI'],model:'WGI(세계 거버넌스 지수).',hint:'영문 약자 3글자',ex:'WGI입니다.'}
    ]}
 ]},
 
@@ -637,7 +1044,7 @@ window.COURSE = { title:"국제개발협력(ODA) 자격시험", units:[
  { id:'a5l1', title:'기후위기와 국제 대응', en:'Climate Action',
    concept:{ why:'기후위기는 개도국에 더 가혹해요(기후 불평등). 교토의정서와 파리협정의 차이는 거의 매번 나오는 핵심입니다.',
      def:{term:'기후행동', body:'온실가스를 줄이는 "완화"와 영향을 줄이는 "적응"의 균형. 파리협정으로 모든 나라가 감축에 참여하게 됐다.'},
-     points:['완화(배출 감축)·<span class="kw">적응</span>(영향 최소화)·탄소중립(순배출 0)','1997 교토의정서(선진국 의무, 하향식) → 2015 <span class="kw">파리협정</span>(모든 나라, <span class="kw">상향식 NDC</span>·5년마다)','기후저지선 <span class="kw">1.5℃</span>(2018 IPCC 특별보고서)','기금: GEF / <span class="kw">GCF(인천 송도)</span> — 감축:적응 50:50'],
+     points:['완화(배출 감축)·<span class="kw">적응</span>(영향 최소화)·탄소중립(순배출 0). <span style="color:#888">→ 완화=원인 줄이기, 적응=피해에 대비하기.</span>','1997 교토의정서(선진국 의무, 하향식) → 2015 <span class="kw">파리협정</span>(모든 나라, <span class="kw">상향식 NDC</span>, Nationally Determined Contribution·5년마다). <span style="color:#888">→ NDC=각 나라가 스스로 정해 제출하는 감축목표.</span>','기후저지선 <span class="kw">1.5℃</span>(2018 IPCC 특별보고서)','기금: GEF(지구환경금융) / <span class="kw">GCF(인천 송도)</span> — 감축:적응 50:50'],
      tip:'교토=선진국·하향식 / 파리=모든 나라·상향식(NDC). 이 대비가 핵심.' },
    bridge:{lead:'위기를 푸는 열쇠 중 하나가 기술이에요. 다음은 과학기술혁신입니다.', nextPreview:'과학기술혁신과 디지털 전환을 배웁니다.'},
    quiz:[
@@ -645,12 +1052,13 @@ window.COURSE = { title:"국제개발협력(ODA) 자격시험", units:[
     {t:'mc',q:'기후변화 "적응(adaptation)"에 대한 설명으로 옳은 것은?',choices:['온실가스 배출을 직접 줄이는 것','기후위기 영향을 최소화·기회로 전환하는 활동','배출권을 거래하는 것','화석연료 보조금 확대'],answer:1,hint:'영향에 "적응"하는 것.',ex:'적응은 기후위기 영향을 최소화하거나 유익한 기회로 촉진하는 활동입니다.'},
     {t:'ox',q:'교토의정서는 모든 국가에, 파리협정은 선진국에만 감축의무를 부과한다.',a:false,hint:'정반대예요.',ex:'교토의정서는 선진국에, 파리협정은 모든 나라에 감축 책임을 둡니다.'},
     {t:'mc',q:'사무국이 인천 송도에 있는 기후 분야 국제기금은?',choices:['지구환경금융(GEF)','녹색기후기금(GCF)','적응기금','GAVI'],answer:1,hint:'한국이 유치했죠.',ex:'녹색기후기금(GCF) 사무국이 인천 송도에 있으며 감축:적응 재원이 50:50입니다.'},
-    {t:'free',q:'교토의정서와 파리협정의 가장 큰 차이를 감축 주체 관점에서 쓰시오.',keys:['선진국','모든'],model:'교토의정서는 선진국에만 감축의무를 부과(하향식)했지만, 파리협정은 모든 나라가 자발적으로 감축(상향식 NDC)한다.',hint:'선진국만 vs 모든 나라',ex:'교토=선진국 의무, 파리=모든 나라 자발적 감축입니다.'}
+    {t:'free',q:'교토의정서와 파리협정의 가장 큰 차이를 감축 주체 관점에서 쓰시오.',keys:['선진국','모든'],model:'교토의정서는 선진국에만 감축의무를 부과(하향식)했지만, 파리협정은 모든 나라가 자발적으로 감축(상향식 NDC)한다.',hint:'선진국만 vs 모든 나라',ex:'교토=선진국 의무, 파리=모든 나라 자발적 감축입니다.'},
+    {t:'mc',q:'[적용] 해안 마을이 해수면 상승에 대비해 방조제를 쌓고 내염성 작물을 도입했다. 이는 기후행동 중 무엇인가?',choices:['완화(mitigation)','적응(adaptation)','탄소중립','배출권 거래'],answer:1,hint:'영향에 대비·대응.',ex:'영향을 최소화·대비하는 활동은 적응(adaptation)입니다. (배출을 줄이는 것은 완화)'}
    ]},
  { id:'a5l2', title:'기후 메커니즘·재원', en:'Climate Mechanisms',
    concept:{ why:'기후 문제는 "교토 3대 메커니즘"과 "재원·완화/적응"에서 갈려요. 약자가 많아 헷갈리니 묶어서 정리합니다.',
      def:{term:'기후 메커니즘·재원', body:'교토의정서는 시장 메커니즘으로 감축을 유도했고, 파리협정은 상향식 NDC와 기후재원으로 모든 나라를 끌어들였다.'},
-     points:['교토 3대 메커니즘: <span class="kw">배출권거래(ETS)·공동이행(JI)·청정개발체제(CDM)</span>','완화(감축) vs 적응(영향 최소화), 탄소중립=순배출 0','<span class="kw">GCF</span>: 2010 칸쿤 승인, 송도 사무국, 감축:적응 50:50','MDGs 7번(지속가능 환경)과 직결 / EU 탄소국경조정(CBAM)'],
+     points:['교토 3대 메커니즘: <span class="kw">배출권거래(ETS)·공동이행(JI)·청정개발체제(CDM)</span>. <span style="color:#888">→ CDM=선진국이 개도국 감축사업으로 크레딧을 얻는 방식.</span>','완화(감축) vs 적응(영향 최소화), 탄소중립=순배출 0','<span class="kw">GCF</span>(녹색기후기금): 2010 칸쿤 승인, 송도 사무국, 감축:적응 50:50','MDGs 7번(지속가능 환경)과 직결 / EU 탄소국경조정(CBAM, Carbon Border Adjustment Mechanism)'],
      tip:'교토 3총사 "ETS·JI·CDM". 그 중 CDM(청정개발체제)은 개도국 감축사업 → 선진국이 크레딧 획득.' },
    bridge:{lead:'기후 다음은 미래의 열쇠, 과학기술혁신입니다.', nextPreview:'과학기술혁신과 디지털 전환으로 이어집니다.'},
    quiz:[
@@ -659,6 +1067,19 @@ window.COURSE = { title:"국제개발협력(ODA) 자격시험", units:[
     {t:'ox',q:'녹색기후기금(GCF)의 감축 대 적응 재원 비율은 50:50을 지향한다.',a:true,hint:'균형 배분.',ex:'GCF는 감축:적응 재원을 50:50으로 지향하며 사무국이 인천 송도에 있습니다.'},
     {t:'mc',q:'기후변화 대응 중 "적응(adaptation)"에 해당하는 것은?',choices:['배출권 거래','홍수 방어시설·내건성 작물 도입','석탄발전 확대','탄소세 부과'],answer:1,hint:'영향에 대비·적응.',ex:'적응은 기후위기의 영향을 최소화하는 활동(방재시설·작물 개선 등)입니다.'},
     {t:'free',q:'교토의정서의 3대 메커니즘을 쓰시오.',keys:['배출권','공동이행','청정개발'],model:'배출권거래제(ETS), 공동이행제도(JI), 청정개발체제(CDM).',hint:'ETS / JI / CDM',ex:'ETS·JI·CDM입니다.'}
+   ]},
+ { id:'a5l3', title:'온실가스·탄소시장·KOICA', en:'GHG & Carbon Market',
+   concept:{ why:'기후 분야는 "온실가스 종류·지수"와 "탄소시장 조항" 같은 디테일이 나와요. 핵심 용어와 한국·KOICA 대응을 정리합니다.',
+     def:{term:'온실가스·탄소시장', body:'온실가스는 6종이며 GWP로 환산한다. 파리협정은 탄소시장 조항을 두고, 한국은 탄소중립기본법으로 대응한다.'},
+     points:['온실가스 6종: <span class="kw">CO2·CH4·N2O·HFCs·PFCs·SF6</span> / GWP(지구온난화지수), CO2eq(이산화탄소 환산량)','<span class="kw">IPCC 6차 보고서</span>(기후변화에 관한 정부간 협의체): 기후변화가 인간활동 때문임이 명백, 약 1.09℃ 상승','한국: 2022 <span class="kw">탄소중립기본법</span> 시행','파리 탄소시장: 6.2조(<span class="kw">ITMO</span>, 국제적으로 이전된 감축결과)·6.4조 메커니즘 / 적응기금(CDM CER의 2%)·NAP(국가적응계획)'],
+     tip:'온실가스 6종, GWP=CO2 기준 환산, IPCC 6차=인간활동 명백. 6.2조 ITMO 기억!' },
+   bridge:{lead:'기후를 깊게 마쳤어요. 다음은 과학기술혁신입니다.', nextPreview:'과학기술혁신으로 이어집니다.'},
+   quiz:[
+    {t:'mc',q:'다음 중 6대 온실가스에 해당하지 않는 것은?',choices:['이산화탄소(CO2)','메탄(CH4)','산소(O2)','육불화황(SF6)'],answer:2,hint:'산소는 온실가스가 아니에요.',ex:'6대 온실가스는 CO2·CH4·N2O·HFCs·PFCs·SF6입니다. 산소(O2)는 아닙니다.'},
+    {t:'mc',q:'각 온실가스의 온난화 효과를 이산화탄소 기준으로 환산하는 지수는?',choices:['GWP(지구온난화지수)','HDI','CRI','GPI'],answer:0,hint:'Global Warming Potential.',ex:'GWP(지구온난화지수)는 CO2를 기준으로 온실가스 효과를 환산합니다.'},
+    {t:'ox',q:'IPCC 6차 평가보고서는 기후변화가 인간 활동에 의한 것임이 명백하다고 밝혔다.',a:true,hint:'인간 책임 명시.',ex:'IPCC 6차 보고서는 기후변화가 인간 활동 때문임이 명백하다고 평가했습니다.'},
+    {t:'mc',q:'한국이 2022년 시행한 기후 대응 기본법은?',choices:['저탄소 녹색성장 기본법','탄소중립·녹색성장 기본법(탄소중립기본법)','환경정책기본법','지속가능발전법'],answer:1,hint:'탄소중립.',ex:'2022년 탄소중립·녹색성장 기본법(탄소중립기본법)이 시행되었습니다.'},
+    {t:'free',q:'온실가스 효과를 CO2 기준으로 환산하는 지수의 약자를 쓰시오.',keys:['GWP'],model:'GWP(지구온난화지수).',hint:'영문 약자 3글자',ex:'GWP입니다.'}
    ]}
 ]},
 
@@ -666,7 +1087,7 @@ window.COURSE = { title:"국제개발협력(ODA) 자격시험", units:[
  { id:'a6l1', title:'과학기술혁신과 디지털 전환', en:'STI & DX',
    concept:{ why:'기술 격차는 곧 발전 격차예요. 한국이 KIST·반도체로 도약했듯, 기술을 어떻게 따라잡느냐(catch-up)가 개도국의 핵심 과제입니다.',
      def:{term:'과학기술혁신(STI)', body:'과학기술에 기반해 혁신을 일으키는 것. 국가혁신체계(NIS) 안에서 기술을 획득·확산시킨다.'},
-     points:['슘페터: 기술혁신·<span class="kw">창조적 파괴</span>가 발전 촉발 / 폴 로머: 내생적 성장','개도국 과제: <span class="kw">두뇌유출(brain drain)</span>, 기술추격(catch-up)','<span class="kw">국가혁신체계(NIS)</span>: 기술혁신이 창출되는 메커니즘','SDG 9.5(R&D)·SDG 17(이행수단), UN 기술촉진메커니즘(TFM, 2015)'],
+     points:['슘페터: 기술혁신·<span class="kw">창조적 파괴</span>가 발전 촉발 / 폴 로머: 내생적 성장','개도국 과제: <span class="kw">두뇌유출(brain drain)</span>, 기술추격(catch-up). <span style="color:#888">→ 인재가 선진국으로 빠져나가는 문제 vs 선진국 기술 따라잡기.</span>','<span class="kw">국가혁신체계(NIS</span>, National Innovation System): 기술혁신이 창출되는 메커니즘','SDG 9.5(R&D)·SDG 17(이행수단), UN 기술촉진메커니즘(TFM, Technology Facilitation Mechanism, 2015)'],
      tip:'"슘페터=창조적 파괴", "두뇌유출=brain drain" 두 용어가 단골.' },
    bridge:{lead:'기술이 모두에게 닿으려면 소외 없는 평등이 필요해요. 다음은 성평등입니다.', nextPreview:'성평등과 WID·GAD·성주류화를 배웁니다.'},
    quiz:[
@@ -674,7 +1095,8 @@ window.COURSE = { title:"국제개발협력(ODA) 자격시험", units:[
     {t:'mc',q:'국가 차원에서 기술혁신이 창출되는 메커니즘을 가리키는 개념은?',choices:['국가혁신체계(NIS)','디지털 전환(DX)','포용적 혁신','기술추격'],answer:0,hint:'National Innovation System.',ex:'국가혁신체계(NIS)는 기술혁신이 창출되는 국가적 메커니즘입니다.'},
     {t:'ox',q:'두뇌유출(brain drain)은 개도국의 과학기술 축적을 어렵게 하는 요인이다.',a:true,hint:'인재가 빠져나가면?',ex:'두뇌유출은 개도국 기술 축적을 저해하는 요인입니다.'},
     {t:'mc',q:'과학기술혁신과 가장 직접적으로 연계된 SDG 세부 지표는?',choices:['SDG 1.1','SDG 9.5(R&D 지출·연구원)','SDG 4.1','SDG 5.5'],answer:1,hint:'산업·혁신 목표.',ex:'SDG 9.5(GDP 대비 R&D 지출·연구원 수)가 STI와 직접 연계됩니다.'},
-    {t:'free',q:'개도국이 선진국 기술을 도입·흡수해 따라잡는 과정을 가리키는 용어는?',keys:['추격','catch'],model:'기술추격(catch-up).',hint:'영어로 catch-up',ex:'기술추격(catch-up)입니다.'}
+    {t:'free',q:'개도국이 선진국 기술을 도입·흡수해 따라잡는 과정을 가리키는 용어는?',keys:['추격','catch'],model:'기술추격(catch-up).',hint:'영어로 catch-up',ex:'기술추격(catch-up)입니다.'},
+    {t:'mc',q:'[적용] B국이 선진국 기술을 도입·흡수한 뒤 자체 연구개발로 선진국 수준에 접근했다. 이 과정을 가리키는 개념은?',choices:['두뇌유출','기술추격(catch-up)','창조적 파괴','내생적 성장'],answer:1,hint:'따라잡기.',ex:'도입→흡수→자체 R&D로 따라잡는 과정이 기술추격(catch-up)입니다.'}
    ]},
  { id:'a6l2', title:'혁신 이론·디지털 전환', en:'Innovation & DX',
    concept:{ why:'과기 문제는 "성장이론 학자"와 "디지털 전환 개념"에서 갈려요. 슘페터·솔로우·로머의 차이와 전산화/디지털화 구분을 잡습니다.',
@@ -688,6 +1110,19 @@ window.COURSE = { title:"국제개발협력(ODA) 자격시험", units:[
     {t:'ox',q:'포용적 혁신(Inclusive innovation)은 취약계층의 사회·환경 문제 개선을 위한 활동이다.',a:true,hint:'성장 vs 포용.',ex:'포용적 혁신은 취약계층 문제 해결을 지향하는 혁신입니다.'},
     {t:'mc',q:'개도국의 과학기술혁신 역량 강화를 위해 2015년 발족한 UN 메커니즘은?',choices:['TFM(기술촉진메커니즘)','NIS','GGGI','TOSSD'],answer:0,hint:'Technology Facilitation Mechanism.',ex:'UN 기술촉진메커니즘(TFM)은 2015년 발족했습니다.'},
     {t:'free',q:'전산화(Digitization)와 디지털화(Digitalization)의 차이를 간단히 쓰시오.',keys:['데이터','사업'],model:'전산화는 아날로그를 디지털 데이터로 바꾸는 것, 디지털화는 기존 사업·서비스를 디지털 기술로 전환하는 것.',hint:'데이터 변환 vs 사업 전환',ex:'전산화=데이터 디지털화, 디지털화=사업·서비스의 디지털 전환입니다.'}
+   ]},
+ { id:'a6l3', title:'한국 기술성장·디지털 ODA', en:'Korea Tech & Digital ODA',
+   concept:{ why:'한국은 기술추격의 성공 사례라 자주 인용돼요. 한국의 기술발전 경로와 KOICA 디지털 ODA를 정리합니다.',
+     def:{term:'한국 기술성장·디지털 ODA', body:'한국은 도입→흡수→자체 R&D로 기술을 추격했고, KOICA는 디지털 ODA·혁신 프로그램을 운영한다.'},
+     points:['한국: 1960s 턴키/OEM(주문자상표부착생산)·미국 ODA로 <span class="kw">KIST</span>(한국과학기술연구원), 1970s KAIST·대덕연구단지, 1983 64K D램','기술추격 유형: <span class="kw">경로추종형·단계생략형·경로개척형</span>','KOICA 디지털 ODA: 6대 원칙, <span class="kw">디지털 마커</span>(0/1/2)','KOICA <span class="kw">CTS</span>(Creative Technology Solution, 혁신적 기술 프로그램): 스타트업 아이디어를 ODA에 적용 (예: 킷킷학교)'],
+     tip:'한국 기술추격=도입·흡수·R&D. CTS=혁신기술 프로그램(킷킷학교). 디지털마커 2=디지털이 직접 목적!' },
+   bridge:{lead:'과기를 깊게 마쳤어요. 다음 분야로 이어집니다.', nextPreview:'다음 분야로 이어집니다.'},
+   quiz:[
+    {t:'mc',q:'한국 과학기술 성장 초기, 미국 ODA를 활용해 설립한 연구기관은?',choices:['KIST','KAIST','KDI','ETRI'],answer:0,hint:'1960년대.',ex:'미국 ODA를 활용해 KIST(한국과학기술연구원)가 설립되었습니다.'},
+    {t:'mc',q:'개도국의 기술추격(catch-up) 유형으로 보기 어려운 것은?',choices:['경로추종형','단계생략형','경로개척형','기술포기형'],answer:3,hint:'세 가지 유형.',ex:'기술추격 유형은 경로추종형·단계생략형·경로개척형입니다.'},
+    {t:'mc',q:'KOICA가 스타트업·예비창업가의 혁신 아이디어를 ODA에 적용하는 프로그램은?',choices:['CTS(혁신적 기술 프로그램)','KSP','EDCF','CIAT'],answer:0,hint:'Creative Technology Solution.',ex:'CTS는 혁신적 기술을 ODA에 적용하는 KOICA 프로그램으로, 킷킷학교 등이 사례입니다.'},
+    {t:'ox',q:'KOICA 디지털 마커에서 2는 디지털 전환 지원이 사업의 직접 목적인 경우를 뜻한다.',a:true,hint:'0/1/2 구분.',ex:'디지털 마커 2는 협력국의 디지털 전환 지원이 직접 목적인 사업입니다.'},
+    {t:'free',q:'미국 ODA를 활용해 설립된 한국의 대표 연구기관(약자)을 쓰시오.',keys:['KIST'],model:'KIST(한국과학기술연구원).',hint:'1960년대 설립',ex:'KIST입니다.'}
    ]}
 ]},
 
@@ -695,7 +1130,7 @@ window.COURSE = { title:"국제개발협력(ODA) 자격시험", units:[
  { id:'a7l1', title:'성평등과 개발', en:'Gender Equality',
    concept:{ why:'"인류의 절반은 여성"입니다. 성평등은 그 자체로 목표이자 개발효과를 높이는 전략이에요. WID→GAD→성주류화의 발전 흐름이 핵심.',
      def:{term:'성평등', body:'젠더는 생물학적 성+사회문화적 성. 성평등은 SDG 5의 목표이자 개발의 수단으로 다뤄진다.'},
-     points:['접근 발전: <span class="kw">WID(여성을 개발에)</span> → <span class="kw">GAD(구조·권한강화)</span> → <span class="kw">성주류화</span>','실질적 vs 전략적 젠더 수요','규범: <span class="kw">CEDAW</span>(1979)·1995 베이징 행동강령','OECD <span class="kw">젠더마커</span>(2=주요목적·1=중요목적·0)'],
+     points:['접근 발전: <span class="kw">WID</span>(Women in Development, 개발 속 여성) → <span class="kw">GAD</span>(Gender and Development, 젠더와 개발·구조·권한강화) → <span class="kw">성주류화</span>. <span style="color:#888">→ \'여성을 끼워 넣기\'에서 \'구조를 바꾸기\', \'모든 정책에 젠더 관점\'으로 발전.</span>','실질적 vs 전략적 젠더 수요. <span style="color:#888">→ 실질적=기존 역할 내 필요(여성 직업훈련), 전략적=역할·구조를 바꾸는 필요(할당제 등).</span>','규범: <span class="kw">CEDAW</span>(여성차별철폐협약, 1979)·1995 베이징 행동강령','OECD <span class="kw">젠더마커</span>(2=주요목적·1=중요목적·0)'],
      tip:'WID→GAD→성주류화 "발전 순서"와 젠더마커 2/1/0이 단골.' },
    bridge:{lead:'성평등은 결국 "사람의 권리" 이야기죠. 마지막 분야, 인권으로 마무리합니다.', nextPreview:'인권과 인권기반접근(HRBA)을 배웁니다.'},
    quiz:[
@@ -703,12 +1138,13 @@ window.COURSE = { title:"국제개발협력(ODA) 자격시험", units:[
     {t:'mc',q:'성평등이 사업의 "주요 목적"인 경우 부여하는 OECD 젠더마커 값은?',choices:['0','1','2','3'],answer:2,hint:'주요=Principal=2.',ex:'젠더마커 2는 성평등을 주요 목적(Principal)으로 하는 사업입니다.'},
     {t:'ox',q:'CEDAW(여성차별철폐협약)는 1979년에 채택되었다.',a:true,hint:'1970년대 후반.',ex:'CEDAW는 1979년 채택되어 모든 인권 범주를 포괄합니다.'},
     {t:'mc',q:'성평등 접근 방법의 발전 순서로 옳은 것은?',choices:['성주류화 → GAD → WID','WID → GAD → 성주류화','GAD → WID → 성주류화','WID → 성주류화 → GAD'],answer:1,hint:'"여성을 개발에" 넣는 게 먼저.',ex:'WID(여성을 개발에) → GAD(구조·권한) → 성주류화 순으로 발전했습니다.'},
-    {t:'free',q:'성평등 접근의 발전 흐름을 순서대로 쓰시오.',keys:['WID','GAD','주류화'],model:'WID(개발과 여성) → GAD(젠더와 개발) → 성주류화.',hint:'WID / GAD / 성주류화',ex:'WID→GAD→성주류화입니다.'}
+    {t:'free',q:'성평등 접근의 발전 흐름을 순서대로 쓰시오.',keys:['WID','GAD','주류화'],model:'WID(개발과 여성) → GAD(젠더와 개발) → 성주류화.',hint:'WID / GAD / 성주류화',ex:'WID→GAD→성주류화입니다.'},
+    {t:'mc',q:'[적용] 어느 사업이 여성을 \'개발의 대상\'으로 포함시키는 데 초점을 두었다. 이는 어떤 접근에 가까운가?',choices:['WID(개발과 여성)','GAD(젠더와 개발)','성 중립적 접근','이중트랙'],answer:0,hint:'여성을 개발에 \'포함\'.',ex:'여성을 개발에 포함시키는 데 초점을 두면 WID에 가깝습니다. (구조·권한 강화에 주목하면 GAD)'}
    ]},
  { id:'a7l2', title:'젠더 규범·지표 심화', en:'Gender Norms & Indices',
    concept:{ why:'젠더 문제는 "베이징·CEDAW·성주류화 결의"의 연도와 "성평등 지수 종류"에서 갈려요. 헷갈리기 쉬운 연도와 약자를 정리합니다.',
      def:{term:'젠더 규범·지표', body:'1960~70년대 등장한 젠더 개념 위에, 베이징 행동강령·CEDAW·성주류화 전략이 성평등 국제규범을 형성했다.'},
-     points:['젠더 개념: 1960~70년대 초 등장(생물학적 성역할 문제 분석)','<span class="kw">CEDAW</span>: 1979년 UN총회 채택, 여성 평등권 보장을 국가 의무화','<span class="kw">성주류화</span>: 1995 베이징에서 전략 채택 → 1997 ECOSOC 첫 결의','성평등 지수: <span class="kw">GII(UNDP)·GGI(WEF)·SIGI(OECD)</span> / 성인지 예산분석은 \'지수\'가 아님'],
+     points:['젠더 개념: 1960~70년대 초 등장(생물학적 성역할 문제 분석)','<span class="kw">CEDAW</span>(여성차별철폐협약): 1979년 UN총회 채택, 여성 평등권 보장을 국가 의무화','<span class="kw">성주류화</span>: 1995 베이징에서 전략 채택 → 1997 ECOSOC(UN 경제사회이사회) 첫 결의','성평등 지수: <span class="kw">GII(UNDP)·GGI(WEF)·SIGI(OECD)</span> / 성인지 예산분석은 \'지수\'가 아님'],
      tip:'1979 CEDAW(협약), 1995 베이징(성주류화 채택), 1997 ECOSOC(첫 결의). 연도 3개 세트!' },
    bridge:{lead:'성평등은 결국 사람의 권리 — 마지막은 인권입니다.', nextPreview:'인권과 인권기반접근(HRBA)으로 이어집니다.'},
    quiz:[
@@ -730,6 +1166,33 @@ window.COURSE = { title:"국제개발협력(ODA) 자격시험", units:[
     {t:'mc',q:'국제연합개발계획(UNDP)의 4대 주요 사업 분야가 아닌 것은?',choices:['민주적 거버넌스','빈곤감소','환경과 에너지','젠더의 활성화'],answer:3,hint:'4대 분야를 떠올려요.',ex:'UNDP 4대 분야는 민주적 거버넌스·빈곤감소·위기예방과 회복·환경과 에너지입니다.'},
     {t:'ox',q:'프로그램·사업 이행의 각 단계에서 중심 가치로 삼는 것에는 지속가능성·관련성·효과성이 있다.',a:true,hint:'가치 vs 단계 구분.',ex:'지속가능성·관련성·효과성은 \'가치\'이고, 실행(Implementation)은 이행 \'과정\'입니다.'},
     {t:'free',q:'개발에서 \'사업(project)\'과 \'프로그램(program)\'의 차이를 간단히 쓰시오.',keys:['시한','정책'],model:'사업은 일정 시한·예산 내 특정 목표 실현을 위한 행동, 프로그램은 국가 발전정책과 결합한 더 큰 틀.',hint:'시한·예산 vs 국가정책 결합',ex:'사업=시한·예산 내 특정 목표, 프로그램=국가정책과 결합한 큰 틀입니다.'}
+   ]},
+ { id:'a7l4', title:'성평등 국제규범·기구', en:'Gender Norms & Bodies',
+   concept:{ why:'성평등은 국제회의·협약의 연도와 약자가 단골이에요. 세계여성회의 흐름과 핵심 협약을 정리합니다.',
+     def:{term:'성평등 국제규범', body:'UN 세계여성회의(1975~1995)를 거쳐 베이징 행동강령·CEDAW 등 성평등 규범이 형성됐다.'},
+     points:['UN 세계여성회의: 1975 멕시코시티 → 1980 코펜하겐 → 1985 나이로비 → <span class="kw">1995 베이징</span>','<span class="kw">CEDAW</span>(Convention on the Elimination of All Forms of Discrimination against Women, 여성차별철폐협약): 1979 채택','<span class="kw">DEVAW</span>(Declaration on the Elimination of Violence against Women, 여성폭력철폐선언): 1993, 폭력을 처음 본격 다룬 문건','성주류화(gender mainstreaming): 모든 정책에 젠더 관점 통합 → 1997 <span class="kw">ECOSOC</span>(UN 경제사회이사회) 첫 결의'],
+     tip:'세계여성회의 1차=멕시코(1975), 4차=베이징(1995). CEDAW=협약(1979), DEVAW=폭력선언(1993)!' },
+   bridge:{lead:'규범을 잡았으니, 성평등 측정과 KOICA 사례로 이어집니다.', nextPreview:'성평등 지수·KOICA 사례로 이어집니다.'},
+   quiz:[
+    {t:'mc',q:'1995년 \'성주류화\'를 성평등 달성 전략으로 채택한 UN 세계여성회의는 몇 차이며 어디서 열렸나?',choices:['1차·멕시코시티','2차·코펜하겐','3차·나이로비','4차·베이징'],answer:3,hint:'베이징 행동강령.',ex:'1995년 제4차 베이징 세계여성회의에서 성주류화가 전략으로 채택되었습니다.'},
+    {t:'mc',q:'1979년 UN총회에서 채택되어 여성 평등권을 국가 의무로 규정한 협약(약자)은?',choices:['CEDAW','DEVAW','VDPA','BPfA'],answer:0,hint:'여성차별철폐협약.',ex:'CEDAW(여성차별철폐협약, 1979)는 여성 평등권 보장을 국가 의무로 규정합니다.'},
+    {t:'mc',q:'1993년 채택되어 여성에 대한 폭력을 국제적으로 처음 본격 다룬 선언(약자)은?',choices:['DEVAW(여성폭력철폐선언)','CEDAW','SIGI','GII'],answer:0,hint:'폭력(Violence) 철폐.',ex:'DEVAW(여성폭력철폐선언, 1993)가 여성 폭력을 처음 본격적으로 다룬 국제 문건입니다.'},
+    {t:'ox',q:'성주류화(gender mainstreaming)는 모든 영역·수준의 정책에 젠더 관점을 통합하는 전략이다.',a:true,hint:'주류(main)에 통합.',ex:'성주류화는 모든 정책·프로그램에 젠더 관점을 통합하는 전략입니다.'},
+    {t:'free',q:'CEDAW의 한글 명칭과 채택 연도를 쓰시오.',keys:['여성차별철폐','1979'],model:'여성차별철폐협약, 1979년 채택.',hint:'여성차별철폐협약 / 1979',ex:'여성차별철폐협약(CEDAW), 1979년 채택입니다.'},
+    {t:'mc',q:'[적용] 어느 정책이 \'모든 영역·수준의 정책·계획에 젠더 관점을 통합\'하는 것을 목표로 한다. 이 전략은?',choices:['성주류화(gender mainstreaming)','WID','젠더타깃 사업','성 인지 예산'],answer:0,hint:'모든 정책에 통합.',ex:'모든 정책·계획에 젠더 관점을 통합하는 전략은 성주류화입니다.'}
+   ]},
+ { id:'a7l5', title:'성평등 지수·KOICA 사례', en:'Gender Indices & Cases',
+   concept:{ why:'성평등 \'지수\'와 KOICA 사례가 후반 문제로 나와요. 지수 3종과 대표 사례를 정리합니다.',
+     def:{term:'성평등 지수·사례', body:'국제사회는 여러 지수로 성평등을 측정하고, KOICA는 분야별 성평등 사업을 추진한다.'},
+     points:['지수: <span class="kw">GII</span>(Gender Inequality Index, UNDP 성불평등지수)·<span class="kw">GGI</span>(Gender Gap Index, WEF 성격차지수)·<span class="kw">SIGI</span>(Social Institutions and Gender Index, OECD 사회제도·젠더지수)','<span class="kw">젠더마커</span>: 2(주요목적)·1(중요목적)·0(무관)','이중트랙: <span class="kw">젠더타깃</span>(여성 대상 집중) + <span class="kw">젠더통합</span>(성 주류화)','KOICA 사례: 페루 지방도로(여성 이동권), 코트디부아르 누공(瘻孔: 출산 난산 후유증) 치료'],
+     tip:'GII=UNDP, GGI=WEF, SIGI=OECD. 성 인지 예산분석은 \'지수\'가 아님(함정)!' },
+   bridge:{lead:'성평등을 깊게 마쳤어요. 다음은 인권입니다.', nextPreview:'인권 분야로 이어집니다.'},
+   quiz:[
+    {t:'mc',q:'국제사회의 성평등 \'지수\' 도구가 아닌 것은?',choices:['GII(UNDP 성불평등지수)','GGI(WEF 성격차지수)','SIGI(OECD 사회제도·젠더지수)','성 인지 예산분석'],answer:3,hint:'\'지수\'가 아닌 것.',ex:'성평등 지수는 GII·GGI·SIGI이며, 성 인지 예산분석은 지수가 아닙니다.'},
+    {t:'mc',q:'WEF(세계경제포럼)가 발표하는 성평등 지수는?',choices:['GII','GGI(성격차지수)','SIGI','HDI'],answer:1,hint:'Gender Gap Index.',ex:'GGI(성격차지수)는 WEF가 2005년부터 발표합니다.'},
+    {t:'mc',q:'성평등이 사업의 \'주요 목적\'인 경우 부여하는 OECD 젠더마커 값은?',choices:['0','1','2','3'],answer:2,hint:'Principal=2.',ex:'젠더마커 2는 성평등이 주요 목적(Principal)인 사업입니다.'},
+    {t:'ox',q:'세계은행 페루 지방도로 사업은 여성의 이동권 보장으로 투표율·진학률 향상에 기여했다.',a:true,hint:'인프라도 성 중립적이지 않음.',ex:'페루 지방도로 사업은 여성 이동권을 높여 투표율·진학률 향상에 기여했습니다.'},
+    {t:'free',q:'UNDP·WEF·OECD가 각각 발표하는 성평등 지수의 약자를 쓰시오.',keys:['GII','GGI','SIGI'],model:'UNDP=GII, WEF=GGI, OECD=SIGI.',hint:'GII / GGI / SIGI',ex:'GII(UNDP)·GGI(WEF)·SIGI(OECD)입니다.'}
    ]}
 ]},
 
@@ -759,13 +1222,26 @@ window.COURSE = { title:"국제개발협력(ODA) 자격시험", units:[
     {t:'mc',q:'2002년 남아프리카공화국 요하네스버그에서 개최된 회의는?',choices:['리우회의','WSSD(세계지속가능발전정상회의)','교토 COP3','스톡홀름 회의'],answer:1,hint:'리우+10에 해당.',ex:'2002년 요하네스버그에서 WSSD가 개최되었습니다.'},
     {t:'ox',q:'한국은 2008년 "저탄소 녹색성장"을 국가비전으로 선포했다.',a:true,hint:'2008년 새 국가비전.',ex:'2008년 저탄소 녹색성장을 국가비전으로 선포해 저탄소·자원절약형 체계를 추진했습니다.'},
     {t:'free',q:'한국이 유치·주도한 환경 분야 국제기구 2개를 쓰시오.',keys:['GGGI','GCF'],model:'글로벌녹색성장연구소(GGGI), 녹색기후기금(GCF).',hint:'녹색성장연구소 / 녹색기후기금',ex:'GGGI와 GCF(송도)가 대표적입니다.'}
+   ]},
+ { id:'aenvl3', title:'환경 국제논의의 역사', en:'History of Env Governance',
+   concept:{ why:'환경은 국제회의·협약의 연도와 산물이 단골이에요. 스톡홀름부터 리우까지 흐름을 잡습니다.',
+     def:{term:'환경 국제논의', body:'1972 스톡홀름 회의로 시작해 1992 리우회의에서 3대 협약이 채택되며 환경 거버넌스가 발전했다.'},
+     points:['1972 스톡홀름 <span class="kw">유엔인간환경회의(UNCHE)</span> → UNEP(유엔환경계획) 설립, 람사르·런던협약·CITES(멸종위기종 거래협약)','1992 리우 <span class="kw">UNCED</span>(유엔환경개발회의) → 3대 리우협약(<span class="kw">기후변화·생물다양성·사막화방지</span>), 의제21','환경주류화: <span class="kw">EIA</span>(사업)·<span class="kw">SEA</span>(정책·계획) / OECD 리우마커','한국: 2000 지속가능발전위원회, 2008 저탄소 녹색성장, MDGs 7=지속가능 환경'],
+     tip:'1972 스톡홀름(첫 환경회의→UNEP), 1992 리우(3대 협약). 리우 3협약=기후·생물다양성·사막화!' },
+   bridge:{lead:'환경을 깊게 마쳤어요. 다음 분야로 이어집니다.', nextPreview:'다음 분야로 이어집니다.'},
+   quiz:[
+    {t:'mc',q:'환경을 주제로 한 최초의 국제회의(1972)와 그 산물로 옳은 것은?',choices:['리우회의 → 의제21','스톡홀름 UNCHE → UNEP 설립','요하네스버그 → WSSD','교토 → 교토의정서'],answer:1,hint:'\'단 하나뿐인 지구\'.',ex:'1972년 스톡홀름 유엔인간환경회의(UNCHE)는 UNEP 설립으로 이어졌습니다.'},
+    {t:'mc',q:'1992년 리우회의(UNCED)에서 채택된 3대 리우협약이 아닌 것은?',choices:['기후변화협약','생물다양성협약','사막화방지협약','오존층보호협약'],answer:3,hint:'리우 3협약.',ex:'리우 3대 협약은 기후변화·생물다양성·사막화방지 협약입니다.'},
+    {t:'ox',q:'전략적 환경평가(SEA)는 정책·계획 등 상위 단계의 환경영향을 다룬다.',a:true,hint:'EIA=사업, SEA=상위.',ex:'SEA는 정책·계획·프로그램 등 상위 단계를 다루고, EIA는 개별 사업을 다룹니다.'},
+    {t:'mc',q:'MDGs 8개 목표 중 환경과 직접 관련된 목표는?',choices:['목표 1(빈곤)','목표 4(아동사망률)','목표 7(지속가능한 환경)','목표 8(글로벌 파트너십)'],answer:2,hint:'지속가능 환경.',ex:'MDGs 목표 7이 지속가능한 환경 확보입니다.'},
+    {t:'free',q:'1992년 리우회의에서 채택된 3대 협약을 쓰시오.',keys:['기후변화','생물다양성','사막화'],model:'기후변화협약, 생물다양성협약, 사막화방지협약.',hint:'기후 / 생물다양성 / 사막화',ex:'기후변화·생물다양성·사막화방지 협약입니다.'}
    ]}
 ]},
 { id:'a8', title:'심화 9. 인권', source:'2과목', color:'#4361ee', icon:'✊', lessons:[
  { id:'a8l1', title:'인권과 개발', en:'Human Rights',
    concept:{ why:'2과목의 마지막. 개발과 인권은 따로 놀다가 만났어요. 아마르티아 센이 "인권 실현이 곧 개발의 목적"이라 연결했죠. 1과목의 빈곤 개념과 다시 만나는 지점이에요.',
      def:{term:'인권과 개발', body:'인권은 보편·양도불가·불가분·상호의존적. 국가는 인권을 존중·보호·충족할 의무가 있으며, 개발에 인권기반접근(HRBA)을 적용한다.'},
-     points:['특성: <span class="kw">보편성·양도불가능·불가분성·상호의존성</span>','국가 의무: <span class="kw">존중·보호·충족</span>','1968 UN <span class="kw">발전권 선언</span> → 발전을 인권의 언어로','아마르티아 센: 인권 실현이 개발의 목적이자 수단 → <span class="kw">인권기반접근(HRBA)</span>'],
+     points:['특성: <span class="kw">보편성·양도불가능·불가분성·상호의존성</span>. <span style="color:#888">→ 누구나(보편)·뺏을 수 없고(양도불가)·나눌 수 없으며(불가분)·서로 연결됨(상호의존).</span>','국가 의무: <span class="kw">존중·보호·충족</span>','1968 UN <span class="kw">발전권 선언</span> → 발전을 인권의 언어로','아마르티아 센: 인권 실현이 개발의 목적이자 수단 → <span class="kw">인권기반접근(HRBA</span>, Human Rights Based Approach)'],
      tip:'국가의 인권 3대 의무 "존중·보호·충족"은 거의 매번 나오는 보기 함정.' },
    bridge:{lead:'2과목까지 완주! 이제 복습 탭에서 약점을 다지고, 학습계획대로 마무리하면 합격이 보여요. 🎉', nextPreview:'전체 과정을 한 바퀴 돌았습니다. 복습으로 장기기억을 굳히세요.'},
    quiz:[
@@ -773,12 +1249,13 @@ window.COURSE = { title:"국제개발협력(ODA) 자격시험", units:[
     {t:'mc',q:'인권의 기본 특성으로 보기 어려운 것은?',choices:['보편성','양도 가능성','불가분성','상호 의존성'],answer:1,hint:'팔거나 넘길 수 있을까요?',ex:'인권은 양도 불가능(inalienable)합니다.'},
     {t:'ox',q:'1968년 UN 발전권 선언은 발전을 인권의 언어로 정의하는 계기가 되었다.',a:true,hint:'발전 + 권리.',ex:'1968년 UN 발전권 선언이 인권과 개발의 접합점을 마련했습니다.'},
     {t:'mc',q:'빈곤을 "기회와 권력의 박탈"로 보고 인권 실현이 개발의 목적이자 수단이라 강조한 학자는?',choices:['로스토','아마르티아 센','폴 콜리어','챔버스'],answer:1,hint:'1과목 빈곤 단원의 그 학자.',ex:'아마르티아 센은 인권 실현을 개발의 목적이자 수단으로 강조했습니다.'},
-    {t:'free',q:'국가가 지는 인권 의무 3가지를 쓰시오.',keys:['존중','보호','충족'],model:'존중의 의무, 보호의 의무, 충족의 의무.',hint:'존중 / 보호 / 충족',ex:'존중·보호·충족입니다.'}
+    {t:'free',q:'국가가 지는 인권 의무 3가지를 쓰시오.',keys:['존중','보호','충족'],model:'존중의 의무, 보호의 의무, 충족의 의무.',hint:'존중 / 보호 / 충족',ex:'존중·보호·충족입니다.'},
+    {t:'mc',q:'[적용] 국가가 시민의 표현의 자유를 침해하지 않아야 하는 의무는 주로 어떤 권리와 관련되는가?',choices:['자유권(시민·정치적 권리)','사회권(경제·사회·문화적 권리)','연대권(제3세대)','수급권'],answer:0,hint:'국가의 \'침해 금지\'.',ex:'표현의 자유 등 국가의 침해 금지 의무는 자유권(1세대, 시민·정치적 권리)과 관련됩니다.'}
    ]},
  { id:'a8l2', title:'인권의 분류·접근 심화', en:'Rights Classification',
    concept:{ why:'인권 문제는 "정의·특성·세대별 분류·HRBA"에서 갈려요. 자유권과 사회권, 3세대 인권, 인권기반접근을 정리하면 마무리됩니다.',
      def:{term:'인권의 분류', body:'UN은 인권을 "기본적 자유·권리·존엄에 대한 침해로부터 개인·집단을 보호하는 보편적 법적 보장"으로 정의한다.'},
-     points:['1993 빈 <span class="kw">세계인권회의</span>에서 인권의 기본 성격 선언','특성: 보편성·불가분성·평등·상호의존성 (평등=\'빵과 자유\'의 핵심가치)','3세대 인권: 1세대 <span class="kw">자유권</span> / 2세대 <span class="kw">사회권</span> / 3세대 <span class="kw">연대권</span>(발전권·평화권·환경권)','<span class="kw">인권기반접근(HRBA)</span>: 개발에 인권 원칙을 통합'],
+     points:['1993 빈 <span class="kw">세계인권회의</span>에서 인권의 기본 성격 선언','특성: 보편성·불가분성·평등·상호의존성 (평등=\'빵과 자유\'의 핵심가치)','3세대 인권: 1세대 <span class="kw">자유권</span> / 2세대 <span class="kw">사회권</span> / 3세대 <span class="kw">연대권</span>(발전권·평화권·환경권). <span style="color:#888">→ 자유권=국가 침해 금지(소극), 사회권=국가가 적극 제공, 연대권=집단의 권리.</span>','<span class="kw">인권기반접근(HRBA)</span>: 개발에 인권 원칙을 통합'],
      tip:'자유권=국가가 침해 안 하기(소극적), 사회권=국가가 적극 제공. 3세대=발전·평화·환경(집단 권리)!' },
    bridge:{lead:'2과목까지 완주! 복습 탭에서 약점을 다지면 합격이 보여요. 🎉', nextPreview:'전 과정을 한 바퀴 돌았습니다. 복습으로 장기기억을 굳히세요.'},
    quiz:[
@@ -800,6 +1277,50 @@ window.COURSE = { title:"국제개발협력(ODA) 자격시험", units:[
     {t:'ox',q:'인권의 의무주체는 일차적으로 국가(공권력을 행사하는 기관)이다.',a:true,hint:'누가 보장 의무를?',ex:'인권의 의무주체는 국가이며, 공권력을 행사하는 국가기관이 이에 해당합니다.'},
     {t:'mc',q:'\'빵과 자유\'라는 표현이 의미하는 바로 옳은 것은?',choices:['사회권과 자유권은 무관하다','사회권과 자유권은 긴밀히 연결되어 한쪽 침해가 다른 쪽 침해로 이어진다','자유권만 중요하다','경제권만 다룬다'],answer:1,hint:'두 권리의 연결.',ex:'\'빵과 자유\'는 사회권과 자유권이 긴밀히 연결되어 있음을 의미합니다.'},
     {t:'free',q:'인권의 의무주체는 누구인지 쓰시오.',keys:['국가'],model:'국가(공권력을 행사하는 국가기관).',hint:'권리를 보장할 책임 주체',ex:'인권의 의무주체는 국가입니다.'}
+   ]},
+ { id:'a8l4', title:'인권 규범·조약', en:'Rights Norms & Treaties',
+   concept:{ why:'인권은 선언·조약의 연도와 기구가 출제돼요. 세계인권선언부터 빈 회의까지 핵심을 정리합니다.',
+     def:{term:'인권 규범', body:'1948 세계인권선언을 토대로 9대 인권조약과 빈 세계인권회의가 인권 규범을 발전시켰다.'},
+     points:['<span class="kw">세계인권선언</span>(1948): 인권의 근간 (법적 구속력은 없는 선언). <span style="color:#888">→ 선언이라 강제력은 없지만, 이후 ICESCR 등 조약으로 구체화.</span>','인권 9대 조약 / 한국은 8개 비준','1993 <span class="kw">빈 세계인권회의</span> → VDPA(Vienna Declaration and Programme of Action, 비엔나 선언·행동계획), 인권의 보편성 재확인','<span class="kw">OHCHR</span>(Office of the High Commissioner for Human Rights, 유엔 인권최고대표사무소)'],
+     tip:'1948 세계인권선언(선언), 1993 빈 회의(보편성 재확인). 한국=9대 조약 중 8개 비준!' },
+   bridge:{lead:'규범을 잡았으니, 인권과 개발의 만남(HRBA)으로 마무리합니다.', nextPreview:'인권과 개발·인권기반접근으로 이어집니다.'},
+   quiz:[
+    {t:'mc',q:'1948년 UN이 채택한, 인권의 근간이 되는 문서는?',choices:['세계인권선언','비엔나선언(VDPA)','ICESCR','CEDAW'],answer:0,hint:'1948년.',ex:'세계인권선언(1948)이 인권 관련 국제 규범의 근간입니다.'},
+    {t:'mc',q:'1993년 인권의 기본 성격(보편성 등)을 재확인한 회의는?',choices:['빈 세계인권회의','베이징 세계여성회의','리우회의','다카르 교육포럼'],answer:0,hint:'오스트리아 빈.',ex:'1993년 빈 세계인권회의에서 인권의 보편성 등이 선언되었습니다(VDPA).'},
+    {t:'ox',q:'세계인권선언 자체는 법적 구속력이 있는 조약이다.',a:false,hint:'\'선언\'의 성격.',ex:'세계인권선언은 구속력 있는 조약이 아니라 선언이며, 이후 ICESCR 등 조약으로 구체화되었습니다.'},
+    {t:'mc',q:'유엔 인권 업무를 총괄하는 사무소(약자)는?',choices:['OHCHR','UNDP','UNFPA','UNICEF'],answer:0,hint:'High Commissioner for Human Rights.',ex:'OHCHR(유엔 인권최고대표사무소)이 유엔 인권 업무를 총괄합니다.'},
+    {t:'free',q:'인권의 근간이 되는 1948년 문서명을 쓰시오.',keys:['세계인권선언'],model:'세계인권선언(1948).',hint:'1948년 UN 채택',ex:'세계인권선언입니다.'}
+   ]},
+ { id:'a8l5', title:'인권과 개발·HRBA', en:'Rights & Development',
+   concept:{ why:'2과목의 마지막. 따로 놀던 인권과 개발이 어떻게 만났고, 인권기반접근(HRBA)이 무엇인지 정리하면 끝이에요.',
+     def:{term:'인권과 개발', body:'역사·이론·조직적 배경으로 인권과 개발이 접합되었고, 개발에 인권 원칙을 통합하는 인권기반접근(HRBA)이 등장했다.'},
+     points:['역사: 1968 <span class="kw">UN 발전권 선언</span> → 발전을 인권의 언어로 / 냉전 종식 후 자유권·사회권 이분법 붕괴','이론: <span class="kw">아마르티아 센</span> — 빈곤=기회·권력의 박탈, 인권 실현이 개발의 목적이자 수단','<span class="kw">HRBA</span>(Human Rights Based Approach, 인권기반접근): 개발에 인권 기준·원칙을 통합','국가의 인권 3대 의무: 존중·보호·충족'],
+     tip:'1968 발전권 선언, 센=인권 실현이 개발의 목적+수단, HRBA=인권기반접근. 국가 3대 의무 존·보·충!' },
+   bridge:{lead:'2과목 분야별 이슈를 소개념 단위로 모두 마쳤어요! 복습 탭으로 다지면 합격이 보여요. 🎉', nextPreview:'전 과정을 한 바퀴 돌았습니다. 복습으로 굳히세요.'},
+   quiz:[
+    {t:'mc',q:'발전을 인권의 언어로 정의하는 계기가 된 1968년 선언은?',choices:['UN 발전권 선언','세계인권선언','비엔나선언','알마아타선언'],answer:0,hint:'발전(Development)+권리.',ex:'1968년 UN 발전권 선언이 인권과 개발의 접합점을 마련했습니다.'},
+    {t:'mc',q:'빈곤을 \'기회와 권력의 박탈\'로 보고 인권 실현을 개발의 목적이자 수단이라 강조한 학자는?',choices:['아마르티아 센','폴 콜리어','로스토','챔버스'],answer:0,hint:'역량 접근.',ex:'아마르티아 센은 인권 실현을 개발의 목적이자 수단으로 강조했습니다.'},
+    {t:'mc',q:'개발에 인권의 기준·원칙을 통합하는 접근(약자)은?',choices:['HRBA(인권기반접근)','SAP','PFM','TOSSD'],answer:0,hint:'Human Rights Based Approach.',ex:'HRBA(인권기반접근)는 개발에 인권 원칙을 통합하는 접근입니다.'},
+    {t:'ox',q:'국가의 인권 3대 의무는 존중·보호·충족이다.',a:true,hint:'존·보·충.',ex:'국가의 인권 의무는 존중·보호·충족입니다.'},
+    {t:'free',q:'개발에 인권 원칙을 통합하는 접근의 약자와 한글명을 쓰시오.',keys:['HRBA','인권기반'],model:'HRBA(인권기반접근).',hint:'영문 약자 + 한글',ex:'HRBA(인권기반접근)입니다.'}
+   ]}
+]},
+{ id:'aapp', title:'적용형 집중 (2과목)', source:'2과목', color:'#06d6a0', icon:'🎯', lessons:[
+ { id:'aappl1', title:'분야별 사례·상황 적용', en:'Sector Application',
+   concept:{ why:'2과목도 사례를 주고 "어느 개념/유형이냐"를 묻는 적용형이 변별력을 갈라요. 분야별 핵심 개념을 사례에 끌어다 쓰는 연습입니다.',
+     def:{term:'분야별 적용', body:'교육·보건·환경·젠더 등 각 분야의 개념을 구체적 사업·상황에 적용하는 문항.'},
+     points:['먼저 사례의 핵심 키워드 → 해당 분야 개념을 연결','자주 묻는 구분: <span class="kw">평화 유지/구축/지속화</span>, <span class="kw">EIA(사업)/SEA(정책)</span>','<span class="kw">FDI 생산거점형/시장접근형</span>, <span class="kw">실질적/전략적 젠더수요</span>','교육 형태(형식/비형식/무형식), 전염성/비전염성 질병'],
+     tip:'적용형은 "이 사례=무슨 개념?" 역추적. 두 개념이 헷갈리면 \'무엇이 핵심 차이인지\'를 떠올리기!' },
+   bridge:{lead:'적용형까지 모두 마쳤어요! 복습 탭으로 약점을 다지면 합격이 보여요. 🎉', nextPreview:'전 과정 완주! 복습으로 굳히세요.'},
+   quiz:[
+    {t:'mc',q:'분쟁이 본격화되기 전에 확산을 막기 위해 선제적으로 개입하는 활동은?',choices:['평화 유지(peace keeping)','평화 구축(peace building)','평화 지속화(sustaining peace)','평화 강제'],answer:1,hint:'\'이전에\' 개입.',ex:'분쟁 확대 이전에 개입하는 것은 평화 구축(peace building)입니다.'},
+    {t:'mc',q:'한 기업이 구매력 있는 제3국 시장에 진출하기 위해 현지에 생산·판매 거점을 세웠다. 이 FDI 유형은?',choices:['생산거점형 FDI','시장접근형 FDI','반쪽짜리 FDI','포트폴리오 투자'],answer:1,hint:'\'시장\' 접근이 목적.',ex:'제3국 시장 접근이 목적이면 시장접근형 FDI입니다. (값싼 노동·생산비 절감은 생산거점형)'},
+    {t:'mc',q:'대형 댐 건설이라는 \'개별 사업\'이 환경에 미칠 영향을 사전에 조사·평가하려 한다. 적절한 도구는?',choices:['전략적 환경평가(SEA)','환경영향평가(EIA)','환경주류화','리우마커'],answer:1,hint:'사업(프로젝트) 단위.',ex:'개별 사업의 환경영향은 환경영향평가(EIA)로 평가합니다. (정책·계획 상위 단계는 SEA)'},
+    {t:'mc',q:'선진국 기업이 개도국에서 온실가스 감축 사업을 수행하고 그 실적으로 배출 크레딧을 얻었다. 이 교토 메커니즘은?',choices:['배출권거래제(ETS)','공동이행(JI)','청정개발체제(CDM)','탄소국경조정(CBAM)'],answer:2,hint:'개도국에서 \'청정\' 개발.',ex:'개도국 감축사업으로 크레딧을 얻는 것은 청정개발체제(CDM)입니다.'},
+    {t:'mc',q:'병원체 감염이 아니라 흡연·음주·식습관으로 늘어나는 당뇨·암 증가에 대응하는 보건 사업은 무엇을 다루는가?',choices:['전염성 질병','비전염성 질병(NCD)','소외열대질환(NTD)','모자보건'],answer:1,hint:'생활습관병.',ex:'생활습관이 원인인 당뇨·암 등은 비전염성 질병(NCD)입니다.'},
+    {t:'mc',q:'학교 밖에서 운영되며 공식 학위로 인정되지 않는, 의도된 성인 문해 프로그램은 어떤 교육 형태인가?',choices:['형식 교육','비형식 교육','무형식 교육','고등 교육'],answer:1,hint:'의도됐지만 비공식.',ex:'의도됐지만 공식 인정되지 않는 교육은 비형식(non-formal) 교육입니다.'},
+    {t:'mc',q:'여성에게 전통적으로 \'여성의 일\'로 간주된 봉제 직업훈련을 제공하는 사업이 충족하는 젠더 수요는?',choices:['실질적 젠더수요','전략적 젠더수요','성 중립적 수요','젠더 무관 수요'],answer:0,hint:'기존 역할 내 필요.',ex:'전통적 역할 내에서의 필요 충족은 실질적 젠더수요입니다. (역할을 바꾸는 할당제 등은 전략적 젠더수요)'},
+    {t:'free',q:'한 사업이 여성을 단순 수혜자로 포함하는 데 그치지 않고 기획·집행·평가 전 과정에 성 인지 관점을 통합했다. 이 전략을 무엇이라 하는가?',keys:['성주류화'],model:'성주류화(gender mainstreaming).',hint:'모든 과정에 젠더 관점 통합',ex:'성주류화입니다.'}
    ]}
 ]}
 ] };
@@ -890,7 +1411,7 @@ function initProgress(){
 /* ===================== 라우팅 ===================== */
 let CUR=null,QUIZ=null,NAV='path';
 function render(){if(!S.setup){renderOnboarding();return;}renderPath();}
-window.addEventListener('load',async()=>{await cloudAutoLoad();initProgress();render();});
+window.addEventListener('load',async()=>{await cloudAutoLoad();initProgress();render();if(typeof createChatUI==='function'){createChatUI();showFab(true);}});
 document.addEventListener('pointerdown',()=>{ac();},{once:true});
 </script>
 <script id="engine2">
@@ -1285,8 +1806,8 @@ async function cloudAutoLoad(){
 }
 
 /* ===================== 공통 ===================== */
-function newScreen(){document.querySelectorAll('.screen').forEach(s=>s.remove());const sc=document.createElement('div');sc.className='screen';document.body.appendChild(sc);sc.scrollTop=0;return sc;}
-function closeScreen(){SND.click();document.querySelectorAll('.screen').forEach(s=>s.remove());renderPath();}
+function newScreen(){document.querySelectorAll('.screen').forEach(s=>s.remove());const sc=document.createElement('div');sc.className='screen';document.body.appendChild(sc);sc.scrollTop=0;showFab(false);return sc;}
+function closeScreen(){SND.click();document.querySelectorAll('.screen').forEach(s=>s.remove());showFab(true);renderPath();}
 function navBar(a){return `<div class="bottomnav">
    <button class="${a==='path'?'on':''}" data-nav="path"><span class="ic">🛤️</span>학습</button>
    <button class="${a==='review'?'on':''}" data-nav="review"><span class="ic">🔁</span>복습</button>
@@ -1294,6 +1815,65 @@ function navBar(a){return `<div class="bottomnav">
    <button class="${a==='profile'?'on':''}" data-nav="profile"><span class="ic">📊</span>현황</button>
    <button class="${a==='settings'?'on':''}" data-nav="settings"><span class="ic">⚙️</span>설정</button></div>`;}
 function bindNav(){app.querySelectorAll('[data-nav]').forEach(b=>b.addEventListener('click',()=>{SND.tab();const n=b.dataset.nav;({path:renderPath,review:renderReview,plan:renderPlan,profile:renderProfile,settings:renderSettings}[n])();}));}
+
+/* ===================== AI 튜터 챗봇 ===================== */
+const GLOSSARY={
+ '증여등가율':'증여등가율(Grant Equivalent)은 차관(빌려주는 돈)이 "얼마나 공짜에 가까운가"를 %로 나타낸 값이에요. 100%면 완전 무상(공짜), 0%면 시장 금리 그대로라 혜택이 없는 거예요. 금리가 낮고 상환기간이 길수록 ↑. ODA로 인정받으려면 소득그룹별 최소치(저소득국 45%·저중소득국 15%·고중소득국 6%) 이상이어야 해요. (예전엔 \'증여율 25% 이상\' 기준이었는데 2018년부터 이 방식으로 바뀜)',
+ '양허성':'양허성(讓許性, concessional)은 "상대방에게 유리하도록 양보한 조건"이라는 뜻이에요. ODA 차관은 시중 은행보다 금리가 낮고 상환기간이 길어서 양허성이 있다고 해요.',
+ '비구속성':'비구속성(untied) 원조는 "우리 물자·기업을 꼭 써라"는 조건 없이 주는 원조예요. 반대로 구속성(tied) 원조는 공여국 물품·서비스 구매를 강제해요.',
+ 'oda':'ODA(Official Development Assistance, 공적개발원조)는 ① 공공부문이 ② 개도국의 경제발전·복지를 위해 ③ 양허적 조건으로 제공하는 자금이에요.',
+ 'dac':'DAC(Development Assistance Committee, 개발원조위원회)는 OECD 산하 기구로, ODA 통계 모니터링·규범 표준화·동료검토를 맡아요. 한국은 2010년 가입.',
+ 'sdgs':'SDGs(Sustainable Development Goals, 지속가능발전목표)는 2015년 채택된 17개 목표·169개 세부목표예요. 슬로건은 \'Leave No One Behind\'.',
+ 'mdgs':'MDGs(Millennium Development Goals, 새천년개발목표)는 2001년 발표된 8개 목표로, SDGs의 전신이에요.'
+};
+function localAnswer(q){
+  const k=q.toLowerCase().replace(/\s/g,'');
+  for(const key in GLOSSARY){if(k.includes(key.toLowerCase()))return GLOSSARY[key];}
+  return null;
+}
+async function aiChat(history){
+  const sys='너는 ODA(공적개발원조) 국제개발협력 자격시험을 준비하는 학생을 돕는 친절한 한국어 튜터다. 쉽고 정확하게, 핵심 위주로 3~5문장 이내로 답하라. 어려운 약자는 처음에 풀어서 (영문 full name과 한글 뜻) 설명하라.';
+  if(CFG.aiProvider==='anthropic'){
+    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'x-api-key':CFG.aiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true','content-type':'application/json'},body:JSON.stringify({model:CFG.aiModel||'claude-3-5-haiku-latest',max_tokens:500,system:sys,messages:history})});
+    if(!r.ok)throw new Error('HTTP '+r.status);const d=await r.json();return d.content[0].text;
+  }else{
+    const base=(CFG.aiBase||'https://api.openai.com/v1').replace(/\/$/,'');
+    const r=await fetch(base+'/chat/completions',{method:'POST',headers:{'Authorization':'Bearer '+CFG.aiKey,'content-type':'application/json'},body:JSON.stringify({model:CFG.aiModel||'gpt-4o-mini',temperature:.3,messages:[{role:'system',content:sys},...history]})});
+    if(!r.ok)throw new Error('HTTP '+r.status);const d=await r.json();return d.choices[0].message.content;
+  }
+}
+let CHAT=[];
+function showFab(b){const f=document.getElementById('chatfab');if(f)f.classList.toggle('hidden',!b);}
+function createChatUI(){
+  if(document.getElementById('chatfab'))return;
+  const fab=document.createElement('button');fab.id='chatfab';fab.textContent='💬';document.body.appendChild(fab);
+  const panel=document.createElement('div');panel.id='chatpanel';panel.className='hidden';
+  panel.innerHTML=`<div class="cp-head"><span>🤖 ODA 튜터</span><button id="cp-x">✕</button></div>
+    <div class="cp-body" id="cp-body"><div class="cp-msg bot">안녕하세요! 공부하다 궁금한 걸 물어보세요. 약어·개념 무엇이든요 🙂</div></div>
+    <div class="cp-quick"><button data-q="증여등가율이 뭐야?">증여등가율?</button><button data-q="비구속성 ODA가 뭐야?">비구속성?</button><button data-q="MDGs와 SDGs 차이가 뭐야?">MDGs vs SDGs</button></div>
+    <div class="cp-input"><input id="cp-in" placeholder="질문을 입력하세요..."><button id="cp-send">▶</button></div>`;
+  document.body.appendChild(panel);
+  const body=panel.querySelector('#cp-body');
+  function add(role,text){const m=document.createElement('div');m.className='cp-msg '+(role==='user'?'user':'bot');m.textContent=text;body.appendChild(m);body.scrollTop=body.scrollHeight;return m;}
+  fab.onclick=()=>{SND.click();panel.classList.toggle('hidden');if(!panel.classList.contains('hidden'))panel.querySelector('#cp-in').focus();};
+  panel.querySelector('#cp-x').onclick=()=>panel.classList.add('hidden');
+  async function send(text){
+    text=(text||panel.querySelector('#cp-in').value).trim();if(!text)return;
+    panel.querySelector('#cp-in').value='';add('user',text);CHAT.push({role:'user',content:text});
+    if(!(CFG.aiProvider&&CFG.aiProvider!=='none'&&CFG.aiKey)){
+      const loc=localAnswer(text);
+      add('bot',(loc?loc+'\n\n':'')+'💡 더 자세한 대화형 답변을 원하면 ⚙️설정 → AI 채점에서 무료 키(Gemini/OpenRouter)를 넣어주세요.');
+      return;
+    }
+    const wait=add('bot','…생각 중');
+    try{const ans=await aiChat(CHAT.slice(-8));wait.textContent=ans;CHAT.push({role:'assistant',content:ans});}
+    catch(e){const loc=localAnswer(text);wait.textContent=(loc?loc+'\n\n':'')+'(AI 연결 실패: '+e.message+')';}
+    body.scrollTop=body.scrollHeight;
+  }
+  panel.querySelector('#cp-send').onclick=()=>send();
+  panel.querySelector('#cp-in').addEventListener('keydown',e=>{if(e.key==='Enter')send();});
+  panel.querySelectorAll('.cp-quick button').forEach(b=>b.onclick=()=>send(b.dataset.q));
+}
 </script>
 </body>
 </html>
